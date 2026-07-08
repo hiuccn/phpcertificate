@@ -1,0 +1,120 @@
+<style>
+    .basicinfo {
+        margin: 15px 0;
+    }
+
+    .basicinfo .row > .col-xs-4 {
+        padding-right: 0;
+    }
+
+    .basicinfo .row > div {
+        margin: 5px 0;
+    }
+</style>
+
+<div id="content-container" class="container">
+    <div class="row">
+        <div class="col-md-3">
+            {include file="common/sidenav" /}
+            <div class="sidebar-toggle"><i class="fa fa-bars"></i></div>
+            <div class="sidenav" id="sidebar-nav">
+                {:hook('user_sidenav_before')}
+                <ul class="list-group">
+
+                    <li class="list-group-item {:check_nav_active('user/index')}"> <a href="{:url('user/index')}"><i class="fa fa-user-circle fa-fw"></i> {:__('User center')}</a> </li>
+                    <li class="list-group-item {:check_nav_active('user/profile')}"> <a href="{:url('user/profile')}"><i class="fa fa-user-o fa-fw"></i> {:__('Profile')}</a> </li>
+                    <li class="list-group-item {:check_nav_active('user/changepwd')}"> <a href="{:url('user/changepwd')}"><i class="fa fa-key fa-fw"></i> {:__('Change password')}</a> </li>
+                    <li class="list-group-item {:check_nav_active('user/logout')}"> <a href="{:url('user/logout')}"><i class="fa fa-sign-out fa-fw"></i> {:__('Sign out')}</a> </li>
+                </ul>
+                {:hook('user_sidenav_after')}
+            </div>
+
+        </div>
+        <div class="col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2 class="page-header">
+                        {:__('Member center')}
+                        <a href="{:url('user/profile')}" class="btn btn-primary pull-right"><i class="fa fa-pencil"></i> {:__('Profile')}</a>
+                    </h2>
+                    <div class="row user-baseinfo">
+                        <div class="col-md-3 col-sm-3 col-xs-2 text-center user-center">
+                            <a href="{:url('user/profile')}" title="{:__('Click to edit')}">
+                                <span class="avatar-img"><img src="{$user.avatar|htmlentities|cdnurl}" alt=""></span>
+                            </a>
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-10">
+                            <!-- Content -->
+                            <div class="ui-content">
+                                <!-- Heading -->
+                                <h4><a href="{:url('user/profile')}">{$user.nickname|htmlentities}</a></h4>
+                                <!-- Paragraph -->
+                                <p class="text-muted">
+
+                                </p>
+                                <!-- Success -->
+                            </div>
+                        </div>
+
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <!-- Content -->
+                            <div class="ui-content">
+                                <div class="basicinfo">
+                                    <div class="row">
+                                        <div class="col-xs-4 col-md-2">{:__('Money')}</div>
+                                        <div class="col-xs-8 col-md-4">
+                                            <a href="javascript:;" class="viewmoney">{$user.money}</a>
+                                        </div>
+                                        <div class="col-xs-4 col-md-2">{:__('Score')}</div>
+                                        <div class="col-xs-8 col-md-4">
+                                            <a href="javascript:;" class="viewscore">{$user.score}</a>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-md-2">{:__('Successions')}</div>
+                                        <div class="col-xs-8 col-md-4">{$user.successions} {:__('Day')}</div>
+                                        <div class="col-xs-4 col-md-2">{:__('Maxsuccessions')}</div>
+                                        <div class="col-xs-8 col-md-4">{$user.maxsuccessions} {:__('Day')}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-md-2">{:__('Logintime')}</div>
+                                        <div class="col-xs-8 col-md-4">{$user.logintime|date="Y-m-d H:i:s",###}</div>
+                                        <div class="col-xs-4 col-md-2">{:__('Prevtime')}</div>
+                                        <div class="col-xs-8 col-md-4">{$user.prevtime|date="Y-m-d H:i:s",###}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-4 col-md-2">{:__(' token ')}</div>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="c-ktoken" name="ktoken" value="{$user.ktoken|htmlentities}"  disabled placeholder="">
+                                            <span class="input-group-btn" style="padding:0;border:none;">
+                                        <a onclick="copy()" class="btn btn-info" data-type="ktoken">{:__('复制')}</a>
+                                    </span>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function copy() {
+
+        const textToCopy = '{$user.ktoken}';
+        navigator.clipboard.writeText(textToCopy)
+            .then(() => {
+
+            })
+            .catch((error) => {
+
+            })
+
+
+    }
+</script>

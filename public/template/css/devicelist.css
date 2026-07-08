@@ -1,0 +1,792 @@
+/*pc端*/
+@media only screen and (min-device-width: 768px) {
+  .homeWrapper {
+    width: 100%;
+    height: 100%;
+  }
+  .homeWrapper .homeNavBar {
+    height: 75px;
+    background-color: #fff;
+    padding: 0 360px;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  .homeWrapper .homeNavBar .name {
+    font-size: 24px;
+  }
+  .homeWrapper .homeNavBar .user {
+    font-size: 16px;
+    margin-left: auto;
+  }
+  .homeWrapper .homeNavBar .userDropDown {
+    width: 120px;
+    height: 130px;
+    border-radius: 5px;
+    position: absolute;
+    right: 416px;
+    z-index: 1;
+    font-size: 16px;
+    top: 67px;
+    box-sizing: border-box;
+    background: #fff;
+    box-shadow: rgb(60 64 67 / 30%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 2px 6px 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    display: none;
+  }
+  .homeWrapper .homeNavBar .userDropDown .vip {
+    height: 30px;
+    line-height: 30px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+  }
+  .homeWrapper .homeNavBar .userDropDown .logout {
+    height: 30px;
+    line-height: 30px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+  }
+  .homeWrapper .tabs {
+    display: flex;
+    padding: 0;
+    position: relative;
+    height: 75px;
+    margin: 0;
+    align-items: center;
+    font-size: 16px;
+    margin-left: 100px;
+  }
+  .homeWrapper .tabs .tab2 {
+    margin-left: 30px;
+  }
+  .homeWrapper .tabs .tab3 {
+    margin-left: 30px;
+  }
+  .homeWrapper .tabs li {
+    height: 75px;
+    line-height: 75px;
+    width: 65px;
+    color: #606266;
+    position: relative;
+    cursor: pointer;
+  }
+  .homeWrapper .tabs .active {
+    color: #3d7dd0;
+  }
+  .homeWrapper .tabs .active .line {
+    height: 2px;
+    width: 25px;
+    position: absolute;
+    background: #3d7dd0;
+    top: 50px;
+    left: 20px;
+  }
+  
+  .homeWrapper .boxs {
+    position: relative;
+  }
+  .homeWrapper .boxs .tabs-box {
+    display: none;
+    position: relative;
+  }
+  .homeWrapper .boxs .active {
+    background-color: steelblue;
+    color: #fff;
+  }
+  .homeWrapper .boxs .boxOne {
+    display: block;
+  }
+  .homeWrapper .user {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 140px;
+  }
+  .homeWrapper .user img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .homeWrapper .homeFooter {
+    height: 200px;
+    width: 100%;
+    background-color: #454645;
+    padding: 0 360px;
+    box-sizing: border-box;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    color: #fff;
+  }
+  .homeFooter .companyInfo .address {
+    height: 35px;
+    line-height: 35px;
+  }
+  .homeFooter .companyInfo .mail {
+    height: 35px;
+    line-height: 35px;
+  }
+  .homeFooter .companyInfo .tell {
+    height: 35px;
+    line-height: 35px;
+  }
+  .homeFooter .qrcode {
+    text-align: center;
+    margin-left: auto;
+  }
+  .qrcode .qrcodeBox {
+    width: 100px;
+    height: 100px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .qrcode .qrcodeBox img {
+    width: 90px;
+    height: 90px;
+  }
+  .footer {
+    display: none;
+  }
+  .homeWrapper .equipList {
+    font-size: 16px;
+    background-color: #eef0f4;
+    padding-bottom: 20px;
+  }
+  .homeWrapper .equipList .equipListHeader {
+    width: 100%;
+    background: #3d7ccf;
+    height: 50px;
+    display: flex;
+    color: #fff;
+    padding: 0 377px;
+    box-sizing: border-box;
+    align-items: center;
+  }
+  .equipListHeader .equipListHeader-l {
+    font-size: 18px;
+  }
+  .equipListHeader .equipListHeader-r {
+    font-size: 14px;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+  }
+  .equipListHeader .equipListHeader-r span {
+    margin-left: 10px;
+  }
+  .equipList .equipListSearch {
+    height: 185px;
+    background-color: #fff;
+    padding: 0 360px;
+    overflow: auto;
+  }
+  .equipListSearch .searchArea {
+    padding-left: 15px;
+    margin-top: 46px;
+    box-sizing: border-box;
+    display: flex;
+  }
+  .equipListSearch .searchArea .dropDown {
+    width: 110px;
+    height: 45px;
+    line-height: 45px;
+    padding: 0 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    color: #999;
+  }
+  .equipListSearch .searchArea .dropDown .Mobile {
+    display: none;
+  }
+  .equipListSearch .searchArea .dropDown img {
+    margin-left: auto;
+  }
+
+  .equipListSearch .searchArea .udid {
+    height: 45px;
+    width: 50%;
+    margin-left: 10px;
+  }
+  .equipListSearch .searchArea .udid input {
+    height: 45px;
+    line-height: 45px;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    padding-left: 10px;
+    font-size: 14px;
+    outline: 0;
+  }
+  .equipListSearch .searchArea .remark {
+    width: 20%;
+    height: 45px;
+    margin-left: 5px;
+  }
+  .equipListSearch .searchArea .remark input {
+    width: 100%;
+    height: 45px;
+    font-size: 14px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    outline: 0;
+  }
+  .equipListSearch .searchArea .searchBtn {
+    width: 100px;
+    height: 45px;
+    font-size: 14px;
+    color: #fff;
+    background: #3d7ccf;
+    box-sizing: border-box;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 20px;
+    cursor: pointer;
+  }
+  .equipListSearch .searchArea .appointmentBtn {
+    width: 100px;
+    height: 45px;
+    background: #75bdda;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    margin-left: 5px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .equipListSearch .searchArea .equipDropDownPop {
+    display: none;
+    position: absolute;
+    width: 110px;
+    height: 100px;
+    border: 1px solid #ddd;
+    top: 140px;
+    box-sizing: border-box;
+    z-index: 10;
+    background: #fff;
+    color: #606266;
+  }
+  .equipListSearch .searchArea .equipDropDownPop .independent {
+    height: 50px;
+    border-bottom: 1px solid #ddd;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    cursor: pointer;
+  }
+  .equipListSearch .searchArea .equipDropDownPop .public {
+    height: 50px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    cursor: pointer;
+  }
+  .equipList .equipListItem {
+    width: 100%;
+    padding: 0 360px;
+    margin-top: 40px;
+    box-sizing: border-box;
+  }
+  .equipList .equipListItem .list {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .equipList .equipListItem .list .item {
+    width: 48%;
+    height: 160px;
+    margin-bottom: 10px;
+    background: #fff;
+    border-radius: 5px;
+    padding-left: 20px;
+    padding-top: 28px;
+    box-sizing: border-box;
+  }
+  .equipList .equipListItem .list .item:nth-child(2n-1) {
+    margin-right: 1%;
+  }
+  .equipList .equipListItem .list .item .itemBottom {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .equipList .equipListItem .list .item .itemBottom .download {
+    font-size: 16px;
+    color: #fff;
+    background: #3d7ccf;
+    width: 100px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-right: 20px;
+  }
+  .equipList .equipListItem .list .item .itemBottom .download.skyblue {
+    background-color: #75bdda;
+  }
+  .equipList .equipListItem .list .item .token span:nth-child(1) {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .equipList .equipListItem .list .item .token span:nth-child(2) {
+    display: inline-block;
+    width: 45px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    color: #606266;
+    font-size: 14px;
+    background: #ddd;
+    border-radius: 20px;
+  }
+  .equipList .equipListItem .list .item .id {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    color: #606266;
+    padding-left: 10px;
+  }
+  .equipList .equipListItem .list .item .id .dot {
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    background: #6db970;
+    border-radius: 50%;
+  }
+  .equipList .equipListItem .list .item .id .dot.red {
+    background-color: #eb5048;
+  }
+  .equipList .equipListItem .list .item .id .code {
+    margin-left: 10px;
+  }
+  .equipList .equipListItem .list .item .id .name {
+    margin-left: 10px;
+  }
+  .equipList .equipListItem .list .item .addTime {
+    color: #606266;
+    padding-left: 10px;
+    margin-top: 2px;
+  }
+  .equipList .equipListItem .list .item .expireTime {
+    color: #606266;
+    padding-left: 10px;
+    margin-top: 2px;
+  }
+  .equipList .equipListPage {
+    justify-content: center;
+    padding: 40px 360px;
+    display: flex;
+    align-items: center;
+    height: 45px;
+    line-height: 45px;
+  }
+  .equipList .equipListPage .homePage {
+    width: 100px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    border: 1px solid #6666;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .equipList .equipListPage .pre {
+    width: 100px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    border: 1px solid #6666;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 15px;
+    margin-right: 10px;
+  }
+  
+  .equipList .equipListPage .mid span {
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  .equipList .equipListPage .mid span.pageActive {
+    color: #3d7ccf;
+    border-bottom: 1px solid #3d7ccf;
+  }
+  .equipList .equipListPage .next {
+    width: 100px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    border: 1px solid #6666;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 15px;
+  }
+}
+/* ------------------------------------------------------ */
+/*移动端*/
+@media only screen and (max-device-width: 768px) {
+  .homeWrapper {
+    width: 100%;
+    height: 100%;
+    height: inherit;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background-color: #ebebed;
+  }
+  .homeWrapper .homeNavBar {
+    display: none;
+  }
+  .homeWrapper .boxs {
+    position: relative;
+    padding: 0 0.2rem;
+  }
+  .homeWrapper .boxs .tabs-box {
+    display: none;
+    position: relative;
+  }
+  .homeWrapper .boxs .active {
+    background-color: steelblue;
+    color: #fff;
+  }
+  .homeWrapper .boxs .boxOne {
+    display: block;
+  }
+  .homeWrapper .homeFooter {
+    display: none;
+  }
+  .main {
+    flex: 1;
+    overflow: auto;
+    padding-bottom: 0.2rem;
+  }
+  .footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    background: #fff;
+    height: 0.54rem;
+    border-top: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 0.16rem;
+  }
+  .footer a:visited {
+    color: #606266;
+  }
+  .footer .navtxt {
+    font-size: 0.12rem;
+    color: #606266;
+  }
+  .footer .footer-items.active .navtxt{
+    font-size: 0.12rem;
+    color: #3d7dd0;
+  }
+  .footer .footer-items.active .iconfont{
+    color: #3d7dd0;
+  }
+  .footer .footer-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+  }
+  
+  .footer .footer-items i {
+    width: 0.21rem;
+    height: 0.21rem;
+  }
+  
+  .footer .footer-items:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .equipList {
+    width: 100%;
+    font-size: 0.16rem;
+    /* padding-bottom: 0.3rem; */
+  }
+  .equipListHeader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 0.45rem;
+    background: #3d7dd0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    font-size: 0.14rem;
+  }
+  .equipListHeader .equipListHeader-l {
+    padding-left: 0.2rem;
+  }
+  .equipListHeader .equipListHeader-r {
+    padding-right: 0.2rem;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+  .equipListHeader .equipListHeader-r span {
+    margin-left: 0.1rem;
+  }
+  .equipListSearch {
+    position: fixed;
+    background: #fff;
+    height: 100px;
+    width: 100%;
+    left: 0;
+    top: 45px;
+    z-index: 2;
+  }
+  .equipListSearch .searchArea {
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
+    position: relative;
+  }
+  .equipListSearch .searchArea .dropDown {
+    width: 1.15rem;
+    height: 0.25rem;
+    position: absolute;
+    border: 1px solid #ddd;
+    border-radius: 0.2rem;
+    top: 0.2rem;
+    display: flex;
+    align-items: center;
+  }
+  .equipListSearch .searchArea .dropDown .Mobile {
+    margin-left: auto;
+    width: 0.12rem;
+    margin-right: 0.1rem;
+  }
+  .equipListSearch .searchArea .dropDown span {
+    font-size: 0.12rem;
+    margin-left: 0.1rem;
+  }
+  .equipListSearch .searchArea .dropDown .Pc {
+    display: none;
+  }
+  .equipListSearch .searchArea .udid {
+    position: absolute;
+    width: 90%;
+    height: 0.27rem;
+    top: 0.2rem;
+    border-radius: 0.2rem;
+    border: 1px solid #ddd;
+    font-size: 0.14rem;
+  }
+  .equipListSearch .searchArea .udid input {
+    border: 0;
+    outline: 0;
+    width: 100%;
+    height: 0.23rem;
+    line-height: 0.23rem;
+    box-sizing: border-box;
+    padding-left: 0.1rem;
+    border-radius: 0.2rem;
+    font-size: 0.12rem;
+  }
+  .equipListSearch .searchArea .udid input::-webkit-input-placeholder {
+    font-size: 0.12rem;
+  }
+  .equipListSearch .searchArea .remark {
+    position: absolute;
+    width: 1.5rem;
+    height: 0.27rem;
+    border: 1px solid #ddd;
+    border-radius: 0.2rem;
+    top: 0.55rem;
+  }
+  .equipListSearch .searchArea .remark input {
+    position: absolute;
+    border: 0;
+    outline: 0;
+    height: 0.23rem;
+    line-height: 0.23rem;
+    box-sizing: border-box;
+    padding-left: 0.1rem;
+    border-radius: 0.2rem;
+    width: 100%;
+    font-size: 0.12rem;
+  }
+  .equipListSearch .searchArea .remark input::-webkit-input-placeholder {
+    font-size: 0.12rem;
+  }
+  .equipListSearch .searchArea .searchBtn {
+    width: 0.78rem;
+    height: 0.25rem;
+    position: absolute;
+    right: 1rem;
+    top: 0.55rem;
+    background: #3d7dd0;
+    color: #fff;
+    font-size: 0.12rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.2rem;
+  }
+  .equipListSearch .searchArea .appointmentBtn {
+    width: 0.78rem;
+    height: 0.25rem;
+    position: absolute;
+    right: 0.2rem;
+    top: 0.55rem;
+    background: #75bdda;
+    color: #fff;
+    font-size: 0.12rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.2rem;
+  }
+  .equipListSearch .searchArea .equipDropDownPop {
+    position: absolute;
+    background: #fff;
+    width: 1.1rem;
+    height: 0.5rem;
+    left: 0.225rem;
+    top: 0.5rem;
+    z-index: 1;
+    border-radius: 0.05rem;
+    box-shadow: rgb(0 0 0 / 16%) 0px 0.03rem 0.06rem, rgb(0 0 0 / 23%) 0px 0.03rem 0.06rem;
+    display: flex;
+    flex-direction: column;
+    font-size: 0.12rem;
+    box-sizing: border-box;
+    display: none;
+  }
+  .equipListSearch .searchArea .equipDropDownPop .independent {
+    height: 0.25rem;
+    border-bottom: 1px solid #ddd;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+  .equipListSearch .searchArea .equipDropDownPop .public {
+    height: 0.25rem;
+    border-bottom: 1px solid #ddd;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+  .equipList .equipListItem {
+    width: 100%;
+    margin-top: 1.65rem;
+    box-sizing: border-box;
+  }
+  .equipList .equipListItem .list {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 0.12rem;
+  }
+  .equipList .equipListItem .list .item {
+    margin-bottom: 0.1rem;
+    background: #fff;
+    border-radius: 0.05rem;
+    padding: 0.1rem 0 0.1rem 0.1rem;
+    box-sizing: border-box;
+    width: 100%;
+  }
+  .equipList .equipListItem .list .item .itemBottom {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
+  .equipList .equipListItem .list .item .itemBottom .download {
+    position: absolute;
+    font-size: 0.12rem;
+    color: #fff;
+    background: #3d7ccf;
+    width: 0.8rem;
+    height: 0.3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.2rem;
+    cursor: pointer;
+    right: 0.1rem;
+    top: 0.28rem;
+  }
+  .equipList .equipListItem .list .item .itemBottom .download.skyblue {
+    background-color: #75bdda;
+  }
+  .equipList .equipListItem .list .item .token span:nth-child(1) {
+    font-size: 0.12rem;
+    font-weight: bold;
+    width: 2.5rem;
+    display: inline-block;
+    overflow: hidden;
+    white-space: normal;
+    text-overflow: ellipsis;
+  }
+  .equipList .equipListItem .list .item .token span:nth-child(2) {
+    display: inline-block;
+    width: 0.35rem;
+    height: 0.16rem;
+    line-height: 0.16rem;
+    text-align: center;
+    color: #606266;
+    font-size: 0.12rem;
+    background: #ddd;
+    border-radius: 0.05rem;
+    margin-left: 0.05rem;
+  }
+  .equipList .equipListItem .list .item .id {
+    display: flex;
+    align-items: center;
+    color: #606266;
+  
+  }
+  .equipList .equipListItem .list .item .id .dot {
+    width: 0.08rem;
+    height: 0.08rem;
+    display: inline-block;
+    background: #6db970;
+    border-radius: 50%;
+  }
+  .equipList .equipListItem .list .item .id .dot.red {
+    background-color: #eb5048;
+  }
+  .equipList .equipListItem .list .item .id .code {
+    margin-left: 0.05rem;
+  }
+  .equipList .equipListItem .list .item .id .name {
+    margin-left: 0.05rem;
+  }
+  .equipList .equipListItem .list .item .addTime {
+    color: #606266;
+
+  }
+  .equipList .equipListItem .list .item .expireTime {
+    color: #606266;
+
+  }
+  .equipList .equipListPage {
+    display: none;
+  }
+}

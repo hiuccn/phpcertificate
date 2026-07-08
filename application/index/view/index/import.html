@@ -1,0 +1,52 @@
+{extend name="layout/user" /}
+{block name="header"}{include file="common/header" activeTab=""/}{/block}
+{block name="content"}
+<div class="flex justify-center w-full md:py-8">
+    <div class="col-xs-12 col-sm-10 col-lg-8 center-block w-full xl:w-2/3">
+        <div class="w-full bg-white p-4 shadow-xl space-y-1 pb-4 mb-4 flex flex-nowrap justify-center items-center">
+            <span style="width: 100px">极客签</span>
+            <input type="text" id='jk_token' name="token" placeholder="输入极客签Token" value=""
+                   class="form-input mt-2 py-1 border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300"
+                   required/>
+            <button style="width: 150px" class="btn btn-info mx-1" onclick="import_jk()">开始导入</button>
+        </div>
+        <div class="w-full bg-white p-4 shadow-xl space-y-1 pb-4 mb-4 flex flex-nowrap justify-center items-center">
+            <span style="width: 100px">快闪签</span>
+            <input type="text" id='ksq_token' name="token" placeholder="输入快闪签Token" value=""
+                   class="form-input mt-2 py-1 border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300"
+                   required/>
+            <button style="width: 150px" class="btn btn-info mx-1" onclick="import_ksq()">开始导入</button>
+        </div>
+        <div class="w-full bg-white p-4 shadow-xl space-y-1 pb-4 mb-4 flex flex-nowrap justify-center items-center">
+            <span style="width: 100px">优速测</span>
+            <input type="text" id='ysc_token' name="token" placeholder="输入优速测Token" value=""
+                   class="form-input mt-2 py-1 border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300"
+                   required/>
+            <button style="width: 150px" class="btn btn-info mx-1" onclick="import_ysc()">开始导入</button>
+        </div>
+        <input id="uid" class="hidden" value="{$user.id}">
+    </div>
+</div>
+
+
+<script>
+
+    function import_jk() {
+        let token = document.getElementById('jk_token').value;
+        let uid = document.getElementById('uid').value;
+        window.open("/index/index/import_jk?token=" + token + "&uid=" + uid, "_blank");
+    }
+
+    function import_ksq() {
+        let token = document.getElementById('ksq_token').value;
+        let uid = document.getElementById('uid').value;
+        window.open("/index/index/import_ksq?token=" + token + "&uid=" + uid, "_blank");
+    }
+    function import_ysc() {
+        let token = document.getElementById('ysc_token').value;
+        let uid = document.getElementById('uid').value;
+        window.open("/index/index/import_ysc?token=" + token + "&uid=" + uid, "_blank");
+    }
+</script>
+
+{/block}

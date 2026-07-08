@@ -1,0 +1,46 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2 class="page-header">{:__('Change password')}</h2>
+        <form id="changepwd-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+            {:token()}
+            <div class="form-group pb-8">
+                <div class="grid grid-cols-1 md:grid-cols-4">
+                    <div class="flex md:justify-end items-center">
+                        <label for="oldpassword" class="control-label col-xs-12 col-sm-2">{:__('Old password')}:</label>
+                    </div>
+                    <div class="grid col-span-1 md:col-span-2">
+                        <input type="password" class="form-control" id="oldpassword" name="oldpassword" value=""
+                               data-rule="required;password" placeholder="{:__('Old password')}">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group pb-8">
+                <div class="grid grid-cols-1 md:grid-cols-4">
+                    <div class="flex md:justify-end items-center">
+                        <label for="newpassword" class="control-label col-xs-12 col-sm-2">{:__('New password')}:</label>
+                    </div>
+                    <div class="grid col-span-1 md:col-span-2">
+                        <input type="password" class="form-control" id="newpassword" name="newpassword" value=""
+                               data-rule="required;password" placeholder="{:__('New password')}"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group pb-8">
+                <div class="grid grid-cols-1 md:grid-cols-4">
+                    <div class="flex md:justify-end items-center">
+                        <label for="renewpassword" class="control-label col-xs-12 col-sm-2">{:__('Renew password')}:</label>
+                    </div>
+                    <div class="grid col-span-1 md:col-span-2">
+                        <input type="password" class="form-control" id="renewpassword" name="renewpassword" value=""
+                               data-rule="required;password" placeholder="{:__('Renew password')}"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group pb-8 normal-footer grid md:grid-cols-4 sm:grid-cols-6">
+                <button type="submit" class="grid md:col-end-4  sm:col-end-6 btn btn-primary btn-embossed disabled">{:__('Submit')}</button>
+                <button type="reset" class="grid md:col-end-5  sm:col-end-7 btn btn-default btn-embossed">{:__('Reset')}</button>
+            </div>
+        </form>
+    </div>
+</div>

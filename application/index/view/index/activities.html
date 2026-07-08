@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>快速签-iPad证书免费送</title>
+    <link rel="stylesheet" href="/assets/hd/common_mobile.css">
+    <link rel="stylesheet" type="text/css" href="https://ksq.52tzs.com/assets/youxi/css/public.css">
+    <link rel="stylesheet" href="/assets/hd/index.css">
+
+    <!-- 移动端适配 -->
+    <script>
+        var html = document.querySelector('html');
+        changeRem();
+        window.addEventListener('resize', changeRem);
+
+        function changeRem() {
+            var width = html.getBoundingClientRect().width;
+            var width = width / 10;
+            if (width > 42) {
+                var width = 40
+            }
+            console.log(width)
+            html.style.fontSize = width + 'px';
+        }
+    </script>
+</head>
+
+<body>
+<div class="banner"><img src="/assets/hd/hd2.png"/></div>
+<div class="activity">
+    <div class="activity-amin">
+        <input type="text" class="wt1" id="udid" placeholder="请输入iPad设备UDID"/>
+        <input type="text" class="wt1 wt2" id="beizhu" placeholder="备注（可空）"/>
+        <button onclick="go()" class="wt1 wt3">添加</button>
+
+        <div class="prompt1"></div>
+
+    </div>
+
+    <div class="activity-amin">
+        <img src="/assets/hd/png1.png" class="img1"/>
+        <p>1.活动时间：2023年03月25日——2023年05月01日。(500名额赠送完提前结束)<br/>
+            2.本次活动为快速签专属特权活动，仅针对目标用户参与。<br/>
+            3.活动期间，快速签专属用户可享受iPad证书免费添加；。<br/>
+            4.iPad证书免费添加仅在本页有效，正常的设备添加页面不关联。<br/>
+            5.如需对接站点使用此免费证书，可先从此页添加，对接站点再次添加提交的UDID不会重复收费。<br/>
+            6.本活动最终解释权归快速签所有。</p>
+    </div>
+
+</div>
+<ul class="right_nav">
+
+    <li style='right:0px'>
+        <div class="iconBox phe_num">
+            <img onclick="window.location = '/'" src='https://cert.4yun.cn/assets/img/bk.png'>
+            <h3 style="color: white;">返回</h3>
+        </div>
+
+    </li>
+
+</ul>
+<script type="text/javascript" src="/assets/hd/jquery-1.11.3.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/layer/3.5.1/layer.js"></script>
+<script type="text/javascript">
+    /*判断手机号不为空和是否是正确的手机号，给验证码按钮添加样式*/
+
+    function go() {
+        var udid = $("#udid").val();
+        var beizhu = $("#beizhu").val();
+        if (!(udid.length == 25 || udid.length == 40)) {
+            layer.msg(`UDID不正确，请重新输入`)
+            return;
+        }
+        layer.msg(`正在处理，请稍后...`, {
+            icon: 16
+            , shade: 0.3
+            , time: false
+        });
+
+
+        $.ajax({
+            type: 'POST',
+            url: "/api/activities",
+            data: {
+                udid: udid,
+                beizhu: beizhu,
+                token: '{$user.ktoken}'
+            },
+            dataType: "json",
+            success: function (result, textStatus, jqXHR) {
+                layer.closeAll();
+                if (result['code'] == 1) {
+                    layer.msg('添加成功，请前往设备管理页面下载证书！')
+                } else {
+                    layer.msg(result['msg'])
+                }
+
+            },
+            error: function (response) {
+                layer.closeAll();
+                layer.msg('抱歉，请求出现错误！');
+
+
+            }
+        });
+
+
+    }
+</script>
+</body>
+</html>

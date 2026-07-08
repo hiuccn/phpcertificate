@@ -1,0 +1,124 @@
+{include file="common/sidenav" /}
+<div class="container" style="padding-top:70px;padding-right: 0px;padding-left: 0px;">
+    <div class="col-xs-12 col-sm-10 col-lg-8 center-block" style="float: none;">
+        <div class="panel panel-info">
+            <div class="panel-heading"><h3 class="panel-title">配置对象存储</h3></div>
+
+            <div class="panel-body">
+                <font>说明：即日起通过API签名需要配置对象存储(在本站签名不需要),您可以选择腾讯云COS或者阿里云OSS<br>强烈推荐选用腾讯云，上海区域，可以实现内网传输，速度超快<br>如果嫌麻烦懒得弄可以选择本站按量计费，目前计费标准为0.0006元/M
+                    (例如APP大小为278.25M 取整数，则需要费用278*0.0006=0.16元
+                    取小数点后两位)，20M以下文件不收取费用<br><br></font>
+                请选择：<select id='costype' style="width:50%; display : inline-block" class="form-control">
+                <option value="0">本站按量计费</option>
+                <option value="1">腾讯云COS</option>
+                <option value="2">阿里云OSS</option>
+            </select>
+                <input type="button" onclick="cosupdate(0)" value="确定" class="btn btn-info form-control"
+                       style="width: 20%;"/>
+            </div>
+        </div>
+
+
+        <div class="panel panel-info">
+            <div class="panel-heading"><h3 class="panel-title">腾讯云 ※ 必选存储桶地域：上海</h3></div>
+            <div class="panel-body">
+                SecretId：<input type="text" id="txid" placeholder="请输入SecretId" value="{$user.txid}"
+                                class="form-control"/>
+                SecretKey：<input type="text" id="txkey" placeholder="请输入SecretKey" value="{$user.txkey}"
+                                 class="form-control"/>
+                存储桶地域：<input type="text" id="txendpoint" placeholder="请输入存储桶地域" value="{$user.txendpoint}"
+                                  class="form-control"/>
+                Bucket：<input type="text" id="txbucket" placeholder="请输入Bucket" value="{$user.txbucket}"
+                              class="form-control"/><br>
+                <input type="button" onclick="cosupdate(1)" value="确定" class="btn btn-info form-control"/>
+            </div>
+        </div>
+
+
+        <div class="panel panel-info">
+            <div class="panel-heading"><h3 class="panel-title">阿里云 ※ 不推荐：会导致整个签名时间延长</h3></div>
+            <div class="panel-body">
+                AccessKeyID：<input type="text" id="aliid" placeholder="请输入AccessKeyID" value="{$user.aliid}"
+                                   class="form-control"/>
+                AccessKeySecret：<input type="text" id="alikey" placeholder="请输入AccessKeySecret"
+                                       value="{$user.alikey}" class="form-control"/>
+                Endpoint：<input type="text" id="aliendpoint" placeholder="请输入Endpoint" value="{$user.aliendpoint}"
+                                class="form-control"/>
+                Bucket：<input type="text" id="alibucket" placeholder="请输入Bucket" value="{$user.alibucket}"
+                              class="form-control"/><br>
+                <input type="button" onclick="cosupdate(2)" value="确定" class="btn btn-info form-control"/>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<script>
+    $('#costype').val({$user.costype})
+
+    function cosupdate(type) {
+
+        var costype = $('#costype').val();
+        var txid = $('#txid').val();
+        var txkey = $('#txkey').val();
+        var txendpoint = $('#txendpoint').val();
+        var txbucket = $('#txbucket').val();
+        var aliid = $('#aliid').val();
+        var alikey = $('#alikey').val();
+        var aliendpoint = $('#aliendpoint').val();
+        var alibucket = $('#alibucket').val();
+
+        $.blockUI({
+            message: '<img src="https://sign.52tzs.com/assets/libs/fastadmin-layer/dist/theme/default/loading.gif" /> <br>请求中.',
+            css: {
+                left: '50%',
+                'border-radius': '15px',
+                padding: '10px',
+                width: '150px',
+                'margin-left': '-75px',
+                display: "flex",
+                "flex-direction": "column",
+                "justify-content": "center",
+                "align-items": "center",
+            }
+        });
+        $.ajax({
+            type: 'POST',
+            url: "/index/index/oss",
+            data: {
+                type: type,
+                costype: costype,
+                txid: txid,
+                txkey: txkey,
+                txendpoint: txendpoint,
+                txbucket: txbucket,
+                aliid: aliid,
+                alikey: alikey,
+                aliendpoint: aliendpoint,
+                alibucket: alibucket
+
+            },
+            dataType: "json",
+            success: function (result, textStatus, jqXHR) {
+                $.unblockUI();
+                if (result['code'] == 1) {
+                    layer.msg(result['msg'])
+
+
+                } else {
+                    layer.msg(result['msg'])
+                }
+
+            },
+            error: function (response) {
+                $.unblockUI();
+                layer.msg('请求失败');
+
+            }
+        });
+
+
+    }
+
+</script>  

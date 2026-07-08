@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8"/>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+  <title>{$site.name}</title>
+  <meta name="keywords" content="UDID定制"/>
+  <meta name="description" content="UDID定制"/>
+  <link href="/assets/css/bootstrap.min.css" rel="stylesheet"/>
+  <script src="/assets/js/jquery.min.js"></script>
+  <script src="/assets/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/assets/js/jquery.blockUI.min.js"></script>
+    <script src="https://cer.52tzs.com/assets/js/layer.js"></script>
+ <link href="/assets/css/frontend.css?v=1696751523" rel="stylesheet">
+  <script src="//at.alicdn.com/t/c/font_4282375_d6lk3zrxsgm.js"></script>
+
+<style>
+
+body:before{
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.5;
+    z-index: -1;
+    content: "";
+    position: fixed;
+    background: url(https://pic2.zhimg.com/80/v2-cbafb56b3031acfa1ac11db260b94fd1_1440w.webp) center/cover;
+}
+    .top-img {
+        display: none;
+    	margin: 5px;
+    	border-radius:10px;
+    }
+    
+    .caidan{
+    width:30%;
+    margin-top:5px;
+    margin-bottom:5px
+    }
+
+    .text-1 {
+      
+        display: inline-block;
+        font-size: 20px;
+        font-family: Modak;
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        text-shadow: 1px 1px 0px #d2d2d22e;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='200px' height='200px' viewBox='0 0 400 400'%3e%3cdefs%3e%3cfilter id='filter' width='400px' height='400px' filterUnits='objectBoundingBox' primitiveUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3e%3cfeFlood flood-color='%23f5576c' flood-opacity='1' x='0' y='0' width='250px' height='250px' result='flood3'%3e%3c/feFlood%3e%3cfeFlood flood-color='%23f093fb' flood-opacity='1' x='150px' y='150px' width='250px' height='250px' result='flood4'%3e%3c/feFlood%3e%3cfeGaussianBlur stdDeviation='50 50' x='0%25' y='0%25' width='100%25' height='100%25' in='flood3' edgeMode='none' result='blur1'%3e%3c/feGaussianBlur%3e%3cfeGaussianBlur stdDeviation='50 50' x='0%25' y='0%25' width='100%25' height='100%25' in='flood4' edgeMode='none' result='blur2'%3e%3c/feGaussianBlur%3e%3cfeBlend mode='normal' x='0%25' y='0%25' width='100%25' height='100%25' in='blur2' in2='SourceGraphic' result='blend5'%3e%3c/feBlend%3e%3cfeBlend mode='normal' x='0%25' y='0%25' width='100%25' height='100%25' in='blur1' in2='blend5' result='blend6'%3e%3c/feBlend%3e%3c/filter%3e%3c/defs%3e%3crect width='400' height='400' x='0' y='0' fill='%23fee140' filter='url(%23filter)'%3e%3c/rect%3e%3c/svg%3e");
+    }
+    .JabiSysBg{
+       /*margin: 0px 10px 1px;*/
+    	background-color: #fff;
+    	display: flex;
+    	flex-direction: row;
+    	justify-content: space-between;
+    	margin-top: 10px;
+    }
+    
+    .logo{
+    float: left;
+    height: 50px;
+    font-size: 18px;
+    line-height: 20px;
+    }
+    
+    #JabiSysBg{
+    	margin-top: 15px;
+    }
+    
+                
+    .JabiSysLeft{
+    	height: 115px;
+    	margin-left: 15px;
+    	max-width: 70%;
+    	display: flex;
+    	flex-direction: row;
+    	justify-content: space-between
+    }
+    
+    .JabiSysIcon{
+    	margin-top: 18px;
+    	width: 50px;
+    	height: 50px;
+    	border-radius: 40px;
+    	display: block;
+    }
+    
+    .JabiSysTxt{
+    	height: 80px;
+    	margin-left: 0px;
+    	margin-right: 15px;
+    }
+      .JabiSysTxt1{
+    	height: 80px;
+    	margin-left: 10px;
+    	margin-right: 15px;
+    }
+    
+    .JabiSysTitle{
+    	display: block;
+    	width: 240px;
+    	color: #212121;
+    	font-weight: bolder;
+    	font-size: 14px;
+    	margin-top: 10px;
+    	
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap
+    }
+    
+    .JabiSysDes{
+    	display: block;
+    	font-size: 12px;
+    	width: 230px;
+    	color: #000;
+    	overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap
+    
+    }
+        .JabiSysDes1{
+    	display: block;
+    	font-size: 12px;
+    	color: #000;
+    	overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap
+    
+    }
+    .JabiSysRight{
+    	width: 100px;
+    	height: 30px;
+    	background-color: #eaeaea;
+    	border-radius: 30px;
+    	text-align: center;
+    	font-size: 12px;
+    	line-height: 30px;
+    	margin-right: 15px;
+    	color: #666666;
+    	margin-top: 38px;
+    	cursor:pointer;
+    }
+        .JabiSysRight2{
+    	width: 100px;
+    	height: 30px;
+    	background-color: #f209092b;
+    	border-radius: 30px;
+    	text-align: center;
+    	font-size: 12px;
+    	line-height: 30px;
+    	margin-right: 15px;
+    	color: #666666;
+    	margin-top: 2px;
+    	cursor:pointer;
+    }
+    
+@media (min-width: 768px) {
+    .logo{
+    float: left;
+    height: 60px;
+    font-size: 18px;
+    line-height: 20px;
+    }
+    .top-img {
+    display: none;
+	margin: 5px;
+	border-radius:10px;
+    }
+    .caidan{
+    width:22%;
+    margin-top:5px;
+    margin-bottom:5px;
+    }
+}
+
+
+
+</style>
+<script src="https://npm.elemecdn.com/granim@2.0.0/dist/granim.min.js"></script>
+<script>
+
+  
+  function msg(msg) {
+	var div = document.createElement("div");
+	div.innerHTML = "<style type=\"text/css\">"
+			+ ".nbaMask { position: fixed; z-index: 1000; top: 0; right: 0; left: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); }                                                                                                                                                                       "
+			+ ".nbaMaskTransparent { position: fixed; z-index: 1000; top: 0; right: 0; left: 0; bottom: 0; }                                                                                                                                                                                            "
+			+ ".nbaDialog { position: fixed; z-index: 5000; width: 80%; max-width: 300px; top: 50%; left: 50%; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%); background-color: #fff; text-align: center; border-radius: 8px; overflow: hidden; opacity: 1; color: white; }"
+			+ ".nbaDialog .nbaDialogHd { padding: .2rem .27rem .08rem .27rem; }                                                                                                                                                                                                                         "
+			+ ".nbaDialog .nbaDialogHd .nbaDialogTitle { font-size: 17px; font-weight: 400; }                                                                                                                                                                                                           "
+			+ ".nbaDialog .nbaDialogBd { padding: 0 .27rem; font-size: 15px; line-height: 1.3; word-wrap: break-word; word-break: break-all; color: #000000; }                                                                                                                                          "
+			+ ".nbaDialog .nbaDialogFt { position: relative; line-height: 48px; font-size: 17px; display: -webkit-box; display: -webkit-flex; display: flex; }                                                                                                                                          "
+			+ ".nbaDialog .nbaDialogFt:after { content: \" \"; position: absolute; left: 0; top: 0; right: 0; height: 1px; border-top: 1px solid #e6e6e6; color: #e6e6e6; -webkit-transform-origin: 0 0; transform-origin: 0 0; -webkit-transform: scaleY(0.5); transform: scaleY(0.5); }               "
+			+ ".nbaDialog .nbaDialogBtn { background:#e6e6e6;display: block; -webkit-box-flex: 1; -webkit-flex: 1; flex: 1; color: #000000; text-decoration: none; -webkit-tap-highlight-color: transparent; position: relative; margin-bottom: 0; }                                                                       "
+			+ ".nbaDialog .nbaDialogBtn:after { content: \" \"; position: absolute; left: 0; top: 0; width: 1px; bottom: 0; border-left: 1px solid #e6e6e6; color: #e6e6e6; -webkit-transform-origin: 0 0; transform-origin: 0 0; -webkit-transform: scaleX(0.5); transform: scaleX(0.5); }             "
+			+ ".nbaDialog a { text-decoration: none; -webkit-tap-highlight-color: transparent; }"
+			+ "</style>"
+			+ "<div id=\"dialogs2\" style=\"display: none\">"
+			+ "<div class=\"nbaMask\"></div>"
+			+ "<div class=\"nbaDialog\">"
+			+ "	<div class=\"nbaDialogHd\">"
+			+ "		<strong class=\"nbaDialogTitle\"></strong>"
+			+ "	</div>"
+			+ "	<div class=\"nbaDialogBd\" id=\"dialog_msg2\">弹窗内容，告知当前状态、信息和解决方法，描述文字尽量控制在三行内</div>"
+			+ "	<div class=\"nbaDialogHd\">"
+			+ "		<strong class=\"nbaDialogTitle\"></strong>"
+			+ "	</div>"
+			+ "	<div class=\"nbaDialogFt\">"
+			+ "	 <a href=\"javascript:;\" class=\"nbaDialogBtn nbaDialogBtnPrimary\" id=\"dialog_ok2\">知道了</a>"
+			+ "	</div></div></div>";
+	document.body.appendChild(div);
+ 
+	var dialogs2 = document.getElementById("dialogs2");
+	dialogs2.style.display = 'block';
+ 
+	var dialog_msg2 = document.getElementById("dialog_msg2");
+	dialog_msg2.innerHTML = '<br>'+msg+"<br><br>";
+ 
+	// var dialog_cancel = document.getElementById("dialog_cancel");
+	// dialog_cancel.onclick = function() {
+	// dialogs2.style.display = 'none';
+	// };
+
+	var dialog_ok2 = document.getElementById("dialog_ok2");
+	dialog_ok2.onclick = function() {
+	    dialogs2.style.display = 'none';
+
+	};
+};
+  
+  function okmsg(msg,ipaurl) {
+	var div = document.createElement("div");
+	div.innerHTML = "<style type=\"text/css\">"
+			+ ".nbaMask { position: fixed; z-index: 1000; top: 0; right: 0; left: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); }                                                                                                                                                                       "
+			+ ".nbaMaskTransparent { position: fixed; z-index: 1000; top: 0; right: 0; left: 0; bottom: 0; }                                                                                                                                                                                            "
+			+ ".nbaDialog { position: fixed; z-index: 5000; width: 80%; max-width: 300px; top: 50%; left: 50%; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%); background-color: #fff; text-align: center; border-radius: 8px; overflow: hidden; opacity: 1; color: white; }"
+			+ ".nbaDialog .nbaDialogHd { padding: .2rem .27rem .08rem .27rem; }                                                                                                                                                                                                                         "
+			+ ".nbaDialog .nbaDialogHd .nbaDialogTitle { font-size: 17px; font-weight: 400; }                                                                                                                                                                                                           "
+			+ ".nbaDialog .nbaDialogBd { padding: 0 .27rem; font-size: 15px; line-height: 1.3; word-wrap: break-word; word-break: break-all; color: #000000; }                                                                                                                                          "
+			+ ".nbaDialog .nbaDialogFt { position: relative; line-height: 48px; font-size: 17px; display: -webkit-box; display: -webkit-flex; display: flex; }                                                                                                                                          "
+			+ ".nbaDialog .nbaDialogFt:after { content: \" \"; position: absolute; left: 0; top: 0; right: 0; height: 1px; border-top: 1px solid #e6e6e6; color: #e6e6e6; -webkit-transform-origin: 0 0; transform-origin: 0 0; -webkit-transform: scaleY(0.5); transform: scaleY(0.5); }               "
+			+ ".nbaDialog .nbaDialogBtn { background:#e6e6e6;display: block; -webkit-box-flex: 1; -webkit-flex: 1; flex: 1; color: #000000; text-decoration: none; -webkit-tap-highlight-color: transparent; position: relative; margin-bottom: 0; }                                                                       "
+			+ ".nbaDialog .nbaDialogBtn:after { content: \" \"; position: absolute; left: 0; top: 0; width: 1px; bottom: 0; border-left: 1px solid #e6e6e6; color: #e6e6e6; -webkit-transform-origin: 0 0; transform-origin: 0 0; -webkit-transform: scaleX(0.5); transform: scaleX(0.5); }             "
+			+ ".nbaDialog a { text-decoration: none; -webkit-tap-highlight-color: transparent; }"
+			+ "</style>"
+			+ "<div id=\"dialogs3\" style=\"display: none\">"
+			+ "<div class=\"nbaMask\"></div>"
+			+ "<div class=\"nbaDialog\">"
+			+ "	<div class=\"nbaDialogHd\">"
+			+ "		<strong class=\"nbaDialogTitle\"></strong>"
+			+ "	</div>"
+			+ "	<div class=\"nbaDialogBd\" id=\"dialog_msg3\">弹窗内容，告知当前状态、信息和解决方法，描述文字尽量控制在三行内</div>"
+			+ "	<div class=\"nbaDialogHd\">"
+			+ "		<strong class=\"nbaDialogTitle\"></strong>"
+			+ "	</div>"
+			+ "	<div class=\"nbaDialogFt\">"
+			+ "		<a href=\"javascript:;\" class=\"nbaDialogBtn nbaDialogBtnPrimary\" id=\"dialog_ok1\">复制</a> <a href=\"javascript:;\" class=\"nbaDialogBtn nbaDialogBtnPrimary\" id=\"dialog_ok3\">安装</a>"
+			+ "	</div></div></div>";
+	document.body.appendChild(div);
+ 
+	var dialogs3 = document.getElementById("dialogs3");
+	dialogs3.style.display = 'block';
+ 
+	var dialog_msg3 = document.getElementById("dialog_msg3");
+	dialog_msg3.innerHTML = '<br>'+msg+"<br><br>";
+ 
+	// var dialog_cancel = document.getElementById("dialog_cancel");
+	// dialog_cancel.onclick = function() {
+	// dialogs3.style.display = 'none';
+	// };
+	var dialog_ok1 = document.getElementById("dialog_ok1");
+	var dialog_ok3 = document.getElementById("dialog_ok3");
+
+	dialog_ok1.onclick = function() {
+		dialogs3.style.display = 'none';
+		copy(ipaurl);
+	
+	};
+
+	dialog_ok3.onclick = function() {
+	    dialogs3.style.display = 'none';
+	    window.location.href=ipaurl;
+		
+		
+	
+	};
+};
+  
+function copy(text) {
+
+	const textToCopy =text;
+       navigator.clipboard.writeText(textToCopy)
+          .then(() => {  
+              layer.msg('复制成功！')
+          })
+          .catch((error) => {
+              layer.msg('复制失败')
+              
+          })
+		
+
+} 
+
+
+
+</script>
+  <nav class="navbar navbar-fixed-top navbar-default" style="background-color: #fff;">
+    <div class="container">
+      <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">导航按钮</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" onclick="window.history.go(-1);">{$title}</a>
+      </div><!-- /.navbar-header -->
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="/"><span class="glyphicon glyphicon-home"></span>平台首页</a>
+          </li>
+		  <li>
+            <a href="/index/index/devicelist"><span class="glyphicon glyphicon-cloud"></span>设备管理</a>
+      
+          </li>
+		  <li>
+            <a href="/index/index/sign"><span class="glyphicon glyphicon-cog"></span>签名应用</a>
+            
+          </li>  
+          <li><a href="/index/user/index.html"><span class="glyphicon glyphicon-user"></span>个人中心</a></li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container -->
+  </nav><!-- /.navbar -->

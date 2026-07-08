@@ -1,0 +1,252 @@
+{include file="common/sidenav" /}
+{if condition='$user.site eq null'}
+
+<script>
+
+
+    layer.open({
+        title: '请设置代销站前缀',
+        btnAlign: 'c',
+        closeBtn:'1',//右上角的关闭
+        content: `<div><p>此处设置成功后您的分销点域名将为：<br>[你所输入的字母或数字].dzios.xyz ,例如：wbwl.dzios.xyz、1234.dzios.xyz <br>
+    域名前缀不能少于4位字符（请勿添加符号字符或特殊字符例如：.）<br>前缀不可设置cert,tool,udid,sign,cloud等常用字符 <br>请认真慎重填写！
+    </p><input name="txt_remark" id="remark"  class="form-control"></div>`,
+        btn:['确认','取消'],
+        yes: function (index, layero) {
+            var name = $('#remark').val();//获取多行文本框的值
+            if(name!=null && name!="")
+            {
+                var reg = /[\u4e00-\u9fa5]/;
+                if( reg.test(name) == true){
+                    layer.msg("域名前缀不能包含中文！");
+                    return false;
+                }
+
+                if(name.length<4){
+
+                    layer.msg("域名前缀不能少于4位");
+                    return false;
+                }
+                layer.msg(`正在处理中..`, {icon: 16,shade: 0.3,time: false});
+                $.ajax({
+                    type: 'POST',
+                    url: "agent",
+                    data: {
+                        act:'add',
+                        site:name
+                    },
+                    dataType: "json",
+                    success: function(result, textStatus, jqXHR) {
+
+                        if(result['code']!=1){
+
+                            layer.msg(result['msg'])
+
+                        }else{
+
+                            layer.msg('创建成功',{time: 2000}, function(){
+                                location.reload()
+                            })
+                        }
+                    },
+                    error: function(response) {
+                        layer.close(index);
+                        layer.msg('修改失败');
+
+                    }});
+
+
+            }
+
+        },
+        no:function(index)
+        {
+            layer.close(index);return false;//点击按钮按钮不想让弹层关闭就返回false
+        }});
+
+
+
+</script>
+
+{:die;} {/if}
+
+
+<div class="container" style="padding-top:30px;padding-right: 0px;padding-left: 0px;">
+    <div class="col-xs-12 col-sm-10 col-lg-10 center-block" style="float: none;">
+        <div class="panel panel-info" style="opacity: 0.9;border-radius: 10px;">
+            <div class="panel-heading"><h3 class="panel-title">说明</h3></div>
+
+            <div class="panel-body" >
+                <font>您的代销站点域名为：<p class="label label-info" onclick="copy('{$row.site|htmlentities}.dzios.xyz')" >https://{$row.site|htmlentities}.dzios.xyz </p><br>如要使用自己的域名，可<font color="#ff9800" onclick="window.location.href = 'https://guanfangdingzhi.lanzouu.com/iKmGn24y9d7a'" > 点击此处下载源码 </font>放到自己网站根目录<br>没有云主机可<font color="blue" onclick="window.location.href = 'https://www.cccyun.net/?invite=182949'" > 前往彩虹云 </font>购买，香港8元/月<br>注意：云主机只能做简单网站，不可部署
+                   S1那种站点！<br>站点所用卡密可从<font color="red" onclick="window.location.href = '/index/index/kami'" > 卡密管理 </font>生成/管理<br></font>
+
+            </div>
+        </div>
+        <button class="btn btn-primary m-4" onclick="window.location.href = '/index/index/kami'">简易卡密生成 </button>
+        <button class="btn btn-primary m-4" onclick="window.location.href = '/index/index/signtool'">简易贴牌设置 </button>
+        <div class="panel panel-info" style="opacity: 0.9;border-radius: 10px;">
+            <div class="panel-body" >
+                <form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-2">{:__('分销前缀')}:</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <input id="c-site"  class="form-control" name="row[site]" readonly="readonly" type="text" value="{$row.site|htmlentities}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-2">{:__('站点标题')}:</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <input id="c-sitename"  class="form-control" name="row[sitename]"  type="text" value="{$row.sitename|htmlentities}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-2">{:__('皮肤(已上线)')}:</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <select id="c-theme" name="row[theme]">
+                                <option value="1" {if condition='$row.theme eq "1"'}selected{/if}>默认</option>
+                                <option value="2" {if condition='$row.theme eq "2"'}selected{/if}>新皮肤</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-2">{:__('绑定域名(未开放)')}:</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <div class="input-group">
+                                <input id="c-domain_url" class="form-control" name="row[domain_url]" type="text" value="{$row.domain_url|htmlentities}">
+                                <div class="input-group-addon no-border no-padding">
+                                    <span><a type="button" class="btn btn-danger" href="https://www.baidu.com" target="_blank"> {:__('看教程')}</a></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-2">{:__('背景图片')}:</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <input id="c-background_url"  class="form-control" placeholder="" name="row[background_url]" type="text" value="{$row.background_url|htmlentities}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-2">{:__('全局配色')}:</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <input id="c-btn_color"  class="form-control" name="row[btn_color]" type="text" value="{$row.btn_color|htmlentities}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-2">{:__('背景颜色')}:</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <input id="c-background_color"  class="form-control" name="row[background_color]" type="text" value="{$row.background_color|htmlentities}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-2">{:__('联系客服链接')}:</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <input id="c-contact_url" class="form-control" placeholder="" name="row[contact_url]" type="text"
+                                   value="{$row.contact_url|htmlentities}">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-2">{:__('站点图标')}:</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <div class="input-group">
+                                <input id="c-icon_url"  class="form-control" name="row[icon_url]" type="text" value="{$row.icon_url|htmlentities}">
+                                <div class="input-group-addon no-border no-padding">
+                                    <img  width="32px" height= "32px" id="p-image" src="{$row.icon_url|htmlentities}">
+                                    <span><button type="button" id="faupload-image" class="btn btn-danger faupload" onclick="uploadlogo.click()"><i class="fa fa-upload"></i> {:__('Upload')}</button>
+                    </span>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-2">{:__('购买链接')}:</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <input id="c-buy_url"  class="form-control" placeholder="" name="row[buy_url]" type="text" value="{$row.buy_url|htmlentities}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-2">{:__('站点公告')}:</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <input id="c-notice"  class="form-control" placeholder="欢迎使用！......" name="row[notice]" type="text" value="{$row.notice|htmlentities}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-2">{:__('底部HTML')}:</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <textarea id="c-bottom_html"  class="form-control"  name="row[bottom_html]"  placeholder="<p>这是测试代码</p>" rows="7" >{$row.bottom_html}</textarea>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group layer-footer">
+                        <label class="control-label col-xs-12 col-sm-2"></label>
+                        <div class="col-xs-12 col-sm-8">
+                            <button type="submit" class="btn btn-success btn-embossed ">{:__('OK')}</button>
+                            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <br><br><br>
+        <input type="file"  accept="image/jpeg, image/png" name="file" required placeholder="文件流" style="display:none" id="uploadlogo">
+    </div>
+</div>
+<script>
+    document.getElementById('uploadlogo').addEventListener('change', readInputFile, false);
+    function readInputFile(event) {
+
+        var file=document.getElementById("uploadlogo").files[0];
+        var fd = new FormData();//利用FormData传参
+        var xhr = new XMLHttpRequest();
+        xhr.open('post', '/index/index/uploadlogo', true);
+        xhr.onreadystatechange = function () {
+            //readystate为4表示请求已完成并就绪
+            if (this.readyState == 4) {
+
+                var info = xhr.responseText;
+                var info = eval("(" + info + ")");
+
+                if(info.code==1){
+
+                    $('#c-icon_url').val(info.data.logopath);
+                    var img = document.getElementById("p-image");
+                    img.src = info.data.logopath;
+
+
+                }else{
+                    layer.msg('上传失败，请重试');
+                }
+
+            }
+        }
+
+
+        fd.append('file', file);//FormData传参
+
+        xhr.send(fd);
+
+
+
+    }
+
+
+
+
+</script>

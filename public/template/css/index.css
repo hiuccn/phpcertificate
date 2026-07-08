@@ -1,0 +1,1354 @@
+/*pc端*/
+@media only screen and (min-device-width: 768px) {
+  .homeWrapper {
+    width: 100%;
+    height: 100%;
+  }
+  .homeWrapper .appName {
+    display: none;
+  }
+  .homeWrapper .homeSwipperWrapper {
+    display: none !important;
+    width: 100%;
+    height: 450px;
+    font-size: 0;
+  }
+  .homeWrapper .homeSwipperWrapper .homeSwipperWrapperSlider {
+    width: 100%;
+    height: 450px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+  }
+  .homeSwipperWrapperSlider .sliderUl {
+    position: absolute;
+    /* width: 7680px; */
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  .homeSwipperWrapperSlider > ul > li {
+    position: relative;
+    overflow: hidden;
+    float: left;
+  }
+  .homeSwipperWrapperSlider li:first-child {
+    display: block;
+  }
+  .homeSwipperWrapperSlider > ul > li a {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+  }
+  .homeSwipperWrapperSlider > ul > li.Mobile {
+    display: none;
+  }
+  /* .arrow {
+    display: none;
+  }  
+  .slider:hover .arrow,
+  .slider:hover .box {
+    display: block;
+  } */
+  .left,
+  .right {
+    width: 60px;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.6);
+    position: absolute;
+    top: 50%;
+    margin-top: -30px;
+    line-height: 60px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 50%;
+  }
+  .left:hover,
+  .right:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+  }
+  .left {
+    left: 15px;
+  }
+  .left img {
+    position: absolute;
+    left: 20px;
+    top: 18px;
+    width: 12px;
+  }
+  .right {
+    right: 15px;
+  }
+  .right img {
+    position: absolute;
+    left: 25px;
+    top: 18px;
+    width: 12px;
+  }
+  .box {
+    width: 185px;
+    height: 5px;
+    position: absolute;
+    left: 50%;
+    margin-left: -75px;
+    bottom: 20px;
+    /* display: none; */
+  }  
+  .box li {
+    width: 45px;
+    height: 5px;
+    background-color: white;
+    display: inline-block;
+    float: left;
+    margin-left: 15px;
+    border-radius: 2px;
+  }
+  .show{
+    background-color: #ddd !important;
+  }
+  .homeSwipperWrapperSlider .inviteFriends {
+    position: absolute;
+    width: 700px;
+    height: 220px;
+    background-color: rgba(255, 255, 255, 0.6);
+    top: 150px;
+    left: 50%;
+    margin-left: -350px;
+    border-radius: 10px;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .homeSwipperWrapperSlider .inviteFriends .text {
+    font-size: 24px;
+    letter-spacing: 5px;
+    margin-top: 5px;
+  }
+  .homeSwipperWrapperSlider .inviteFriends .inviteBtn {
+    font-size: 18px;
+    background: rgba(255,255,255,0.6);
+    padding: 2px 20px;
+    border-radius: 20px;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  .homeWrapper .homeNavBar {
+    height: 75px;
+    background-color: #fff;
+    padding: 0 360px;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  .homeWrapper .homeNavBar .name {
+    font-size: 24px;
+  }
+  .homeWrapper .homeNavBar .user {
+    font-size: 16px;
+    margin-left: auto;
+  }
+  .homeWrapper .homeNavBar .userDropDown {
+    width: 120px;
+    height: 130px;
+    border-radius: 5px;
+    position: absolute;
+    right: 416px;
+    z-index: 1;
+    font-size: 16px;
+    top: 67px;
+    box-sizing: border-box;
+    background: #fff;
+    box-shadow: rgb(60 64 67 / 30%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 2px 6px 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    display: none;
+  }
+  .homeWrapper .homeNavBar .userDropDown .vip {
+    height: 30px;
+    line-height: 30px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+  }
+  .homeWrapper .homeNavBar .userDropDown .logout {
+    height: 30px;
+    line-height: 30px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+  }
+  .homeWrapper .tabs {
+    display: flex;
+    padding: 0;
+    position: relative;
+    height: 75px;
+    margin: 0;
+    align-items: center;
+    font-size: 16px;
+    margin-left: 100px;
+  }
+  .homeWrapper .tabs .tab2 {
+    margin-left: 30px;
+  }
+  .homeWrapper .tabs .tab3 {
+    margin-left: 30px;
+  }
+  .homeWrapper .tabs .tab4 {
+    display: none;
+  }
+  .homeWrapper .tabs li {
+    height: 75px;
+    line-height: 75px;
+    width: 65px;
+    color: #606266;
+    position: relative;
+    cursor: pointer;
+  }
+  .homeWrapper .homeNavBar .tabs li.Mobile {
+    display: none;
+  }
+  .homeWrapper .tabs .active {
+    color: #3d7dd0;
+  }
+  .homeWrapper .tabs .active .line {
+    height: 2px;
+    width: 25px;
+    position: absolute;
+    background: #3d7dd0;
+    top: 50px;
+    left: 20px;
+  }
+  
+  .homeWrapper .boxs {
+    position: relative;
+  }
+  .homeWrapper .boxs .tabs-box {
+    display: none;
+    position: relative;
+  }
+  .homeWrapper .boxs .active {
+    background-color: steelblue;
+    color: #fff;
+  }
+  .homeWrapper .boxs .boxOne {
+    display: block;
+  }
+  .homeWrapper .user {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 140px;
+  }
+  .homeWrapper .user img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .homeWrapper .homeContent {
+    padding: 0 360px;
+    width: 100%;
+    box-sizing: border-box;
+    background: #edf0f4;
+  }
+  .homeWrapper .homeContent .leftEquipsLine {
+    height: 30px;
+    font-size: 16px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-top: 60px;
+    padding-bottom: 20px;
+  }
+  .leftEquipsLine .leftEquips {
+    font-weight: bold;
+  }
+  .leftEquipsLine .leftEquips .Mobile {
+    display: none;
+  }
+  .leftEquipsLine .leftMoney {
+    margin-left: 20px;
+    font-weight: bold;
+  }
+  .leftEquipsLine .leftMoney .Mobile {
+    display: none;
+  }
+  .leftEquipsLine .depositBtns {
+    margin-left: 20px;
+  }
+  .depositBtns .deposit {
+    height: 30px;
+    line-height: 30px;
+    background-color: #3d7dd0;
+    color: #fff;
+    padding: 2px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .depositBtns .depositHistory {
+    height: 30px;
+    line-height: 30px;
+    background-color: #6dba6f;
+    color: #fff;
+    padding: 2px 22px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .homeWrapper .homeContent .tokenArea {
+    height: 230px;
+    padding: 30px 0 0 33px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 10px;
+    font-size: 0;
+  }
+  .tokenArea .tokenAreaTitle span {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .tokenArea .changeToken {
+    margin-top: 15px;
+  }
+  /* .tokenArea .changeToken input {
+    font-size: 16px;
+    height: 40px;
+    border: 1px solid #ddd;
+    outline: 0;
+    width: 500px;
+    padding-left: 10px;
+    box-sizing: border-box;
+  } */
+  .tokenArea .changeToken .token {
+    font-size: 16px;
+    height: 40px;
+    border: 1px solid #606266;
+    outline: 0;
+    width: 500px;
+    padding-left: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    display: inline-block;
+    line-height: 40px;
+    cursor: pointer;
+  }
+  .tokenArea .changeToken .change {
+    display: none;
+  }
+  .tokenArea .changeToken .changeToken {
+    font-size: 16px;
+    color: #fff;
+    background: #3d7dd0;
+    height: 40px;
+    line-height: 40px;
+    display: inline-block;
+    border-radius: 5px;
+    padding: 0 16px;
+    margin-left: 20px;
+    cursor: pointer;
+  }
+  .tokenArea .changeToken input::-webkit-input-placeholder {
+    font-size: 14px;
+    color: #999;
+  } 
+  .tokenArea .tokenCase {
+    font-size: 14px;
+    color: #606266;
+    display: flex;
+    align-items: center;
+    margin-top: 35px;
+  }
+  .tokenCase .example {
+    border: 1px solid #ddd;
+    padding: 4px 10px;
+    margin-left: 5px;
+    cursor: pointer;
+  }
+  .tokenCase .code {
+    border: 1px solid #ddd;
+    padding: 4px 10px;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  .tokenCase .api {
+    border: 1px solid #ddd;
+    padding: 4px 10px;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  .homeContent .siteNotice {
+    font-size: 0;
+    height: 330px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 10px;
+  }
+  .siteNotice .siteNoticeTitle {
+    background-color: #3d7dd0;
+    height: 60px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .siteNotice .siteNoticeTitle span {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  .siteNotice .siteNoticeContent {
+    padding-top: 33px;
+    padding-left: 62px;
+    padding-right: 62px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .siteNotice .siteNoticeContent > div {
+    height: 30px;
+    line-height: 30px;
+    margin-bottom: 20px;
+  }
+  .homeWrapper .homeFooter {
+    height: 200px;
+    width: 100%;
+    background-color: #454645;
+    padding: 0 360px;
+    box-sizing: border-box;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    color: #fff;
+  }
+  .homeFooter .companyInfo .address {
+    height: 35px;
+    line-height: 35px;
+  }
+  .homeFooter .companyInfo .mail {
+    height: 35px;
+    line-height: 35px;
+  }
+  .homeFooter .companyInfo .tell {
+    height: 35px;
+    line-height: 35px;
+  }
+  .homeFooter .qrcode {
+    text-align: center;
+    margin-left: auto;
+  }
+  .qrcode .qrcodeBox {
+    width: 100px;
+    height: 100px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .qrcode .qrcodeBox img {
+    width: 90px;
+    height: 90px;
+  }
+  .footer {
+    display: none;
+  }
+  #invitePop {
+    display: none;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    font-size: 16px;
+  }
+  #invitePop .invitePopWrapper {
+    width: 620px;
+    height: 350px;
+    position: absolute;
+    background: #fff;
+    border-radius: 10px;
+    top: 50%;
+    left: 50%;
+    margin-left: -310px;
+    margin-top: -175px;
+  }
+  #invitePop .invitePopWrapper .invitePopTitle {
+    height: 60px;
+    font-size: 18px;
+    line-height: 60px;
+    color: #fff;
+    background: #3d7ccf;
+    padding-left: 33px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    display: flex;
+    padding-right: 20px;
+  }
+  #invitePop .invitePopWrapper .invitePopTitle .iconfont {
+    font-size: 18px;
+    margin-left: auto;
+    cursor: pointer;
+  }
+  #invitePop .invitePopWrapper .invitePopContent {
+    padding-left: 33px;
+    box-sizing: border-box;
+  }
+  #invitePop .invitePopWrapper .invitePopContent .invitePopContentIntro {
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  #invitePop .invitePopWrapper .invitePopContent .copyLink {
+    margin-bottom: 10px;
+  }
+  #invitePop .invitePopWrapper .invitePopContent .copyLink span {
+    width: 266px;
+    display: inline-block;
+    padding: 6px 0;
+    background: #6db970;
+    color: #fff;
+    border-radius: 7px;
+    text-align: center;
+    cursor: pointer;
+  }
+  #invitePop .invitePopWrapper .invitePopContent .contact {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  #invitePop .invitePopWrapper .invitePopContent .invited {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  #invitePop .invitePopWrapper .invitePopContent .equips {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  #invitePop .invitePopWrapper .invitePopContent .equipsInput {
+    margin-bottom: 25px;
+  }
+  #invitePop .invitePopWrapper .invitePopContent .equipsInput input {
+    width: 250px;
+    height: 30px;
+    border: 1px solid #ddd;
+    padding-left: 10px;
+    font-size: 14px;
+  }
+  #invitePop .invitePopWrapper .invitePopBtn {
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 35px;
+  }
+  #invitePop .invitePopWrapper .invitePopBtn span {
+    width: 120px;
+    text-align: center;
+    display: inline-block;
+    height: 35px;
+    line-height: 35px;
+    background: #3d7ccf;
+    color: #fff;
+    border-radius: 5px;
+  }
+  #chargePop {
+    display: none;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    font-size: 16px;
+  }
+  #chargePop .chargePopWrapper {
+    width: 620px;
+    height: 200px;
+    position: absolute;
+    background: #fff;
+    border-radius: 10px;
+    top: 50%;
+    left: 50%;
+    margin-left: -310px;
+    margin-top: -100px;
+  }
+  #chargePop .chargePopWrapper .chargePopTitle {
+    height: 50px;
+    font-size: 18px;
+    line-height: 50px;
+    color: #fff;
+    background: #3d7ccf;
+    padding-left: 33px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    display: flex;
+    padding-right: 20px;
+  }
+  #chargePop .chargePopWrapper .chargePopTitle .iconfont {
+    font-size: 18px;
+    margin-left: auto;
+    cursor: pointer;
+  }
+  #chargePop .chargePopWrapper .chargePopTitle .leftMoney {
+    margin-left: 20px;
+  }
+  #chargePop .chargePopWrapper .chargePopContent .chargePopContentIntro {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+  }
+  #chargePop .chargePopWrapper .chargePopContent .chargePopContentBtns {
+    margin-top: 31px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 35px;
+  }
+  #chargePop .chargePopWrapper .chargePopContent .chargePopContentBtns span:nth-child(1) {
+    display: inline-block;
+    height: 35px;
+    line-height: 35px;
+    width: 120px;
+    text-align: center;
+    background: #3d7ccf;
+    color: #fff;
+    border-radius: 5px;
+  }
+  #chargePop .chargePopWrapper .chargePopContent .chargePopContentBtns span:nth-child(2) {
+    display: inline-block;
+    height: 35px;
+    line-height: 35px;
+    width: 120px;
+    text-align: center;
+    background: #6dba6f;
+    color: #fff;
+    border-radius: 5px;
+    margin-left: 60px;
+  }
+  #chargeLeftPop {
+    display: none;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    font-size: 16px;
+  }
+  #chargeLeftPop .chargeLeftPopWrapper {
+    width: 620px;
+    height: 350px;
+    position: absolute;
+    background: #fff;
+    border-radius: 10px;
+    top: 50%;
+    left: 50%;
+    margin-left: -310px;
+    margin-top: -175px;
+  }
+  #chargeLeftPop .chargeLeftPopWrapper .chargeLeftPopTitle {
+    height: 50px;
+    font-size: 18px;
+    line-height: 50px;
+    color: #fff;
+    background: #3d7ccf;
+    padding-left: 33px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    display: flex;
+    padding-right: 20px;
+  }
+  #chargeLeftPop .chargeLeftPopWrapper .chargeLeftPopTitle .iconfont {
+    font-size: 18px;
+    margin-left: auto;
+    cursor: pointer;
+  }
+  #chargeLeftPop .chargeLeftPopWrapper .chargeLeftPopitle .leftMoney {
+    margin-left: 20px;
+  }
+  #chargeLeftPop .chargeLeftPopWrapper .chargeLeftPopContent {
+    padding-left: 20px;
+  }
+  #chargeLeftPop .chargeLeftPopWrapper .chargeLeftPopContent .chargeLeft {
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  #chargeLeftPop .chargeLeftPopWrapper .chargeLeftPopContent .chargeLeftPopContentBtns {
+    margin-top: 20px;
+  }
+  #chargeLeftPop .chargeLeftPopWrapper .chargeLeftPopContent .chargeLeftPopContentBtns .num {
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
+    display: inline-block;
+    text-align: center;
+    border: 1px solid #999;
+    border-radius: 5px;
+    color: #606266;
+    margin-right: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  #chargeLeftPop .chargeLeftPopWrapper .chargeLeftPopContent .chargeLeftPopContentBtns .num.active {
+    border: 0;
+    background-color: #6db970;
+    color: #fff;
+  }
+  #chargeLeftPop .chargeLeftPopWrapper .chargeLeftPopContent .custom {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+  }
+  #chargeLeftPop .chargeLeftPopWrapper .chargeLeftPopContent .custom input {
+    width: 269px;
+    box-sizing: border-box;
+    border: 1px solid #999;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    padding-left: 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+  }
+  #chargeLeftPop .chargeLeftPopWrapper .chargeLeftPopContent .chargeBtn {
+    margin-top: 50px;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+  }
+  #chargeLeftPop .chargeLeftPopWrapper .chargeLeftPopContent .chargeBtn span {
+    background: #3d7ccf;
+    color: #fff;
+    display: inline-block;
+    width: 120px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  #chargeEquipsPop {
+    display: none;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    font-size: 16px;
+  }
+  #chargeEquipsPop .chargeEquipsPopWrapper {
+    width: 620px;
+    height: 360px;
+    position: absolute;
+    background: #fff;
+    border-radius: 10px;
+    top: 50%;
+    left: 50%;
+    margin-left: -310px;
+    margin-top: -180px;
+  }
+  #chargeEquipsPop .chargeEquipsPopWrapper .chargeEquipsPopTitle {
+    height: 50px;
+    font-size: 18px;
+    line-height: 50px;
+    color: #fff;
+    background: #3d7ccf;
+    padding-left: 20px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    display: flex;
+    padding-right: 20px;
+  }
+  #chargeEquipsPop .chargeEquipsPopWrapper .chargeEquipsPopTitle .iconfont {
+    font-size: 18px;
+    margin-left: auto;
+    cursor: pointer;
+  }
+  #chargeEquipsPop .chargeEquipsPopWrapper .chargeEquipsPopTitle .leftMoney {
+    margin-left: 20px;
+  }
+  #chargeEquipsPop .chargeEquipsPopWrapper .chargeEquipsPopContent {
+    padding-left: 20px;
+  }
+  #chargeEquipsPop .chargeEquipsPopWrapper .chargeEquipsPopContent .chargeLeft {
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  #chargeEquipsPop .chargeEquipsPopWrapper .chargeEquipsPopContent .chargeEquipsPopContentBtns {
+    margin-top: 20px;
+  }
+  #chargeEquipsPop .chargeEquipsPopWrapper .chargeEquipsPopContent .chargeEquipsPopContentBtns .num {
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
+    display: inline-block;
+    text-align: center;
+    border: 1px solid #999;
+    border-radius: 5px;
+    color: #606266;
+    margin-right: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  #chargeEquipsPop .chargeEquipsPopWrapper .chargeEquipsPopContent .chargeEquipsPopContentBtns .num.active {
+    border: 0;
+    background-color: #6db970;
+    color: #fff;
+  }
+  #chargeEquipsPop .chargeEquipsPopWrapper .chargeEquipsPopContent .custom {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+  }
+  #chargeEquipsPop .chargeEquipsPopWrapper .chargeEquipsPopContent .selectcharge {
+    display: flex;
+    margin-top: 20px;
+    font-size: 14px;
+  }
+  #chargeEquipsPop .chargeEquipsPopWrapper .chargeEquipsPopContent .selectcharge .selectchargeRadio {
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+  }
+  #chargeEquipsPop .chargeEquipsPopWrapper .chargeEquipsPopContent .selectcharge .selectchargeRadio .checkbox:nth-child(2) {
+    margin-left: 20px;
+  }
+  #chargeEquipsPop .chargeEquipsPopWrapper .chargeEquipsPopContent .custom input {
+    width: 269px;
+    box-sizing: border-box;
+    border: 1px solid #999;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    padding-left: 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+  }
+  #chargeEquipsPop .chargeEquipsPopWrapper .chargeEquipsPopContent .chargeBtn {
+    margin-top: 20px;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+  }
+  #chargeEquipsPop .chargeEquipsPopWrapper .chargeEquipsPopContent .chargeBtn span {
+    background: #3d7ccf;
+    color: #fff;
+    display: inline-block;
+    width: 120px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}
+/* ------------------------------------------------------ */
+/*移动端*/
+@media only screen and (max-device-width: 768px) {
+  .homeWrapper {
+    width: 100%;
+    height: 100%;
+    background: #edf0f4;
+    display: flex;
+    flex-direction: column;
+  }
+  .homeWrapper .appName {
+    background-color: #3d7ccf;
+    font-size: 0.18rem;
+    color: #fff;
+    font-weight: normal;
+    height: 0.45rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 0.2rem;
+  }
+  .homeWrapper .homeSwipperWrapper {
+    width: 100%;
+    height: 1.65rem;
+    font-size: 0;
+  }
+  .homeWrapper .homeSwipperWrapper .homeSwipperWrapperSlider {
+    width: 100%;
+    height: 1.65rem;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+  }
+  .homeSwipperWrapperSlider .sliderUl {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+  }
+  .homeSwipperWrapperSlider > ul > li {
+    position: relative;
+    overflow: hidden;
+    float: left;
+    width: 100vw;
+    padding: 0.2rem;
+    box-sizing: border-box;
+    border-radius: 0.1rem;
+    /* background: #edf0f4; */
+  }
+  .homeSwipperWrapperSlider > ul > li a img {
+    width: 100%;
+    height: 1.25rem;
+    border-radius: 0.1rem;
+  }
+  .homeSwipperWrapperSlider li:first-child {
+    display: block;
+  }
+  .homeSwipperWrapperSlider > ul > li a {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+  }
+  .homeSwipperWrapperSlider > ul > li.Pc {
+    display: none;
+  }
+  .arrow {
+    display: none;
+  }
+  .box {
+    display: none;
+  } 
+  .homeSwipperWrapperSlider .inviteFriends {
+    position: absolute;
+    width: 3rem;
+    height: 1rem;
+    background-color: rgba(255, 255, 255, 0.6);
+    top: 0.33rem;
+    left: 0.38rem;
+    border-radius: 0.1rem;
+    font-size: 0.16rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .homeSwipperWrapperSlider .inviteFriends .text {
+    font-size: 0.14rem;
+    letter-spacing: 0.05rem;
+    margin-top: 0.05rem;
+  }
+  .homeSwipperWrapperSlider .inviteFriends img {
+    width: 2rem;
+    height: 0.29rem;
+  }
+  .homeSwipperWrapperSlider .inviteFriends .inviteBtn {
+    font-size: 0.18rem;
+    background: rgba(255,255,255,0.6);
+    padding: 0.02rem 0.2rem;
+    border-radius: 0.2rem;
+    margin-top: 0.03rem;
+    cursor: pointer;
+    color: #294c76;
+  }
+  .homeWrapper .homeNavBar {
+    display: none;
+  }
+  .homeWrapper .homeNavBar .name {
+    display: none;
+  }
+  .homeWrapper .homeNavBar .tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    background: #fff;
+    height: 0.54rem;
+    border-top: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 0.12rem;
+    color: #606266;
+    position: fixed;
+    bottom: 0;
+    z-index: 10;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+  .homeWrapper .homeNavBar .tabs li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .homeWrapper .homeNavBar .tabs li.active {
+    font-size: 0.12rem;
+    color: #3d7dd0;
+  }
+  .homeWrapper .homeNavBar .tabs li.active .iconfont{
+    color: #3d7dd0;
+  }
+  .homeWrapper .user {
+    display: none;
+  }
+  .homeWrapper .homeNavBar .userDropDown {
+    display: none;
+  }
+  .homeWrapper .boxs {
+    position: relative;
+    padding: 0 0.2rem;
+  }
+  .homeWrapper .boxs .tabs-box {
+    display: none;
+    position: relative;
+  }
+  .homeWrapper .boxs .active {
+    background-color: steelblue;
+    color: #fff;
+  }
+  .homeWrapper .boxs .boxOne {
+    display: block;
+  }
+  .homeWrapper .homeContent {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .homeWrapper .homeContent .leftEquipsLine {
+    
+    font-size: 0.13rem;
+    display: flex;
+    background: #fff;
+    border-radius: 0.05rem;
+    padding-left: 0.1rem;
+    padding-top: 0.2rem;
+    padding-bottom:0.2rem;
+    box-sizing: border-box;
+    flex-direction: column;
+    position: relative;
+    color: #606266;
+  }
+  .homeWrapper .homeContent .leftEquipsLine .leftEquips {
+    margin-bottom: 0.05rem;
+  }
+  .leftEquipsLine .leftEquips .Pc {
+    display: none;
+  }
+  .leftEquipsLine .leftMoney .Pc {
+    display: none;
+  }
+  .homeWrapper .homeContent .leftEquipsLine .leftEquips img{
+    display: none;
+  }
+  .homeWrapper .homeContent .leftEquipsLine .leftEquips span:nth-child(3){
+    font-size: 0.15rem;
+  }
+  .homeWrapper .homeContent .leftEquipsLine .leftMoney img{
+    display: none;
+  }
+  .homeWrapper .homeContent .leftEquipsLine .leftMoney span:nth-child(3){
+    font-size: 0.15rem;
+  }
+  .depositBtns {
+    position: absolute;
+    right: 0.2rem;
+    top: 0.24rem;
+  }
+  .depositBtns .deposit {
+    height: 0.22rem;
+    line-height: 0.22rem;
+    display: inline-block;
+    background-color: #3d7dd0;
+    color: #fff;
+    padding: 0 0.12rem;
+    border-radius: 0.2rem;
+    cursor: pointer;
+    font-size: 0.12rem;
+  }
+  .depositBtns .depositHistory {
+    display: none;
+  }
+  .homeWrapper .homeContent .tokenArea {
+    height: 2rem;
+    padding: 0.35rem 0 0 0.1rem;
+    box-sizing: border-box;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 0.1rem;
+    font-size: 0;
+  }
+  .tokenArea .tokenAreaTitle span {
+    font-size: 0.14rem;
+  }
+  .tokenArea .changeToken {
+    margin-top: 0.08rem;
+  }
+  /* .tokenArea .changeToken input {
+    font-size: 0.14rem;
+    height: 0.35rem;
+    border: 1px solid #000;
+    outline: 0;
+    padding-left: 0.1rem;
+    border-radius: 0.05rem;
+    box-sizing: border-box;
+    width: 2.6rem;
+  } */
+  .tokenArea .changeToken .token {
+    font-size: 0.12rem;
+    height: 0.35rem;
+    border: 1px solid #000;
+    outline: 0;
+    padding-left: 0.05rem;
+    border-radius: 0.05rem;
+    box-sizing: border-box;
+    width: 2.6rem;
+    display: inline-block;
+    line-height: 0.35rem;
+  }
+  .tokenArea .changeToken .changeToken {
+    display: none;
+  }
+  .tokenArea .changeToken .change {
+    font-size: 0.12rem;
+    color: #fff;
+    background: #3d7dd0;
+    height: 0.22rem;
+    line-height: 0.22rem;
+    display: inline-block;
+    border-radius: 0.2rem;
+    padding: 0 0.12rem;
+    cursor: pointer;
+    margin-left: 0.05rem;
+  }
+  .tokenArea .changeToken input::-webkit-input-placeholder {
+    font-size: 0.12rem;
+    color: #999;
+  } 
+  .tokenArea .tokenCase {
+    position: relative;
+    font-size: 0.12rem;
+    color: #999;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-top: 0.2rem;
+  }
+  .tokenCase .example {
+    font-size: 0.12rem;
+    margin-top: 0.15rem;
+    border: 1px solid #606266;
+    padding: 0 0.12rem;
+    cursor: pointer;
+    color: #606266;
+    border-radius: 0.2rem;
+  }
+  .tokenCase .code {
+    font-size: 0.12rem;
+    margin-top: 0.15rem;
+    border: 1px solid #606266;
+    padding: 0 0.12rem;
+    cursor: pointer;
+    color: #606266;
+    border-radius: 0.2rem;
+    position: absolute;
+    left: 1.12rem;
+    top: 0.16rem;
+  }
+  .tokenCase .api {
+    font-size: 0.12rem;
+    margin-top: 0.15rem;
+    border: 1px solid #606266;
+    padding: 0 0.08rem;
+    cursor: pointer;
+    color: #606266;
+    border-radius: 0.2rem;
+    position: absolute;
+    left: 2.25rem;
+    top: 0.16rem;
+  }
+  .homeContent .siteNotice {
+    font-size: 0;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 0.1rem;
+    margin-top: 0.2rem;
+  }
+  .siteNotice .siteNoticeTitle {
+    background-color: #3d7dd0;
+    height: 0.33rem;
+    border-top-right-radius: 0.1rem;
+    border-top-left-radius: 0.1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .siteNotice .siteNoticeTitle span {
+    color: #fff;
+    font-size: 0.16rem;
+  }
+  .siteNotice .siteNoticeContent {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 0.12rem;
+    padding-left: 0.05rem;
+    margin-top: 0.05rem;
+   
+  }
+  .siteNotice .siteNoticeContent > div {
+    height: 0.25rem;
+    line-height: 0.25rem;
+  }
+  .siteNotice .siteNoticeContent > div.line3 {
+    height: 0.5rem;
+  }
+  .homeWrapper .homeFooter {
+    display: none;
+  }
+  .bgLine2 {
+    display: none !important;
+  }
+  .bgLine3 {
+    display: none !important;
+  }
+  .main {
+    flex: 1;
+    overflow: auto;
+    padding-bottom: 0.2rem;
+  }
+  .footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    background: #fff;
+    height: 0.54rem;
+    border-top: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 0.16rem;
+  }
+  .footer a:visited {
+    color: #606266;
+  }
+  .footer .navtxt {
+    font-size: 0.12rem;
+    color: #606266;
+  }
+  .footer .footer-items.active .navtxt{
+    font-size: 0.12rem;
+    color: #3d7dd0;
+  }
+  .footer .footer-items.active .iconfont{
+    color: #3d7dd0;
+  }
+  .footer .footer-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+  }
+  
+  .footer .footer-items i {
+    width: 0.21rem;
+    height: 0.21rem;
+  }
+  
+  .footer .footer-items:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  #invitePop {
+    display: none;
+  }
+  #chargePop {
+    display: none;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    font-size: 0.16rem;
+  }
+  #chargePop .chargePopWrapper {
+    width: 89%;
+    position: absolute;
+    background: #fff;
+    border-radius: 0.1rem;
+    top: 40%;
+    left: 0.2rem;
+    padding-bottom: 0.5rem;
+    box-sizing: border-box;
+  }
+  #chargePop .chargePopWrapper .chargePopTitle {
+    height: 0.35rem;
+    font-size: 0.14rem;
+    line-height: 0.35rem;
+    color: #fff;
+    background: #3d7ccf;
+    padding-left: 0.1rem;
+    border-top-right-radius: 0.05rem;
+    border-top-left-radius: 0.05rem;
+    display: flex;
+    padding-right: 0.08rem;
+  }
+  #chargePop .chargePopWrapper .chargePopTitle .iconfont {
+    font-size: 0.12rem;
+    margin-left: auto;
+  }
+  #chargePop .chargePopWrapper .chargePopTitle .leftMoney {
+    margin-left: 20px;
+  }
+  #chargePop .chargePopWrapper .chargePopContent .chargePopContentIntro {
+    margin-top: 0.3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.12rem;
+  }
+  #chargePop .chargePopWrapper .chargePopContent .chargePopContentBtns {
+    margin-top: 0.31rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 0.4rem;
+  }
+  #chargePop .chargePopWrapper .chargePopContent .chargePopContentBtns span:nth-child(1) {
+    display: inline-block;
+    height: 0.4rem;
+    line-height: 0.4rem;
+    width: 0.98rem;
+    text-align: center;
+    background: #3d7ccf;
+    color: #fff;
+    border-radius: 0.2rem;
+    font-size: 0.14rem;
+  }
+  #chargePop .chargePopWrapper .chargePopContent .chargePopContentBtns span:nth-child(2) {
+    display: inline-block;
+    height: 0.4rem;
+    line-height: 0.4rem;
+    width: 0.98rem;
+    text-align: center;
+    background: #6dba6f;
+    color: #fff;
+    border-radius: 0.2rem;
+    font-size: 0.14rem;
+    margin-left: 0.6rem;
+  }
+  #chargeLeftPop {
+    display: none;
+  }
+  #chargeEquipsPop {
+    display: none;
+  }
+}

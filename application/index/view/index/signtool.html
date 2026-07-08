@@ -1,0 +1,265 @@
+{include file="common/sidenav" /}
+{if condition='$user.site eq null || $row eq null'}
+
+<script>
+    layer.open({
+        title: '请设置代销站前缀',
+        btnAlign: 'c',
+        closeBtn: '1',//右上角的关闭
+        content: `<div><p>此处设置成功后您的分销点域名将为：<br>[你设置的].dzios.xyz ,例如：baobei.dzios.xyz <br>
+    域名前缀不能少于4位字符<br>前缀不可设置cert,tool,udid,sign,cloud等常用字符 <br>请认真慎重填写！</p>
+    {if condition="$user.site eq null"}
+    <input name="txt_remark" id="remark"  class="form-control"></div>
+    {else}
+    <input name="txt_remark" id="remark"  class="form-control" value="{$user.site}" readonly></div>
+    {/if}`,
+        btn: ['确认', '取消'],
+        yes: function (index, layero) {
+            var name = $('#remark').val();//获取多行文本框的值
+            if (name != null && name != "") {
+                var reg = /[\u4e00-\u9fa5]/;
+                if (reg.test(name) == true) {
+                    layer.msg("域名前缀不能包含中文！");
+                    return false;
+                }
+                if (name.length < 4) {
+                    layer.msg("域名前缀不能少于4位");
+                    return false;
+                }
+                layer.msg(`正在处理中..`, {icon: 16, shade: 0.3, time: false});
+                $.ajax({
+                    type: 'POST',
+                    url: "/index/index/signtool",
+                    data: {
+                        act: 'add',
+                        site: name
+                    },
+                    dataType: "json",
+                    success: function (result, textStatus, jqXHR) {
+                        if (result['code'] != 1) {
+                            layer.msg(result['msg'])
+                        } else {
+
+                            layer.msg('创建成功', {time: 2000}, function () {
+                                location.reload()
+                            })
+                        }
+                    },
+                    error: function (response) {
+                        layer.close(index);
+                        layer.msg('修改失败');
+                    }
+                });
+            }
+
+        },
+        no: function (index) {
+            layer.close(index);
+            return false;//点击按钮按钮不想让弹层关闭就返回false
+        }
+    });
+
+
+</script>
+
+{:die;} {/if}
+<div class="container" style="padding-top:30px;padding-right: 0px;padding-left: 0px;">
+    <div class="col-xs-12 col-sm-10 col-lg-10 center-block" style="float: none;">
+        <button class="btn btn-primary m-4" onclick="window.location.href = '/index/index/kami'">卡密管理</button>
+        <button class="btn btn-primary m-4" onclick="window.location.href = '/index/index/agent'">代销管理</button>
+
+        <div class="panel panel-info" style="opacity: 0.9;border-radius: 10px;">
+            <div class="panel-heading"><h3 class="panel-title">说明</h3></div>
+            <div class="panel-body">
+                <font color="red">贴牌APP已经可以通过简易代销安装<br>请确保简易代销前缀和贴牌分销前缀匹配<br>不匹配请联系客服更换！</font><br>可以通过本页管理贴牌APP的相关内容<br>如要签名工具安装APP时使用的域名<br>请将plist.php文件放到自己的服务器<br>plist文件可以联系客服获取！<br>
+
+            </div>
+        </div>
+        <div class="panel panel-info" style="opacity: 0.9;border-radius: 10px;">
+            <div class="panel-body">
+                <form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-2">分销前缀:</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <input id="c-short_site" class="form-control" name="row[short_site]" readonly="readonly" type="text" value="{$row.short_site|htmlentities}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-2">标 识:</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <input id="c-app_bundle_id" class="form-control" name="row[app_bundle_id]" readonly="readonly" type="text" value="{$row.app_bundle_id|htmlentities}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-2">名 称:</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <input id="c-app_name" class="form-control" name="row[app_name]" type="text" value="{$row.app_name|htmlentities}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-2">安装域名:</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <input id="c-plist_url" class="form-control" placeholder="https://xz.dzios.xyz/plist.php" name="row[plist_url]" type="text" value="{$row.plist_url|htmlentities}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-2">内置软件源:</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <input id="c-default_app_source_urls" class="form-control" name="row[default_app_source_urls]" type="text" value="{$row.default_app_source_urls|htmlentities}">
+                            <div style="color: red">软件源内请勿防止违法APP, 违者自行承担法律责任,欢迎举报</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-2">图 标:</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <div class="input-group">
+                                <input id="c-app_icon_url" class="form-control" name="row[app_icon_url]" type="text" value="{$row.app_icon_url|htmlentities}">
+                                <div class="input-group-addon no-border no-padding">
+                                    <img width="32px" height="32px" id="p-image" src="{$row.app_icon_url|htmlentities}">
+                                    <span>
+                                        <button type="button" id="faupload-image" class="btn btn-danger faupload" onclick="uploadlogo.click()"><i class="fa fa-upload"></i> 上传</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-2">启动图:</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <div class="input-group">
+                                <input id="c-app_launch_icon_url" class="form-control" name="row[app_launch_icon_url]" type="text" value="{$row.app_launch_icon_url|htmlentities}">
+                                <div class="input-group-addon no-border no-padding">
+                                    <img width="32px" height="32px" id="l-image" src="{$row.app_launch_icon_url|htmlentities}">
+                                    <span>
+                                        <button type="button" id="faupload-image" class="btn btn-danger faupload" onclick="uploadlaunch.click()"><i class="fa fa-upload"></i> 上传</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-2">QQ 群:</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <input id="c-group" class="form-control" placeholder="https://cer.ihyys.cn/" name="row[group]" type="text" value="{$row.group|htmlentities}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-2">联系我们:</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <input id="c-contact_url" class="form-control" placeholder="https://cer.ihyys.cn/" name="row[contact_url]" type="text" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-2">购买链接:</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <input id="c-buy_url" class="form-control" placeholder="https://cer.ihyys.cn/" name="row[buy_url]" type="text" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-2">教程地址:</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <input id="c-tutorial_url" class="form-control" placeholder="https://cer.ihyys.cn/" name="row[tutorial_url]" type="text" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-2">公 告:</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <input id="c-notice" class="form-control" placeholder="欢迎使用！......" name="row[notice]" type="text" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-2">兑换权限:</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <div class="radio">
+                                <label for="row[exchange]-true"><input id="row[exchange]-true" {if condition='$row.exchange == 1' }checked{else /}{/if} name="row[exchange]" type="radio" value="true"> 开启</label>
+                                <label for="row[exchange]-false"><input id="row[exchange]-false" {if condition='$row.exchange == 0' }checked{else /}{/if} name="row[exchange]" type="radio" value="false"> 关闭</label></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-2">黑白名单:</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <div class="radio">
+                                <label for="row[whitelist]-true"><input id="row[whitelist]-true" {if condition='$row.whitelist == 1' }checked{else /}{/if} name="row[whitelist]" type="radio" value="true"> 开启</label>
+                                <label for="row[whitelist]-false"><input id="row[whitelist]-false" {if condition='$row.whitelist == 0' }checked{else /}{/if} name="row[whitelist]" type="radio" value="false"> 关闭</label></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-xs-12 col-sm-2">导入权限:</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <div class="radio">
+                                <label for="row[import_permissions]-true"><input id="row[import_permissions]-true" {if condition='$row.import_permissions == 1' }checked{/if} name="row[import_permissions]" type="radio" value="true"> 开启</label>
+                                <label for="row[import_permissions]-false"><input id="row[import_permissions]-false" {if condition='$row.import_permissions == 0' }checked{/if} name="row[import_permissions]" type="radio" value="false"> 关闭</label></div>
+                        </div>
+                    </div>
+                    <div class="form-group layer-footer">
+                        <label class="control-label col-xs-12 col-sm-2"></label>
+                        <div class="col-xs-12 col-sm-8">
+                            <button type="submit" class="btn btn-success btn-embossed ">确定</button>
+                            <button type="reset" class="btn btn-default btn-embossed">重置</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <br><br><br>
+        <input type="file" accept="image/jpeg, image/png" name="file" required placeholder="文件流" style="display:none" id="uploadlogo">
+        <input type="file" accept="image/jpeg, image/png" name="file" required placeholder="文件流" style="display:none" id="uploadlaunch">
+    </div>
+</div>
+
+<script>
+    document.getElementById('uploadlogo').addEventListener('change', readInputFile, false);
+    document.getElementById('uploadlaunch').addEventListener('change', readLaunchFile, false);
+
+    function readInputFile(event) {
+        var file = document.getElementById("uploadlogo").files[0];
+        var fd = new FormData();//利用FormData传参
+        var xhr = new XMLHttpRequest();
+        xhr.open('post', '/index/index/uploadlogo', true);
+        xhr.onreadystatechange = function () {
+            //readystate为4表示请求已完成并就绪
+            if (this.readyState == 4) {
+                var info = xhr.responseText;
+                info = eval("(" + info + ")");
+                if (info.code == 1) {
+                    $('#c-app_icon_url').val(info.data.logopath);
+                    var img = document.getElementById("p-image");
+                    img.src = info.data.logopath;
+                } else {
+                    layer.msg('上传失败，请重试');
+                }
+            }
+        }
+        fd.append('file', file);//FormData传参
+        xhr.send(fd);
+    }
+
+    function readLaunchFile(event) {
+        var file = document.getElementById("uploadlaunch").files[0];
+        var fd = new FormData();//利用FormData传参
+        var xhr = new XMLHttpRequest();
+        xhr.open('post', '/index/index/uploadlogo', true);
+        xhr.onreadystatechange = function () {
+            //readystate为4表示请求已完成并就绪
+            if (this.readyState == 4) {
+                var info = xhr.responseText;
+                info = eval("(" + info + ")");
+                if (info.code == 1) {
+                    $('#c-app_launch_icon_url').val(info.data.logopath);
+                    var img = document.getElementById("l-image");
+                    img.src = info.data.logopath;
+                } else {
+                    layer.msg('上传失败，请重试');
+                }
+            }
+        }
+        fd.append('file', file);//FormData传参
+        xhr.send(fd);
+    }
+
+
+</script>

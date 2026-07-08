@@ -1,0 +1,317 @@
+{extend name="layout/user" /}
+{block name="header"}{include file="common/header" activeTab="devicelist"/}{/block}
+{block name="content"}
+<div class="container">
+    <div class="col-xs-12 col-sm-10 col-lg-8 center-block" style="opacity: 0.9;float: none;">
+        <div class="bg-white p-4 rounded-lg shadow-xl space-y-4 py-8 mt-12">
+            <div class="panel panel-info">
+                <div class="panel-heading" style="border-radius: 10px;">
+                    <span class="panel-title" style="width: 25%;display:inline; ">
+                        <input type="button" onclick="addudid()"
+                               value="设备添加"
+                               class="btn btn-ms btn-success "/>
+                    </span>
+                        &nbsp; 累计({$countrow})
+                </div>
+                <ul class="list-group">
+                    <div class="panel-body">
+                        <form action="{:url('index/index/Devicelist')}" method="post" class="form-inline" role="form">
+                            <div class="form-group" style="width: 100%;">
+
+                                <center>
+
+                                    <input type="text" name='cudid' placeholder="请输入UDID" value=""
+                                           class="form-control"
+                                           style="width:50%; display : inline-block"/>
+                                    <select name='zttype' style="width:26%; display : inline-block"
+                                            class="form-control">
+                                        <option value="all">全部</option>
+                                        <option value="normal">正常</option>
+                                        <option value="hidden">掉签</option>
+                                    </select>
+                                    <input type="text" name="cbeizhu" placeholder="备注" value="" class="form-control"
+                                           style="width: 20%; display : inline-block"/>
+                                    <input type="submit" name="type" value="查询"
+                                           class="btn btn-xs btn-primary form-control" style="width: 98%;"/>
+
+                                </center>
+
+                            </div>
+                            <div style="padding-top:2px;">
+                            </div>
+                        </form>
+                    </div>
+
+                </ul>
+            </div>
+        </div>
+        <div>
+            {volist name="row" id="vo"}
+            <div class="JabiSysBg" id="JabiSysBg" style="border-radius: 10px;position:relative; ">
+                <div class="JabiSysLeft">
+                    <div class="JabiSysTxt">
+                        <span class="JabiSysTitle" onclick="copy('{$vo.udid}')"> {
+                            if condition='$vo.shouhou eq "1"'}
+                            <img width='18px' height='18px' src="https://cert.4yun.cn/assets/img/sh.png">
+                            {/if}
+                            {$vo.udid}
+                        </span>
+
+                        <span class="JabiSysDes">
+                            {if condition='$vo.zt eq "normal"'}
+                            <img style="margin-top: -4px"
+                                 width='12px' height='12px'
+                                 src="/assets/img/green.png">
+                            {else /}
+                            <img style="margin-top: -4px" width='12px' height='12px' src="/assets/img/red.png">
+                            {/if}
+                            {if condition='$vo.shtype eq 0'}【躺平版】{/if}{if condition='$vo.shtype eq 1'}【标准版】{/if}
+                            {if condition='$vo.shtype eq 2'}【加强版】{/if}
+                            {if condition='$vo.shtype eq 3'}【稳定版】{/if}
+                            编号:{$vo.kid} <br>
+                            证书名称:{$vo.pname}<br>
+                            设备型号:{$vo.model} <br>
+                            添加时间:{:date('Y-m-d H:i:s',$vo.tjtime)}
+                        </span>
+                    </div>
+                </div>
+                {if condition='$vo.type eq "1"'}
+                {if condition='$vo.base64mp eq null'}
+                <div class="JabiSysRight" style="background-color: #3524e720;" onclick="checkdevice('{$vo.kid}')">
+                    查看状态
+                </div>
+                {else /}
+                <div class="JabiSysRight" style="background-color: #3524e720;"
+                     onclick="location.href='/api/getdown?all={$vo.kid}'">下载证书
+                </div>
+                {/if}
+                {else /}
+                <div class="JabiSysRight" onclick="location.href='/api/getdown?all={$vo.kid}'">下载证书</div>
+                {/if}
+                {if condition='$vo.beizhu eq ""'}
+                <div style="position: absolute; top: 2px; right: 2px">
+                    <img onclick="xg('{$vo.id}','{$vo.beizhu}')"
+                         width='30px' height='30px'
+                         src="https://cert.4yun.cn/assets/img/add.png">
+                </div>
+                {else /}
+                <div onclick="xg('{$vo.id}','{$vo.beizhu}')"
+                     style="position: absolute; top: 18px; right: 15px;font-size: 12px;	color:#9a4a1;background-color: #f1d4d4ad;border-radius: 30px;text-align: center;">
+                    &nbsp;&nbsp;{$vo.beizhu}&nbsp;&nbsp;
+                </div>
+                {/if}
+
+            </div>
+            {/volist}
+            <br>
+            <li class="list-group-item" style="border-radius: 10px;">
+                <center><a href="/index/index/devicelist ">没有更多数据了，点我返回!</a></center>
+
+            </li>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.bootcdn.net/ajax/libs/layer/3.5.1/layer.js"></script>
+<script>
+    function xg(id, beizhu) {
+        layer.open({
+            title: '添加/修改备注',
+            btnAlign: 'c',
+            closeBtn: '1',//右上角的关闭
+            content: `<div><textarea id="remark" class="form-control" rows="3">${beizhu}</textarea></div>`,
+            btn: ['确认', '取消'],
+            yes: function (index, layero) {
+                var beizhu = $('#remark').val();//获取多行文本框的值
+                if (beizhu != null && beizhu != "") {
+                    $.ajax({
+                        type: 'POST',
+                        url: "/index/index/xgbeizhu",
+                        data: {
+                            id: id,
+                            beizhu: beizhu
+                        },
+                        dataType: "json",
+                        success: function (result, textStatus, jqXHR) {
+                            layer.close(index);
+                            if (result['code'] == 1) {
+                                layer.msg('修改成功，刷新页面后可查看');
+                            } else {
+                                layer.msg('修改失败');
+                            }
+
+                        },
+                        error: function (response) {
+                            layer.close(index);
+                            layer.msg('修改失败');
+                        }
+                    });
+                }
+            },
+            no: function (index) {
+                layer.close(index);
+                return false;//点击按钮按钮不想让弹层关闭就返回false
+            }
+        });
+    }
+
+    function add(type) {
+        var udid = $('#udid').val();
+        var shtype = $("#shtype").val();
+        if (udid == '') {
+            layer.msg('UDID不能为空')
+            return;
+        }
+        var beizhu = $('#beizhu').val();
+        layer.closeAll();
+        $.blockUI({
+            message: '<img src="https://sign.52tzs.com/assets/libs/fastadmin-layer/dist/theme/default/loading.gif" /> <br>请求中.',
+            css: {
+                left: '50%',
+                'border-radius': '15px',
+                padding: '10px',
+                width: '150px',
+                height: '70px',
+                'margin-left': '-75px',
+                display: "flex",
+                "flex-direction": "column",
+                "justify-content": "center",
+                "align-items": "center",
+            }
+        });
+        $.ajax({
+            type: 'POST',
+            url: "/index/index/Devicelist",
+            data: {
+                udid: udid,
+                beizhu: beizhu,
+                shtype: shtype,
+                type: type
+            },
+            dataType: "json",
+            success: function (result, textStatus, jqXHR) {
+                $.unblockUI();
+                if (result['code'] == 1) {
+                    layer.msg(result['msg'], {time: 2000}, function () {
+                        location.reload()
+                    })
+
+
+                } else {
+                    layer.closeAll();
+                    msg(result['msg'])
+                }
+
+            },
+            error: function (response) {
+                $.unblockUI();
+                layer.msg('请求失败');
+
+            }
+        });
+    }
+
+
+    function checkdevice(id) {
+        $.blockUI({
+            message: '<img src="https://sign.52tzs.com/assets/libs/fastadmin-layer/dist/theme/default/loading.gif" /> <br>请求中.',
+            css: {
+                left: '50%',
+                'border-radius': '15px',
+                padding: '10px',
+                width: '150px',
+                height: '70px',
+                'margin-left': '-75px'
+            }
+        });
+        $.ajax({
+            type: 'POST',
+            url: "/api/getcertificate",
+            data: {
+                id: id,
+                token: '{$user.ktoken}'
+            },
+            dataType: "json",
+            success: function (result, textStatus, jqXHR) {
+                $.unblockUI();
+                if (result['code'] == 1) {
+                    msg(result['msg'])
+                    location.href = '/api/getdown?zsid=' + id;
+
+                } else {
+                    layer.msg(result['msg'])
+                }
+
+            },
+            error: function (response) {
+                $.unblockUI();
+                msg('请求失败');
+
+            }
+        });
+    }
+
+    function checkmodel(date) {
+        return false;
+        $('#model')[0].style = "display:none";
+        if (date.length == 40 || date.length == 25) {
+
+            $.ajax({
+                type: 'POST',
+                url: "/api/index/getmodel",
+                data: {
+                    udid: date,
+                },
+                dataType: "json",
+                success: function (result, textStatus, jqXHR) {
+                    $.unblockUI();
+                    if (result['code'] == 1) {
+
+                        if (result['data']['model'] == '') {
+                            if (result['data']['deviceClass'] == '') var b = '未知';
+                            if (result['data']['deviceClass'] == 'iphone') var b = 'iPhone';
+                            if (result['data']['deviceClass'] == 'ipad') var b = 'iPad';
+                        } else {
+                            var b = result['data']['model'];
+                        }
+                        $('#model')[0].style = "display:block";
+                        $('#model').html('设备型号:' + b)
+
+                    }
+                },
+                error: function (response) {
+
+
+                }
+            });
+        }
+
+    }
+
+    function addudid() {
+        layer.closeAll();
+        layer.open({
+            type: 1,
+            title: '添加设备',
+            content: `
+            <div style="padding-top:5px;padding-right: 20px;padding-left: 20px;">
+            躺平版：无售后；<br> 标准版：售后40天（按首次添加计算）<br>加强版：售后180天（按首次添加计算时间）<br> 稳定版：售后330天（按首次添加计算时间）<br>秒出价格：躺平版:{$qtjg[0]}余额/&nbsp;标准版:1设备数/&nbsp;加强版:{$qtjg[1]}余额/&nbsp;稳定版:{$qtjg[2]}余额
+            <br>预约价格：躺平版:{$yypz[0]}余额/&nbsp;标准版:{$yypz[1]}余额/&nbsp;加强版:{$yypz[2]}余额/&nbsp;稳定版:{$yypz[3]}余额<br><br>
+            
+               设备UDID:<input type="text"  id='udid' name="udid"  oninput="checkmodel(this.value)" placeholder="请输入UDID" value="" class="form-control"  />
+            <span dtyle="display:none" id='model'> </span> 
+              证书类型：<select id='shtype' class="form-control">  <option value="1" >标准版</option><option value="0" >躺平版</option><option value="2" >加强版</option><option value="3" >稳定版</option> </select> 
+               备注：<input type="text"  id="beizhu" name="beizhu" placeholder="备注" value="" class="form-control" /><br>
+               </div>
+               
+            <div style="padding-top:2px;"><center>
+            <input type="button" onclick="add('添加此UDID')" value="添加此UDID" class="btn btn-success form-control" style="width: 40%;"/>
+             
+             <input type="button" onclick="add('预约此UDID')" value="预约此UDID" class="btn btn-info form-control" style="width: 40%;"/> </center>
+             </div>
+             <br><br>
+              `
+        });
+    }
+
+</script>
+{/block}

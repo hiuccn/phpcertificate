@@ -1,0 +1,57 @@
+.MyWrapper {
+  width: 100%;
+  height: 100%;
+  height: inherit;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.14rem;
+}
+.main {
+  flex: 1;
+  overflow: auto;
+  position: relative;
+  padding: 0 0.2rem;
+}
+.footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  background: #fff;
+  height: 0.54rem;
+  border-top: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: 0.16rem;
+}
+.footer a:visited {
+  color: #606266;
+}
+.footer .navtxt {
+  font-size: 0.12rem;
+  color: #606266;
+}
+.footer .footer-items.active .navtxt{
+  font-size: 0.12rem;
+  color: #3d7dd0;
+}
+.footer .footer-items.active .iconfont{
+  color: #3d7dd0;
+}
+.footer .footer-items {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+}
+
+.footer .footer-items i {
+  width: 0.21rem;
+  height: 0.21rem;
+}
+
+.footer .footer-items:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

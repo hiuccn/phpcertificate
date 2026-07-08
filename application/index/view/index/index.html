@@ -1,0 +1,124 @@
+{extend name="layout/user" /}
+{block name="header"}{include file="common/header" activeTab="home"/}{/block}
+{block name="content"}
+<div class="w-full p-4 grid grid-cols-1 md:grid-cols-2 gap-4 overflow-y-auto">
+    <div class="p-4 h-full flex flex-col bg-white shadow">
+        <div class="bg-white rounded-lg my-2">
+            <div class="flex items-center">
+                <span class="font-bold text-indigo-600">你好, {$user.nickname|htmlentities}<br>本站开发者证书仅可用于测试用途！</span>
+            </div>
+            <div class="rounded-lg p-2 bg-amber-600 flex items-center justify-between mt-2 w-full">
+                <div class="shrink-0">
+                    <img src="{$user.avatar|htmlentities|cdnurl}" class="w-16 border-4 border-white rounded-full">
+                </div>
+                <div class="w-full overflow-x-auto cursor-pointer border-y-2 border-width border-dashed border-gray-300 flex flex-col py-2 mx-2 font-bold">
+                    <div class="w-full">
+                        <button id="c-ktoken" onclick="copy1()" class="w-full bg-white border-2 rounded-lg overflow-scroll btn btn-light whitespace-nowrap">{$user.ktoken}</button>
+                    </div>
+                    <div class="flex w-full">
+                        <div class="basis-1/2 flex-grow-[1]">
+                            <button onclick="copy1()" class="w-full bg-white border-2 rounded-lg overflow-scroll btn btn-light whitespace-nowrap">复制Token</button>
+                        </div>
+                        <div class="basis-1/2 flex-grow-[1]">
+                            <button onclick="tkchange()" class="w-full bg-white border-2 rounded-lg overflow-scroll btn btn-light whitespace-nowrap">更换Token</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {if isset($user)}
+            <div class="p-2 bg-[#D28430] flex items-center justify-between mt-2 w-full">
+                <div class="flex w-full p-1 justify-center items-center">
+                    <div class="basis-3/5 flex-grow-[1] pr-1">
+                        <input type="email" id='email' name="email" placeholder="订阅消费邮件通知" value="{$user.email}"
+                               class="form-input py-1 border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300"
+                               required/>
+                    </div>
+                    <div class="basis-1/5 flex items-center justify-center flex-grow-[1]">
+                        <input id="notification" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 mr-1" {if $user.notification == 1}checked{/if}>                    <label for="notification" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">通知</label>
+                    </div>
+                    <div class="basis-1/5 flex-grow-[1]">
+                        <button onclick="changeNotification()" class="w-full bg-white border-2 rounded-lg overflow-scroll btn btn-light whitespace-nowrap">确认</button>
+                    </div>
+                </div>
+            </div>
+            {/if}
+        </div>
+        
+        
+        <div class="grid grid-cols-3 gap-2 h-32">
+            <div class="rounded-lg bg-amber-600 text-white flex flex-col items-center justify-center">
+                <span class="text-3xl font-bold">0</span>
+                <span>消费力</span>
+            </div>
+            <div class="rounded-lg bg-amber-600 text-white flex flex-col items-center justify-center">
+                <span class="text-3xl font-bold">{$user.score}</span>
+                <span>设备数</span>
+            </div>
+            <div class="money rounded-lg bg-amber-600 text-white flex flex-col items-center justify-center">
+                <span class="text-3xl font-bold">{$user.money}</span>
+                <span>账户余额</span>
+            </div>
+        </div>
+        <div class="flex flex-col py-2">
+            <div class="grid grid-cols-3 md:grid-cols-4 py-2 gap-2">
+                <a href="/index/index/devicelist" class="rounded-lg btn btn-link col-span-1 mx-2 whitespace-nowrap">设备管理</a>
+                <a href="/index/index/sign" class="rounded-lg btn btn-link col-span-1 mx-2 whitespace-nowrap">软件签名</a>
+                <a href="/index/index/my" class="rounded-lg btn btn-link col-span-1 mx-2 whitespace-nowrap">独 立 池</a>
+                <a onclick="cz()" class="rounded-lg btn btn-link col-span-1 mx-2 whitespace-nowrap">在线充值</a>
+                <a href="/index/index/paylist" class="rounded-lg btn btn-link col-span-1 mx-2 whitespace-nowrap">账变记录</a>
+                <a onclick="openSite()" class="rounded-lg btn btn-link col-span-1 mx-2 whitespace-nowrap">S1演示站点</a>
+                <a href="https://giybkn8ic87.feishu.cn/docx/EhwudYJQOoKxQexQBVCcwbVhnhc" class="rounded-lg btn btn-link col-span-1 mx-2 whitespace-nowrap">S1搭建教程</a>
+                <a href="/index/index/agent" class="rounded-lg btn btn-link col-span-1 mx-2 whitespace-nowrap">简易代销</a>
+                 <a href="/index/index/kami" class="rounded-lg btn btn-link col-span-1 mx-2 whitespace-nowrap">卡密管理</a>
+                 <a href="https://console-docs.apipost.cn/preview/411252fdedeba390/9502dc39b051a8de" class="rounded-lg btn btn-link col-span-1 mx-2 whitespace-nowrap">对接文档</a>
+                 <a href="https://cer.ihyys.cn/index/user/website.html" class="rounded-lg btn btn-link col-span-1 mx-2 whitespace-nowrap">S1贴牌</a>
+                 <a href="https://giybkn8ic87.feishu.cn/docx/J2RZd8HpjohmCsxGVESc5ZlUnuh" class="rounded-lg btn btn-link col-span-1 mx-2 whitespace-nowrap">站点使用教程</a>
+                <a href="{:url('user/changepwd')}" class="rounded-lg btn btn-link col-span-1 mx-2 whitespace-nowrap">修改密码</a>
+            </div>
+        </div>
+    </div>
+    <div class="p-4 h-full flex flex-col bg-white shadow">
+        <h3>站点公告</h3>
+        <div class="overflow-hidden">
+            {$site.gonggao}
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/assets/js/index.min.js?v=8"></script>
+<script>
+    sl = 0;
+    je = 0;
+    mn = 0;
+    dhs = 0;
+    pljg = {:json_encode($pljg)};
+    plqj = {:json_encode($plqj)};
+    customprice = {:json_encode($customprice)};
+    jf = {$user.jifen};
+    userid = {$user.id};
+    paytype = {$paytype};
+    usermoney = {$user.money};
+    userscore = {$user.score};
+
+    window.onload = function() {
+        var moneyDiv = document.querySelector('.money');
+        var moneySpan = moneyDiv.querySelector('.text-3xl');
+
+        function adjustFontSize() {
+            var divWidth = moneyDiv.offsetWidth;
+            var contentWidth = moneySpan.scrollWidth;
+            var currentFontSize = parseFloat(window.getComputedStyle(moneySpan, null).getPropertyValue('font-size'));
+            var newFontSize = currentFontSize * divWidth * 0.8 / contentWidth;
+            // 将字体大小限制在 30px 以下
+            newFontSize = Math.min(newFontSize, 30);
+            moneySpan.style.fontSize = newFontSize + 'px';
+        }
+
+        adjustFontSize();
+        window.addEventListener('resize', adjustFontSize);
+    }
+
+</script>
+
+
+
+{/block}

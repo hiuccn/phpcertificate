@@ -1,0 +1,1150 @@
+{extend name="layout/user" /}
+{block name="header"}{include file="common/header" activeTab="devicelist"/}{/block}
+{block name="content"}
+<div class="flex justify-center w-full">
+    <div class="col-xs-12 col-sm-10 col-lg-8 center-block w-full xl:w-2/3 devices-container">
+        <div class="w-full bg-white p-1 text-xs	md:text-base md:p-4 shadow-xl space-y-4 my-4"
+             x-data="{ searchExpanded: false }">
+            <div class="w-full flex items-center flex-nowrap">
+                <input type="button" onclick="addudid()"
+                       value="添加"
+                       class="rounded-none btn btn-ms btn-success text-xs md:text-base"/>
+                <input type="button" onclick="up_udid()"
+                       value="上传证书"
+                       class="rounded-none btn btn-ms btn-primary text-xs md:text-base"/>
+                <input type="button" onclick="getUDID()"
+                       value="获取udid"
+                       class="rounded-none btn btn-ms btn-primary text-xs md:text-base"/>
+                <span class="flex-grow-[3] text-right lg:text-lg p-2 flex justify-end text-xs">
+                    累计添加: {$countrow}
+                </span>
+                <button @click="searchExpanded = !searchExpanded"
+                        class="text-xs md:text-base rounded-none flex items-center justify-center text-center btn btn-ms btn-primary">
+                    <svg class="h-5 w-5 hover:text-primary" x-show="!searchExpanded" viewBox="0 0 24 24" fill="none"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <path d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12Z"
+                                  stroke="#ffffff" stroke-width="1.5"></path>
+                            <path d="M15 12L12 12M12 12L9 12M12 12L12 9M12 12L12 15" stroke="#ffffff" stroke-width="1.5"
+                                  stroke-linecap="round"></path>
+                        </g>
+                    </svg>
+                    <svg class="h-5 w-5 hover:text-primary" x-show="searchExpanded" fill="#ffffff" viewBox="0 0 16 16"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <g>
+                                <path d="M12.36,1H3.64A2.64,2.64,0,0,0,1,3.64v8.72A2.64,2.64,0,0,0,3.64,15h8.72A2.64,2.64,0,0,0,15,12.36V3.64A2.64,2.64,0,0,0,12.36,1ZM13.6,12.36a1.25,1.25,0,0,1-1.24,1.24H3.64A1.25,1.25,0,0,1,2.4,12.36V3.64A1.25,1.25,0,0,1,3.64,2.4h8.72A1.25,1.25,0,0,1,13.6,3.64ZM4,8.71h8V7.31H4Z"></path>
+                            </g>
+                        </g>
+                    </svg>
+                    <p class="ml-1">查询</p>
+                </button>
+            </div>
+            <div x-show="searchExpanded" x-collapse.duration.800ms>
+                <form action="{:url('index/index/devicelist')}" method="post" class="form-inline" role="form">
+                    <div class="form-group">
+                        <div class="flex flex-col">
+                            <label for="cudid">UDID</label>
+                            <input class="form-input mt-2 py-1 border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300"
+                                   type="text" id="cudid" name='cudid' placeholder="请输入UDID" value=""/>
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="zttype">状态</label>
+                            <select class="mt-2 py-1 border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300"
+                                    name='zttype' id="zttype">
+                                <option value="all">全部</option>
+                                <option value="normal">正常</option>
+                                <option value="hidden">掉签</option>
+                            </select>
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="cbeizhu">备注</label>
+                            <input type="text" id="cbeizhu" name="cbeizhu" placeholder="备注" value=""
+                                   class="form-input mt-2 py-1 border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300"/>
+                        </div>
+                        <div class="flex-col">
+                            <input type="submit" name="type" value="查询"
+                                   class="rounded-none mt-2 py-1 btn btn-lg btn-primary form-control"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="w-full space-y-1" id="devices">
+            {volist name="row" id="vo"}
+            <div class="flex m-2">
+                <div {if condition='$vo.type eq "1"' }
+                     {if condition='$vo.base64mp eq null' }
+                     onclick="checkdevice('{$vo.kid}')"
+                     {else/}
+                onclick="location.href='/api/getdown?all={$vo.kid}'"
+                {/if}
+                {else/}
+                onclick="location.href='/api/getdown?all={$vo.kid}'" {/if} class="rounded-l-lg cursor-pointer flex basis-[30%] flex-shrink-0 flex-col items-center justify-center px-2 {if condition='$vo.zt eq "normal"'}{if condition='$vo.type eq "1"'}bg-green-600{else/}bg-blue-500{/if}{else/}bg-gray-500{/if} text-gray-100">
+                {if condition='$vo.chi eq "1"'}
+                <span class="text-xs lg:text-sm p-1 rounded-md bg-red">独立池</span>
+                {/if}
+                <span class="flex items-center">
+                        <span class="text-sm lg:text-base font-semibold">
+                                {if condition='$vo.shtype eq 0'}【躺平版】{/if}
+                                {if condition='$vo.shtype eq 1'}【标准版】{/if}
+                                {if condition='$vo.shtype eq 2'}【加强版】{/if}
+                                {if condition='$vo.shtype eq 3'}【稳定版】{/if}
+                                {if condition='$vo.shtype eq 4'}【摆烂版】{/if}
+                        </span>
+                        {if condition='$vo.type eq "1" && $vo.base64mp eq null'}
+                        <svg viewBox="-102.4 -102.4 1228.80 1228.80" class="w-5 h-5 mr-1 icon" version="1.1"
+                             xmlns="http://www.w3.org/2000/svg" fill="#ffffff"><g id="SVGRepo_bgCarrier"
+                                                                                  stroke-width="0"><rect x="-102.4"
+                                                                                                         y="-102.4"
+                                                                                                         width="1228.80"
+                                                                                                         height="1228.80"
+                                                                                                         rx="245.76"
+                                                                                                         fill="#ffffff"
+                                                                                                         strokewidth="0"></rect></g><g
+                                id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g
+                                id="SVGRepo_iconCarrier"><path
+                                d="M597.678 480.76L390.797 333.998c-22.209-15.766-53-10.532-68.762 11.687l-2.04 2.871c-15.753 22.214-10.526 53 11.691 68.762l206.876 146.771c22.218 15.757 53 10.527 68.766-11.687l2.035-2.876c15.768-22.218 10.529-53.005-11.685-68.766z"
+                                fill="#F39A2B"></path><path
+                                d="M585.066 423.392l-2.871-2.034c-22.218-15.763-53.004-10.527-68.766 11.687L279.007 763.472c-15.762 22.214-10.527 53.005 11.69 68.763l2.871 2.04c22.218 15.762 53.004 10.53 68.762-11.688l234.423-330.428c15.767-22.22 10.531-53.001-11.687-68.767z"
+                                fill="#E5594F"></path><path
+                                d="M891.662 525.126c-0.363 50.106-8.104 91.767-27.502 142.522-13.232 34.625-44.231 82.177-70.529 111.108-62.993 69.31-152.478 113.292-240.772 121.615-100.773 9.501-189.621-17.478-271.287-78.551 7.65 5.723-7.536-6.408-7.061-6.009-4.562-3.821-8.967-7.82-13.369-11.824-8.803-8.003-17.105-16.535-25.225-25.224-18.148-19.432-26.188-30.526-41.439-54.866-27.11-43.264-40.704-80.283-51.007-132.536-4.015-20.354-5.395-39.803-5.586-66.233-0.531-73.33-114.29-73.381-113.758 0 1.607 222.487 154.098 420.146 370.093 475.715 216.482 55.697 449.039-49.258 553.91-245.54 37.754-70.664 56.715-150.224 57.293-230.179 0.526-73.379-113.231-73.328-113.761 0.002z"
+                                fill="#4A5699"></path><path
+                                d="M137.884 501.467c0.362-50.104 8.103-91.762 27.502-142.52 13.233-34.621 44.233-82.173 70.53-111.108 62.993-69.309 152.472-113.29 240.768-121.615 100.773-9.5 189.626 17.479 271.292 78.554-7.652-5.721 7.532 6.408 7.057 6.01 4.563 3.819 8.968 7.821 13.371 11.823 8.803 8 17.108 16.535 25.228 25.225 18.147 19.43 26.187 30.526 41.438 54.866 27.111 43.264 40.709 80.28 51.009 132.533 4.014 20.352 5.396 39.804 5.586 66.232 0.529 73.33 114.287 73.384 113.76 0-1.608-222.489-154.107-420.144-370.099-475.715-216.482-55.7-449.036 49.26-553.905 245.541-37.753 70.664-56.715 150.219-57.292 230.174-0.534 73.384 113.225 73.33 113.755 0z"
+                                fill="#C45FA0"></path></g></svg>
+                        {/if}
+                    </span>
+                <span class="text-xs lg:text-sm text-gray-200">{$vo.kid}</span>
+                {if condition='$vo.type eq "1"'}
+                <span class="text-xs lg:text-sm">预约</span>
+                {/if}
+                {if condition='$vo.zt neq "normal"'}
+                <span class="text-xs lg:text-sm text-center">掉签</span>
+                {/if}
+            </div>
+            <div class="rounded-r-lg flex overflow-hidden w-full justify-between p-2 bg-gray-100 hover:bg-gray-200 transition duration-200">
+                <div class="{if condition='$vo.zt neq "normal"'} text-gray-500 {/if} flex flex-col flex-grow-[4] justify-center overflow-hidden">
+                <span onclick="copy('{$vo.udid}')"
+                      class="cursor-pointer xl:text-lg text-ellipsis whitespace-nowrap overflow-hidden font-bold">{$vo.udid}</span>
+                <span class="flex items-center">
+                            <svg class="w-4 h-4 mr-1"
+                                 version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                 xmlns:xlink="http://www.w3.org/1999/xlink"
+                                 viewBox="0 0 252.643 252.643" xml:space="preserve">
+                                <g>
+                                                            <path style="fill:#000002;" d="M235.143,17.081H17.5c-9.649,0-17.5,7.851-17.5,17.5v147.658c0,9.649,7.851,17.5,17.5,17.5h126.911
+                                                                l-3.832,23.37c-0.721,4.399,0.734,8.384,3.893,10.658c3.158,2.274,7.396,2.396,11.341,0.317l27.381-14.412
+                                                                c0.764-0.392,2.869-0.392,3.633,0l27.381,14.412c1.873,0.986,3.813,1.477,5.672,1.477c2.056,0,4.012-0.601,5.67-1.795
+                                                                c3.158-2.274,4.613-6.26,3.893-10.659l-3.831-23.369h9.532c9.649,0,17.5-7.851,17.5-17.5V34.581
+                                                                C252.643,24.931,244.792,17.081,235.143,17.081z M185.011,169.743c-16.817,0-30.5-13.683-30.5-30.5c0-16.817,13.683-30.5,30.5-30.5
+                                                                s30.5,13.683,30.5,30.5C215.511,156.06,201.828,169.743,185.011,169.743z M193.814,206.399c-5.101-2.686-12.506-2.686-17.606,0
+                                                                l-19.358,10.189l6.154-37.539c6.527,3.623,14.029,5.693,22.008,5.693s15.48-2.071,22.008-5.693l2.398,14.635
+                                                                c0.006,0.024,0.008,0.05,0.013,0.074l3.743,22.831L193.814,206.399z M237.643,182.239c0,1.355-1.145,2.5-2.5,2.5h-11.991
+                                                                l-2.739-16.709c-0.011-0.066-0.029-0.129-0.042-0.195c6.335-7.818,10.141-17.768,10.141-28.592c0-25.089-20.411-45.5-45.5-45.5
+                                                                c-25.089,0-45.5,20.411-45.5,45.5c0,10.824,3.806,20.772,10.141,28.592c-0.013,0.065-0.031,0.129-0.042,0.194l-2.741,16.723
+                                                                c-0.084-0.003-0.165-0.013-0.249-0.013H17.5c-1.355,0-2.5-1.145-2.5-2.5V34.581c0-1.355,1.145-2.5,2.5-2.5h217.643
+                                                                c1.355,0,2.5,1.145,2.5,2.5V182.239z"/>
+                                                            <path style="fill:#000002;" d="M208.619,60.243h-170c-4.143,0-7.5,3.357-7.5,7.5c0,4.143,3.357,7.5,7.5,7.5h170
+                                                                c4.143,0,7.5-3.357,7.5-7.5C216.119,63.6,212.762,60.243,208.619,60.243z"/>
+                                                            <path style="fill:#000002;" d="M110.619,100.911h-72c-4.143,0-7.5,3.357-7.5,7.5c0,4.143,3.357,7.5,7.5,7.5h72
+                                                                c4.143,0,7.5-3.357,7.5-7.5C118.119,104.268,114.762,100.911,110.619,100.911z"/>
+                                                        </g>
+                            </svg>
+                            <span class="xl:text-lg text-ellipsis whitespace-nowrap overflow-hidden">{$vo.pname}</span>
+                        </span>
+                <span class="flex items-center">
+                            <svg class="w-4 h-4 mr-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <defs><style>.cls-1 {
+                                    fill: none;
+                                    stroke: #020202;
+                                    stroke-miterlimit: 10;
+                                    stroke-width: 1.91px;
+                                }</style></defs>
+                                <rect class="cls-1" x="5.32" y="1.5" width="13.36" height="21" rx="1.91"/>
+                                <path class="cls-1"
+                                      d="M13.91,2.45H10.09a.94.94,0,0,1-.95-1h5.72A.94.94,0,0,1,13.91,2.45Z"/>
+                                <line class="cls-1" x1="11.05" y1="19.64" x2="12.95" y2="19.64"/>
+                            </svg>
+                            <span class="xl:text-lg text-ellipsis whitespace-nowrap overflow-hidden flex-grow-[1]">{if condition='$vo.model neq ""'}{$vo.model}{else/}未知{/if}</span>
+                            {if condition='$vo.beizhu neq ""'}
+                            <span class="text-xs lg:text-sm bg-gray-300 p-2 rounded-lg text-center text-ellipsis whitespace-nowrap overflow-hidden">{$vo.beizhu}</span>
+                            {/if}
+                        </span>
+                <span class="xl:text-lg text-ellipsis whitespace-nowrap overflow-hidden">
+                            {:date('Y-m-d H:i:s',$vo.tjtime)}
+                        </span>
+            </div>
+            <div class="flex-shrink-[0] flex-grow-[1] flex items-end justify-end">
+                <svg onclick="xg('{$vo.id}','{$vo.beizhu}')" class="cursor-pointer w-8 h-8 mr-1" version="1.1"
+                     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                     viewBox="0 0 512.00 512.00" xml:space="preserve" fill="#000000" stroke="#000000"
+                     stroke-width="0.00512"><g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier"> <style type="text/css">  .st0 {
+                        fill: #000000;
+                    }  </style>
+                        <g> <path class="st0"
+                                  d="M372.644,240.054l-13.422-13.438c-8.078,4.859-25.953,12.859-25.953,12.859 c-4.047,1.672-6.953,5.281-7.719,9.594l-9.047,42.141l-5.188,5.188c-1.875-0.031-3.75,0.672-5.172,2.094 c-2.813,2.813-2.813,7.344,0,10.156s7.359,2.813,10.156,0c1.422-1.422,2.125-3.297,2.094-5.156l5.188-5.203l42.141-9.047 c4.313-0.766,7.922-3.688,9.609-7.719c0,0,7.984-17.859,12.844-25.938l-13.422-13.422L372.644,240.054z M358.144,267.757 c-3.078,3.063-8.047,3.063-11.109,0s-3.063-8.031,0-11.094s8.031-3.063,11.109,0C361.191,259.726,361.191,264.694,358.144,267.757z "></path>
+                            <path class="st0"
+                                  d="M415.363,228.054l-28.625-28.625c0,0-10.031,10.031-13.266,13.266s-7.438,2.266-7.438,2.266l-3.875,3.875 l13.578,13.578l3.25,3.25l16.969,16.969l3.875-3.875c0,0-0.969-4.203,2.266-7.438S415.363,228.054,415.363,228.054z"></path>
+                            <path class="st0"
+                                  d="M494.988,339.022c-7.453-25.969-14.938-51.922-22.406-77.891c-4.813-16.719-9.625-33.438-14.438-50.172 c-7.656,6.438-14.969,12.609-20.188,17.172c8.922,35.156,17.844,70.313,26.766,105.453c3.234,12.734-5.25,24.063-19.219,19.719 c-22.875-9.5-48.063-16.188-72.844-17.453c-28.141-1.469-56.969,4.313-82.922,15.125c-2.922,1.203-22.516,15.297-23.281,5.297 c-0.438-23.375-0.875-46.75-1.297-70.109c-0.891-48.281-1.797-96.547-2.688-144.828c-0.047-2.781,6.625-4.172,8.016-4.688 c10.922-4.141,22.359-7,33.891-8.859c28.063-4.563,55.688-2.234,83.156,4.75c9.594,2.438,19.719,5.484,26.172,12.375 c4.078-4.859,8.125-9.672,12.031-14.25c-4.453-3.469-9.484-6.359-14.859-8.75c-23.297-10.422-52.859-14.547-78.125-15.141 c-26.984-0.641-54.563,3.594-80.109,12.359c-4.969,1.719-13.109-2.813-18.188-4.188c-6-1.625-12.063-2.984-18.156-4.125 c-13.453-2.5-27.109-3.844-40.781-4.063c-26.141-0.406-52.859,4.594-77.828,12.109c-5.5,2.063-1.578,0.625-0.359,0.141 c-15.578,5.906-32.656,15.516-37.578,32.609c-1.219,4.281-2.453,8.547-3.688,12.828c-6.219,21.609-12.438,43.219-18.656,64.844 c-8.516,29.547-17,59.094-25.516,88.641C6.941,335.132-2.872,357.226,0.8,375.319c4.5,22.391,26.391,32.703,47.563,28.375 c7.438-1.516,14.266-4.953,21.375-7.5c11.875-4.25,24.016-7.844,36.359-10.406c29.766-6.172,59.984-2.906,89.219,4.641 c6.531,1.688,31,5.906,31.719,13.219c0.656,6.797,8.484,4.953,13.406,4.953c4.891,0,9.797,0,14.672,0 c4.5,0,12.016,1.547,16.266-0.313c4.281-1.859,0.984-6.531,5-8.281c5.484-2.359,11.156-4.328,16.859-6.109 c13.344-4.141,27.016-7.234,40.828-9.25c29.531-4.313,57.453-1.203,85.828,7.75c16.61,5.234,32.704,14.906,50.735,11.672 c24.563-4.344,34.609-29.453,28.172-51.859C497.645,347.788,496.27,343.413,494.988,339.022z M237.269,198.741 c-0.969,51.891-1.938,103.781-2.891,155.672c-0.078,3.469-1.016,5.641-4.891,5.531c-21.016-12.484-45.969-19.703-70.078-22.75 c-28.359-3.594-56.094,0.281-83.266,8.703c-8.422,2.609-17.859,8.328-26.797,8.328c-10.219,0-16.172-9.109-13.766-18.609 c6.234-24.563,12.469-49.141,18.719-73.703c7.328-28.906,14.656-57.797,22-86.688c1.828-7.203,3.641-14.391,5.469-21.594 c4.469-17.609,29.391-20.953,44.25-24.031c27.797-5.75,55.938-5.719,83.609,0.797c4.781,1.125,28.813,4.828,28.688,11.672 C237.957,160.96,237.613,179.851,237.269,198.741z"></path>
+                            <path class="st0"
+                                  d="M420.785,223.101c10.188-10.188,64.016-53.406,79.047-68.453c15.047-15.031,16.25-29.469,3.016-42.688 c-13.234-13.234-27.672-12.047-42.703,3c-15.031,15.031-58.266,68.859-68.454,79.047L420.785,223.101z M434.176,170.382 l45.313-45.297c1.094-1.109,2.906-1.109,4.016,0l6.203,6.203c1.109,1.125,1.109,2.906,0,4.016l-45.297,45.313 c-1.109,1.109-2.906,1.109-4,0l-6.234-6.219C433.082,173.288,433.082,171.491,434.176,170.382z"></path> </g> </g></svg>
+            </div>
+        </div>
+    </div>
+    {/volist}
+</div>
+<input type="number" id="current_page" value={$current_page} class="hidden"/>
+<input type="number" id="last_page" value={$last_page} class="hidden"/>
+<div>
+    <center><span class="cursor-pointer {if condition='$current_page eq $last_page'}hidden{/if}" id="more_value"
+                  onclick="getMore()">点击加载更多数据</span></center>
+    <center><span {if condition='$current_page neq $last_page' }class="hidden" {/if} id="no_more">没有更多数据了!</span>
+    </center>
+</div>
+<input type="file" accept=".p12" name="file" required="" placeholder="文件流" style="display:none" id="getp12">
+<input type="file" accept=".mobileprovision" name="file" required="" placeholder="文件流" style="display:none" id="get_mobileprovision">
+</div>
+</div>
+
+<script>
+    p12path='';
+    mobileprovision_path='';
+    $(window).on('load', function () {
+        var path = document.getElementById("getp12");
+        path.addEventListener( 'change',uploadp12,false );
+        var m_path = document.getElementById("get_mobileprovision");
+        m_path.addEventListener( 'change',up_mobileprovision,false );
+    });
+
+    function uploadp12(){
+        var p=document.getElementById("getp12").value;
+        if(p.indexOf("p12") == -1){
+            layer.msg('文件错误,请选择P12格式文件');
+        }else{
+            var file=document.getElementById("getp12").files[0];
+            var fd = new FormData();//利用FormData传参
+            var xhr = new XMLHttpRequest();
+            //xhr.setRequestHeader('token',sessionStorage.getItem('token'))加token
+            xhr.open('post', '/index/index/uploadcer', true);
+            xhr.onreadystatechange = function () {
+                //readystate为4表示请求已完成并就绪
+                if (this.readyState == 4) {
+
+                    var info = xhr.responseText;
+                    var info = eval("(" + info + ")");
+
+                    if(info.code==1){
+
+                        p12path=info.data.apppath;
+                        $('#p12').val(p12path);
+
+                    }else{
+                        layer.msg('上传失败，请重试');
+                    }
+
+                }
+            }
+            fd.append('file', file);//FormData传参
+            xhr.send(fd);
+        }
+    }
+
+
+    function up_mobileprovision(){
+        var p=document.getElementById("get_mobileprovision").value;
+        if(p.indexOf("mobileprovision") == -1){
+            layer.msg('文件错误,请选择 mobileprovision 格式文件');
+        }else{
+            var file=document.getElementById("get_mobileprovision").files[0];
+            var fd = new FormData();//利用FormData传参
+            var xhr = new XMLHttpRequest();
+            //xhr.setRequestHeader('token',sessionStorage.getItem('token'))加token
+            xhr.open('post', '/index/index/uploadcer', true);
+            xhr.onreadystatechange = function () {
+                //readystate为4表示请求已完成并就绪
+                if (this.readyState == 4) {
+                    var info = xhr.responseText;
+                    var info = eval("(" + info + ")");
+                    if(info.code==1){
+                        mobileprovision_path=info.data.apppath;
+                        $('#mp').val(mobileprovision_path);
+                    }else{
+                        layer.msg('上传失败，请重试');
+                    }
+                }
+            }
+            fd.append('file', file);//FormData传参
+            xhr.send(fd);
+        }
+    }
+
+
+    function cxdisplay(){
+        if(document.getElementById('cxsb').style.display=='block'){
+            document.getElementById('cxsb').style.display='none';
+        }else{
+            document.getElementById('cxsb').style.display='block';
+        }
+
+    }
+    function getUDID() {
+        console.log("123")
+        window.location.href = '/udid/index.php'
+    }
+
+    function formatTimestamp(timestamp) {
+        let date = new Date(timestamp * 1000);
+        let year = date.getFullYear();
+        let month = (date.getMonth() + 1).toString().padStart(2, '0');
+        let day = date.getDate().toString().padStart(2, '0');
+        let hours = date.getHours().toString().padStart(2, '0');
+        let minutes = date.getMinutes().toString().padStart(2, '0');
+        let seconds = date.getSeconds().toString().padStart(2, '0');
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    }
+
+    function addCell(vo) {
+        let shtype = vo.shtype === 0 ? "【躺平版】" : (vo.shtype === 1 ? "【标准版】" : (vo.shtype === 2 ? "【加强版】" :  (vo.shtype === 3 ? "【稳定版】" : "【摆烂版】")));
+        let divStyle = "";
+        if (vo.type === 1) {
+            if (!vo.base64mp) {
+                // 预约未出
+                divStyle += `onclick="checkdevice('${vo.kid}')"`;
+            } else {
+                // 预约已出
+                divStyle += `onclick="location.href='/api/getdown?all=${vo.kid}'"`;
+            }
+        } else {
+            // 秒出
+            divStyle += `onclick="location.href='/api/getdown?all=${vo.kid}'"`;
+        }
+        divStyle += ` class="cursor-pointer flex basis-[30%] flex-shrink-0 flex-col items-center justify-center px-2 text-gray-100`
+        if (vo.zt === 'normal') {
+            if (vo.type === 1) {
+                divStyle += ` bg-green-600"`;
+            } else {
+                divStyle += ` bg-blue-500"`;
+            }
+        } else {
+            // 掉签
+            divStyle += ` bg-gray-500"`;
+        }
+        let isPool = vo.chi === 1 ? `<span class="text-xs lg:text-sm p-1 rounded-md bg-red">独立池</span>` : "";
+        let isBooking = vo.type === 1 && !vo.base64mp ? `<svg viewBox="-102.4 -102.4 1228.80 1228.80" class="w-5 h-5 mr-1 icon" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"><rect x="-102.4" y="-102.4" width="1228.80" height="1228.80" rx="245.76" fill="#ffffff" strokewidth="0"></rect></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M597.678 480.76L390.797 333.998c-22.209-15.766-53-10.532-68.762 11.687l-2.04 2.871c-15.753 22.214-10.526 53 11.691 68.762l206.876 146.771c22.218 15.757 53 10.527 68.766-11.687l2.035-2.876c15.768-22.218 10.529-53.005-11.685-68.766z" fill="#F39A2B"></path><path d="M585.066 423.392l-2.871-2.034c-22.218-15.763-53.004-10.527-68.766 11.687L279.007 763.472c-15.762 22.214-10.527 53.005 11.69 68.763l2.871 2.04c22.218 15.762 53.004 10.53 68.762-11.688l234.423-330.428c15.767-22.22 10.531-53.001-11.687-68.767z" fill="#E5594F"></path><path d="M891.662 525.126c-0.363 50.106-8.104 91.767-27.502 142.522-13.232 34.625-44.231 82.177-70.529 111.108-62.993 69.31-152.478 113.292-240.772 121.615-100.773 9.501-189.621-17.478-271.287-78.551 7.65 5.723-7.536-6.408-7.061-6.009-4.562-3.821-8.967-7.82-13.369-11.824-8.803-8.003-17.105-16.535-25.225-25.224-18.148-19.432-26.188-30.526-41.439-54.866-27.11-43.264-40.704-80.283-51.007-132.536-4.015-20.354-5.395-39.803-5.586-66.233-0.531-73.33-114.29-73.381-113.758 0 1.607 222.487 154.098 420.146 370.093 475.715 216.482 55.697 449.039-49.258 553.91-245.54 37.754-70.664 56.715-150.224 57.293-230.179 0.526-73.379-113.231-73.328-113.761 0.002z" fill="#4A5699"></path><path d="M137.884 501.467c0.362-50.104 8.103-91.762 27.502-142.52 13.233-34.621 44.233-82.173 70.53-111.108 62.993-69.309 152.472-113.29 240.768-121.615 100.773-9.5 189.626 17.479 271.292 78.554-7.652-5.721 7.532 6.408 7.057 6.01 4.563 3.819 8.968 7.821 13.371 11.823 8.803 8 17.108 16.535 25.228 25.225 18.147 19.43 26.187 30.526 41.438 54.866 27.111 43.264 40.709 80.28 51.009 132.533 4.014 20.352 5.396 39.804 5.586 66.232 0.529 73.33 114.287 73.384 113.76 0-1.608-222.489-154.107-420.144-370.099-475.715-216.482-55.7-449.036 49.26-553.905 245.541-37.753 70.664-56.715 150.219-57.292 230.174-0.534 73.384 113.225 73.33 113.755 0z" fill="#C45FA0"></path></g></svg>` : "";
+        let isBookDeivce = vo.type === 1 ? `<span class="text-xs lg:text-sm">预约</span>` : "";
+        let isRevoked = vo.zt !== 'normal' ? `<span class="text-xs lg:text-sm text-center">掉签</span>` : "";
+        if (!vo.model || vo.model === '') {
+            vo.model = '未知';
+        }
+        let note = vo.beizhu !== '' ? '' : `<span className="text-xs lg:text-sm bg-gray-300 p-2 rounded-lg text-center text-ellipsis whitespace-nowrap overflow-hidden">${vo.beizhu}</span>`;
+        let tjtime = `<span class="xl:text-lg text-ellipsis whitespace-nowrap overflow-hidden">${formatTimestamp(vo.tjtime)}</span>`;
+        let isRevokedColor = vo.zt === 'normal' ? '' : 'text-gray-500';
+        let div = `
+        <div class="flex">
+            <div ${divStyle}>
+                ${isPool}
+                <span class="flex items-center">
+                    <span class="text-sm lg:text-base font-semibold">${shtype}</span>
+                    ${isBooking}
+                </span>
+                <span class="text-xs lg:text-sm text-gray-200">${vo.kid}</span>
+                ${isBookDeivce}
+                ${isRevoked}
+            </div>
+            <div class="flex overflow-hidden w-full justify-between p-4 bg-gray-100 hover:bg-gray-200 transition duration-200">
+                <div class="${isRevokedColor} flex flex-col flex-grow-[4] justify-center overflow-hidden">
+                    <span onclick="copy('${vo.udid}')" class="cursor-pointer xl:text-lg text-ellipsis whitespace-nowrap overflow-hidden font-bold" >${vo.udid}</span>
+                    <span class="flex items-center">
+                        <svg  class="w-4 h-4 mr-1" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 252.643 252.643" xml:space="preserve">
+                            <g>
+                                <path style="fill:#000002;" d="M235.143,17.081H17.5c-9.649,0-17.5,7.851-17.5,17.5v147.658c0,9.649,7.851,17.5,17.5,17.5h126.911
+                                    l-3.832,23.37c-0.721,4.399,0.734,8.384,3.893,10.658c3.158,2.274,7.396,2.396,11.341,0.317l27.381-14.412
+                                    c0.764-0.392,2.869-0.392,3.633,0l27.381,14.412c1.873,0.986,3.813,1.477,5.672,1.477c2.056,0,4.012-0.601,5.67-1.795
+                                    c3.158-2.274,4.613-6.26,3.893-10.659l-3.831-23.369h9.532c9.649,0,17.5-7.851,17.5-17.5V34.581
+                                    C252.643,24.931,244.792,17.081,235.143,17.081z M185.011,169.743c-16.817,0-30.5-13.683-30.5-30.5c0-16.817,13.683-30.5,30.5-30.5
+                                    s30.5,13.683,30.5,30.5C215.511,156.06,201.828,169.743,185.011,169.743z M193.814,206.399c-5.101-2.686-12.506-2.686-17.606,0
+                                    l-19.358,10.189l6.154-37.539c6.527,3.623,14.029,5.693,22.008,5.693s15.48-2.071,22.008-5.693l2.398,14.635
+                                    c0.006,0.024,0.008,0.05,0.013,0.074l3.743,22.831L193.814,206.399z M237.643,182.239c0,1.355-1.145,2.5-2.5,2.5h-11.991
+                                    l-2.739-16.709c-0.011-0.066-0.029-0.129-0.042-0.195c6.335-7.818,10.141-17.768,10.141-28.592c0-25.089-20.411-45.5-45.5-45.5
+                                    c-25.089,0-45.5,20.411-45.5,45.5c0,10.824,3.806,20.772,10.141,28.592c-0.013,0.065-0.031,0.129-0.042,0.194l-2.741,16.723
+                                    c-0.084-0.003-0.165-0.013-0.249-0.013H17.5c-1.355,0-2.5-1.145-2.5-2.5V34.581c0-1.355,1.145-2.5,2.5-2.5h217.643
+                                    c1.355,0,2.5,1.145,2.5,2.5V182.239z"/>
+                                <path style="fill:#000002;" d="M208.619,60.243h-170c-4.143,0-7.5,3.357-7.5,7.5c0,4.143,3.357,7.5,7.5,7.5h170
+                                    c4.143,0,7.5-3.357,7.5-7.5C216.119,63.6,212.762,60.243,208.619,60.243z"/>
+                                <path style="fill:#000002;" d="M110.619,100.911h-72c-4.143,0-7.5,3.357-7.5,7.5c0,4.143,3.357,7.5,7.5,7.5h72
+                                    c4.143,0,7.5-3.357,7.5-7.5C118.119,104.268,114.762,100.911,110.619,100.911z"/>
+                            </g>
+                        </svg>
+                        <span class="xl:text-lg text-ellipsis whitespace-nowrap overflow-hidden">${vo.pname}</span>
+                    </span>
+                    <span class="flex items-center">
+                        <svg class="w-4 h-4 mr-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <defs><style>.cls-1 {
+                                fill: none;
+                                stroke: #020202;
+                                stroke-miterlimit: 10;
+                                stroke-width: 1.91px;
+                            }</style></defs>
+                            <rect class="cls-1" x="5.32" y="1.5" width="13.36" height="21" rx="1.91"/>
+                            <path class="cls-1"
+                                  d="M13.91,2.45H10.09a.94.94,0,0,1-.95-1h5.72A.94.94,0,0,1,13.91,2.45Z"/>
+                            <line class="cls-1" x1="11.05" y1="19.64" x2="12.95" y2="19.64"/>
+                        </svg>
+                        <span class="xl:text-lg text-ellipsis whitespace-nowrap overflow-hidden flex-grow-[1]">${vo.model}</span>
+                        ${note}
+                    </span>
+                    ${tjtime}
+                </div>
+                <div class="flex-shrink-[0] flex-grow-[1] flex items-end justify-end">
+                    <svg onclick="xg('${vo.id}','${vo.beizhu}')" class="cursor-pointer w-8 h-8 mr-1" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512.00 512.00" xml:space="preserve" fill="#000000" stroke="#000000" stroke-width="0.00512"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <style type="text/css">  .st0{fill:#000000;}  </style> <g> <path class="st0" d="M372.644,240.054l-13.422-13.438c-8.078,4.859-25.953,12.859-25.953,12.859 c-4.047,1.672-6.953,5.281-7.719,9.594l-9.047,42.141l-5.188,5.188c-1.875-0.031-3.75,0.672-5.172,2.094 c-2.813,2.813-2.813,7.344,0,10.156s7.359,2.813,10.156,0c1.422-1.422,2.125-3.297,2.094-5.156l5.188-5.203l42.141-9.047 c4.313-0.766,7.922-3.688,9.609-7.719c0,0,7.984-17.859,12.844-25.938l-13.422-13.422L372.644,240.054z M358.144,267.757 c-3.078,3.063-8.047,3.063-11.109,0s-3.063-8.031,0-11.094s8.031-3.063,11.109,0C361.191,259.726,361.191,264.694,358.144,267.757z "></path> <path class="st0" d="M415.363,228.054l-28.625-28.625c0,0-10.031,10.031-13.266,13.266s-7.438,2.266-7.438,2.266l-3.875,3.875 l13.578,13.578l3.25,3.25l16.969,16.969l3.875-3.875c0,0-0.969-4.203,2.266-7.438S415.363,228.054,415.363,228.054z"></path> <path class="st0" d="M494.988,339.022c-7.453-25.969-14.938-51.922-22.406-77.891c-4.813-16.719-9.625-33.438-14.438-50.172 c-7.656,6.438-14.969,12.609-20.188,17.172c8.922,35.156,17.844,70.313,26.766,105.453c3.234,12.734-5.25,24.063-19.219,19.719 c-22.875-9.5-48.063-16.188-72.844-17.453c-28.141-1.469-56.969,4.313-82.922,15.125c-2.922,1.203-22.516,15.297-23.281,5.297 c-0.438-23.375-0.875-46.75-1.297-70.109c-0.891-48.281-1.797-96.547-2.688-144.828c-0.047-2.781,6.625-4.172,8.016-4.688 c10.922-4.141,22.359-7,33.891-8.859c28.063-4.563,55.688-2.234,83.156,4.75c9.594,2.438,19.719,5.484,26.172,12.375 c4.078-4.859,8.125-9.672,12.031-14.25c-4.453-3.469-9.484-6.359-14.859-8.75c-23.297-10.422-52.859-14.547-78.125-15.141 c-26.984-0.641-54.563,3.594-80.109,12.359c-4.969,1.719-13.109-2.813-18.188-4.188c-6-1.625-12.063-2.984-18.156-4.125 c-13.453-2.5-27.109-3.844-40.781-4.063c-26.141-0.406-52.859,4.594-77.828,12.109c-5.5,2.063-1.578,0.625-0.359,0.141 c-15.578,5.906-32.656,15.516-37.578,32.609c-1.219,4.281-2.453,8.547-3.688,12.828c-6.219,21.609-12.438,43.219-18.656,64.844 c-8.516,29.547-17,59.094-25.516,88.641C6.941,335.132-2.872,357.226,0.8,375.319c4.5,22.391,26.391,32.703,47.563,28.375 c7.438-1.516,14.266-4.953,21.375-7.5c11.875-4.25,24.016-7.844,36.359-10.406c29.766-6.172,59.984-2.906,89.219,4.641 c6.531,1.688,31,5.906,31.719,13.219c0.656,6.797,8.484,4.953,13.406,4.953c4.891,0,9.797,0,14.672,0 c4.5,0,12.016,1.547,16.266-0.313c4.281-1.859,0.984-6.531,5-8.281c5.484-2.359,11.156-4.328,16.859-6.109 c13.344-4.141,27.016-7.234,40.828-9.25c29.531-4.313,57.453-1.203,85.828,7.75c16.61,5.234,32.704,14.906,50.735,11.672 c24.563-4.344,34.609-29.453,28.172-51.859C497.645,347.788,496.27,343.413,494.988,339.022z M237.269,198.741 c-0.969,51.891-1.938,103.781-2.891,155.672c-0.078,3.469-1.016,5.641-4.891,5.531c-21.016-12.484-45.969-19.703-70.078-22.75 c-28.359-3.594-56.094,0.281-83.266,8.703c-8.422,2.609-17.859,8.328-26.797,8.328c-10.219,0-16.172-9.109-13.766-18.609 c6.234-24.563,12.469-49.141,18.719-73.703c7.328-28.906,14.656-57.797,22-86.688c1.828-7.203,3.641-14.391,5.469-21.594 c4.469-17.609,29.391-20.953,44.25-24.031c27.797-5.75,55.938-5.719,83.609,0.797c4.781,1.125,28.813,4.828,28.688,11.672 C237.957,160.96,237.613,179.851,237.269,198.741z"></path> <path class="st0" d="M420.785,223.101c10.188-10.188,64.016-53.406,79.047-68.453c15.047-15.031,16.25-29.469,3.016-42.688 c-13.234-13.234-27.672-12.047-42.703,3c-15.031,15.031-58.266,68.859-68.454,79.047L420.785,223.101z M434.176,170.382 l45.313-45.297c1.094-1.109,2.906-1.109,4.016,0l6.203,6.203c1.109,1.125,1.109,2.906,0,4.016l-45.297,45.313 c-1.109,1.109-2.906,1.109-4,0l-6.234-6.219C433.082,173.288,433.082,171.491,434.176,170.382z"></path> </g> </g></svg>
+                </div>
+            </div>
+        </div>
+        `;
+        return div;
+    }
+
+    function getMore() {
+        var current_page = parseInt($('#current_page').val());
+        var last_page = parseInt($('#last_page').val());
+        if (current_page < last_page) {
+            $.ajax({
+                type: 'GET',
+                url: "/index/index/DevicelistPage",
+                data: {
+                    page: current_page + 1,
+                },
+                dataType: "json",
+                success: function (result, textStatus, jqXHR) {
+                    if (result['code'] === 1) {
+                        for (var i = 0; i < result['data']['data'].length; i++) {
+                            let vo = result['data']['data'][i];
+                            let div = addCell(vo);
+                            $('#devices').append(div);
+                        }
+                        $('#current_page').val(result['data']['current_page']);
+                        $('#last_page').val(result['data']['last_page']);
+                        if (result['data']['current_page'] >= result['data']['last_page']) {
+                            $('#more_value').hide();
+                            $('#no_more').show();
+                        }
+                    } else {
+                        msg(result['msg'])
+                    }
+                },
+                error: function (response) {
+                    msg('请求失败');
+                }
+            });
+        }
+    }
+
+    function xg(id, beizhu) {
+        layer.open({
+            title: '添加/修改备注',
+            btnAlign: 'c',
+            closeBtn: '1',//右上角的关闭
+            content: `<div><textarea id="remark" class="form-control" rows="3">${beizhu}</textarea></div>`,
+            btn: ['确认', '取消'],
+            yes: function (index, layero) {
+                var beizhu = $('#remark').val();//获取多行文本框的值
+                if (beizhu != null && beizhu != "") {
+                    $.ajax({
+                        type: 'POST',
+                        url: "/index/index/xgbeizhu",
+                        data: {
+                            id: id,
+                            beizhu: beizhu
+                        },
+                        dataType: "json",
+                        success: function (result, textStatus, jqXHR) {
+                            layer.close(index);
+                            if (result['code'] == 1) {
+                                layer.msg('修改成功，刷新页面后可查看');
+                            } else {
+                                layer.msg('修改失败');
+                            }
+                        },
+                        error: function (response) {
+                            layer.close(index);
+                            layer.msg('修改失败');
+                        }
+                    });
+                }
+            },
+            no: function (index) {
+                layer.close(index);
+                return false;//点击按钮按钮不想让弹层关闭就返回false
+            }
+        });
+    }
+
+    function add(type) {
+        var udid = $('#udid').val();
+        var chi = $("#zstype").val();
+        var shtype = $("#shtype").val();
+        var deviceType = $("#deviceType").val();
+        if (udid == '') {
+            layer.msg('UDID不能为空')
+            return;
+        }
+
+        if (shtype == '4' && type == '预约此UDID') {
+            layer.msg('预约不支持摆烂版')
+            return;
+        }
+
+        var beizhu = $('#beizhu').val();
+        layer.closeAll();
+        $.blockUI({
+            message: '<img src="https://sign.52tzs.com/assets/libs/fastadmin-layer/dist/theme/default/loading.gif" /> <br>请求中.',
+            css: {
+                left: '50%',
+                'border-radius': '15px',
+                padding: '10px',
+                width: '150px',
+                height: '70px',
+                'margin-left': '-75px',
+                display: "flex",
+                "flex-direction": "column",
+                "justify-content": "center",
+                "align-items": "center"
+            }
+        });
+        $.ajax({
+            type: 'POST',
+            url: "/index/index/devicelist",
+            data: {
+                udid: udid,
+                beizhu: beizhu,
+                shtype: shtype,
+                type: type,
+                deviceType: deviceType,
+                chi: chi
+            },
+            dataType: "json",
+            success: function (result, textStatus, jqXHR) {
+                $.unblockUI();
+                if (result['code'] == 1) {
+                    layer.msg(result['msg'], {time: 2000}, function () {
+                        location.reload()
+                    })
+                } else {
+                    layer.closeAll();
+                    msg(result['msg'])
+                }
+            },
+            error: function (response) {
+                $.unblockUI();
+                layer.msg('请求失败');
+
+            }
+        });
+    }
+
+    function checkdevice(id) {
+        $.blockUI({
+            message: '<img width="25px" src="https://sign.52tzs.com/assets/libs/fastadmin-layer/dist/theme/default/loading.gif" />请求中...',
+            css: {
+                left: '50%',
+                'border-radius': '15px',
+                padding: '10px',
+                width: '150px',
+                'margin-left': '-75px',
+                display: "flex",
+                "flex-direction": "column",
+                "justify-content": "center",
+                "align-items": "center",
+            }
+        });
+        $.ajax({
+            type: 'POST',
+            url: "/api/getcertificate",
+            data: {
+                id: id,
+                token: '{$user.ktoken}'
+            },
+            dataType: "json",
+            success: function (result, textStatus, jqXHR) {
+                $.unblockUI();
+                if (result['code'] == 1) {
+                    msg(result['msg'])
+                    location.href = '/api/getdown?zsid=' + id;
+                } else {
+                    layer.msg(result['msg'])
+                }
+            },
+            error: function (response) {
+                $.unblockUI();
+                msg('请求失败');
+            }
+        });
+    }
+
+    function up_udid() {
+        layer.closeAll();
+        layer.open({
+            type: 1,
+            area: [300, 'auto'],
+            title: '上传证书（' + {$site.upcer_price} + '余额/UDID）',
+            content: `
+<div class="p-2">
+    <div class="flex justify-content items-center w-full">
+        <label class="shrink-0" for="p12" style="width: 100px">上传P12</label>
+        <input class="flex-grow-[1] form-input border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300" type="text"  id='p12' name="p12" placeholder="请上传p12文件" value="" class="form-control"/>
+        <button onclick="getp12.click()" class="btn btn-success" style="width: 100px">上传</button>
+    </div>
+    <div class="flex justify-content items-center w-full">
+        <label class="shrink-0" for="mp" style="width: 100px">上传描述</label>
+        <input class="flex-grow-[1] form-input border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300" type="text"  id='mp' name="mp" placeholder="请上传描述文件" value="" class="form-control"/>
+        <button onclick="get_mobileprovision.click()" class="btn btn-success" style="width: 100px">上传</button>
+    </div>
+    <div class="flex justify-content items-center w-full">
+        <label class="shrink-0" for="mp" style="width: 100px">p12密码</label>
+        <input class="flex-grow-[1] form-input border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300" type="text"  id='ypass' name="ypass" placeholder="请输入p12密码" value="" class="form-control"/>
+    </div>
+    <div class="flex justify-center items-center w-full p-4">
+        <a onclick="up_cer()" class="btn btn-info form-control">立即添加</a>
+    </div>
+</div>`,
+        });
+    }
+
+    function up_cer() {
+        if (p12path == '') {
+            layer.msg('请上传P12文件！');
+            return;
+        }
+        if (mobileprovision_path == '') {
+            layer.msg('请上传描述文件！');
+            return;
+        }
+        var ypass = document.getElementById("ypass").value;
+        if (ypass == '') {
+            layer.msg('P12密码不能为空');
+            return;
+        }
+        layer.msg(`正在处理中..`, {
+            icon: 16
+            , shade: 0.3
+            , time: false
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: "/index/index/customadddevice",
+            data: {
+                p12path: p12path,
+                pwd: ypass,
+                mppath: mobileprovision_path
+            },
+            dataType: "json",
+            success: function (result, textStatus, jqXHR) {
+                if (result['code'] != 1) {
+                    layer.msg(result['msg'])
+                } else {
+                    layer.closeAll();
+                    var dqtime = result['data']['dqtime'];
+                    var udid = result['data']['udid'];
+                    var pname = result['data']['pname'];
+                    var base64p12 = result['data']['base64p12'];
+                    var base64mp = result['data']['base64mp'];
+                    var serialNumber = result['data']['serialNumber'];
+                    var zt = result['data']['zt'];
+                    check_udid(pname, serialNumber, dqtime, base64mp, base64p12, zt, udid);
+                }
+            },
+            error: function (response) {
+                layer.msg('请求失败！');
+            }
+        });
+    }
+
+    document.addEventListener("alpine:init", () => {
+        Alpine.data("alpineMuliSelect", (obj) => ({
+            elementId: obj.elementId,
+            options: [],
+            selected: obj.selected,
+            selectedElms: [],
+            show: false,
+            search: '',
+            open() {
+                // 设置为check_udid_content的高度
+                // $("#check_udid").height("50%");
+                this.show = true
+            },
+            close() {
+                // $("#check_udid").height(0);
+                this.show = false
+            },
+            toggle() {
+                this.show = !this.show
+            },
+            isOpen() {
+                return this.show === true
+            },
+
+            selectAll() {
+                for (let i = 0; i < this.options.length; i++) {
+                    if (!this.options[i].selected) {
+                        this.options[i].selected = true;
+                        this.selected.push(this.options[i].value);
+                        this.selectedElms.push(this.options[i]);
+                    }
+                }
+            },
+
+            // Initializing component
+            init() {
+                const options = document.getElementById(this.elementId).options;
+                for (let i = 0; i < options.length; i++) {
+
+                    this.options.push({
+                        value: options[i].value,
+                        text: options[i].innerText,
+                        search: options[i].dataset.search,
+                        selected: Object.values(this.selected).includes(options[i].value)
+                    });
+
+                    if (this.options[i].selected) {
+                        this.selectedElms.push(this.options[i])
+                    }
+                }
+
+                // searching for the given value
+                this.$watch("search", (e => {
+                    this.options = []
+                    const options = document.getElementById(this.elementId).options;
+                    Object.values(options).filter((el) => {
+                        var reg = new RegExp(this.search, 'gi');
+                        return el.dataset.search.match(reg)
+                    }).forEach((el) => {
+                        let newel = {
+                            value: el.value,
+                            text: el.innerText,
+                            search: el.dataset.search,
+                            selected: Object.values(this.selected).includes(el.value)
+                        }
+                        this.options.push(newel);
+
+                    })
+
+
+                }));
+            },
+            // clear search field
+            clear() {
+                this.search = ''
+            },
+            // deselect selected options
+            deselect() {
+                setTimeout(() => {
+                    this.selected = []
+                    this.selectedElms = []
+                    Object.keys(this.options).forEach((key) => {
+                        this.options[key].selected = false;
+                    })
+                }, 100)
+            },
+            // select given option
+            select(index, event) {
+                if (!this.options[index].selected) {
+                    this.options[index].selected = true;
+                    this.options[index].element = event.target;
+                    this.selected.push(this.options[index].value);
+                    this.selectedElms.push(this.options[index]);
+
+                } else {
+                    this.selected.splice(this.selected.lastIndexOf(index), 1);
+                    this.options[index].selected = false
+                    Object.keys(this.selectedElms).forEach((key) => {
+                        if (this.selectedElms[key].value == this.options[index].value) {
+                            setTimeout(() => {
+                                this.selectedElms.splice(key, 1)
+                            }, 100)
+                        }
+                    })
+                }
+            },
+            // remove from selected option
+            remove(index, option) {
+                this.selectedElms.splice(index, 1);
+                Object.keys(this.options).forEach((key) => {
+                    if (this.options[key].value == option.value) {
+                        this.options[key].selected = false;
+                        Object.keys(this.selected).forEach((skey) => {
+                            if (this.selected[skey] == option.value) {
+                                this.selected.splice(skey, 1);
+                            }
+                        })
+                    }
+                })
+            },
+            // filter out selected elements
+            selectedElements() {
+                return this.options.filter(op => op.selected === true)
+            },
+            // get selected values
+            selectedValues() {
+                var options = this.options.filter(op => op.selected === true);
+                // 获取选中数量并计算价格
+                var sum = options.length * {$site.upcer_price};
+                // 修改upcer按钮上的文字
+                $('#upcer').text("消耗" + sum + "余额上传" + options.length + "本证书");
+                return options.map(el => el.value)
+            }
+        }));
+    });
+
+    function check_udid(pname, serialNumber, dqtime, base64mp, base64p12, zt, udid) {
+        var udid_html = '';
+        udid.forEach(element => udid_html = udid_html + "<option value='" + element +"' data-search='" + element + "'>" + element + "</option>");
+        var sum_money = udid.length * {$site.upcer_price};
+        layer.closeAll();
+        layer.open({
+            id: "check_udid",
+            type: 1,
+            maxHeight: "80%",
+            move: false,
+            area: ["80%", '80%'],
+            title: '请选择要添加的UDID',
+            content: `
+        <div id="check_udid_content" style="padding-top:8px;padding-right: 20px;padding-left: 20px;">
+            <div class="input-group form-group">
+            <p> 当前证书：<span class='label label-primary'>${pname}</span></p>
+            <p> 证书状态：<span class='label label-danger'>${zt}</span></p>
+            <p> 到期时间：<span class='label label-warning'>${dateTrans(dqtime)}</span></p>
+            <div class="w-full" x-data="alpineMuliSelect({selected:[], elementId:'multSelect'})">
+                <!-- Select Options -->
+                <select class="hidden" id="multSelect">
+                    ${udid_html}
+                </select>
+
+                <div class="w-full flex flex-col items-center mx-auto" @keyup.alt="toggle">
+                    <!-- Selected Teams -->
+                    <input name="teams[]" type="hidden" x-bind:value="selectedValues()">
+
+                    <div class="inline-block relative w-full">
+                        <div class="flex flex-col items-center relative">
+                            <!-- Selected elements container -->
+                            <div class="w-full">
+                                <div class="my-2 p-1 flex border border-gray-200 bg-white rounded-md">
+                                    <div class="flex flex-auto flex-wrap" x-on:click="open">
+                                        <!-- iterating over selected elements -->
+                                        <template x-for="(option,index) in selectedElms"
+                                                  :key="option.value">
+                                            <div x-show="index < 2"
+                                                 class="flex justify-center items-center m-1 font-medium py-1 px-2 rounded-full text-indigo-700 bg-indigo-100 border border-indigo-300 ">
+                                                <div class="text-xs font-normal leading-none max-w-full flex-initial"
+                                                     x-model="selectedElms[option]"
+                                                     x-text="option.text"></div>
+                                                <div class="flex flex-auto flex-row-reverse">
+                                                    <div x-on:click.stop="remove(index,option)">
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                             class="h-6 w-6 ml-2" fill="none"
+                                                             viewBox="0 0 24 24" stroke="currentColor"
+                                                             stroke-width="2">
+                                                            <path stroke-linecap="round"
+                                                                  stroke-linejoin="round"
+                                                                  d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </template>
+                                        <!-- More than two items selected -->
+                                        <div x-show="selectedElms.length > 2"
+                                             class="flex justify-center items-center m-1 font-medium py-1 px-2 rounded-full text-indigo-700 bg-indigo-100 border border-indigo-300 ">
+                                            <div class="text-xs font-normal h-6 flex justify-center items-center leading-none max-w-full flex-initial">
+                                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium bg-indigo-200 text-pink-800 mr-2">
+                                                        <span x-text="selectedElms.length -2"></span>
+                                                    </span>
+                                                其他已选
+                                            </div>
+                                        </div>
+                                        <!-- None items selected -->
+                                        <div x-show="selectedElms.length == 0" class="flex-1">
+                                            <input placeholder="请选择UDID"
+                                                   class="bg-transparent p-1 px-2 appearance-none outline-none h-full w-full text-gray-800"
+                                                   x-bind:value="selectedElements()">
+                                        </div>
+                                    </div>
+                                    <!-- Drop down toogle with icons-->
+                                    <div class="text-gray-300 w-8 py-1 pl-2 pr-1 border-l flex items-center border-gray-200">
+                                        <button type="button" x-show="!isOpen()" x-on:click="open()"
+                                                class="cursor-pointer w-6 h-6 text-gray-600 outline-none focus:outline-none">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                 fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                 stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                      d="M19 9l-7 7-7-7"/>
+                                            </svg>
+                                        </button>
+                                        <button type="button" x-show="isOpen()" x-on:click="close()"
+                                                class="cursor-pointer w-6 h-6 text-gray-600 outline-none focus:outline-none">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4"
+                                                 fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                 stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                      d="M5 15l7-7 7 7"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Dropdown container -->
+                            <div class="w-full">
+                                <div x-show.transition.origin.top="isOpen()" x-trap="isOpen()"
+                                     class="shadow-lg top-100 bg-white z-40 w-full lef-0 rounded max-h-[50%]"
+                                     x-on:click.away="close">
+                                    <div class="flex flex-col w-full">
+
+                                        <div class="px-2 py-4 border-b-2">
+                                            <!-- Search input-->
+                                            <div class="mt-1 relative rounded-md shadow-sm">
+                                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                         class="h-5 w-5 text-gray-400" fill="none"
+                                                         viewBox="0 0 24 24" stroke="currentColor"
+                                                         stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                                    </svg>
+                                                </div>
+                                                <input type="text" name="search" autocomplete="off"
+                                                       id="search" x-model.debounce.750ms="search"
+                                                       class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 sm:text-sm border border-indigo-300 rounded-md h-10"
+                                                       placeholder="" @keyup.escape="clear"
+                                                       @keyup.delete="deselect">
+                                                <div class="absolute inset-y-0 right-0 flex py-1.5 pr-1.5">
+                                                    <kbd class="inline-flex items-center border border-gray-200 rounded px-2 text-sm font-sans font-medium text-gray-400"
+                                                         x-on:click="selectAll">
+                                                        全选
+                                                    </kbd>
+                                                    <kbd class="inline-flex items-center border border-gray-200 rounded px-2 text-sm font-sans font-medium text-gray-400"
+                                                         x-on:click="deselect">
+                                                        清空
+                                                    </kbd>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Options container -->
+                                        <ul class="z-10 mt-0 w-full bg-white shadow-lg max-h-80 rounded-md py-0 text-base ring-1 ring-black ring-opacity-5 focus:outline-none  overflow-y-auto sm:text-sm"
+                                            tabindex="-1" role="listbox" @keyup.delete="deselect">
+                                            <template x-for="(option,index) in options" :key="option.text">
+                                                <li class="text-gray-900 cursor-default select-none relative py-2 pl-3 pr-3"
+                                                    role="option">
+                                                    <div class="cursor-pointer w-full border-gray-100 rounded-t border-b hover:bg-slate-100"
+                                                         x-bind:class="option.selected ? 'bg-indigo-100' : ''"
+                                                         @click="select(index,$event)">
+                                                        <div x-bind:class="option.selected ? 'border-indigo-600' : ''"
+                                                             class="flex w-full items-center p-2 pl-2 border-transparent border-l-2 relative">
+                                                            <div class="w-full items-center flex">
+                                                                <div class="mx-2 leading-6" x-model="option"
+                                                                     x-text="option.text"></div>
+                                                                <span
+                                                                        class="absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600"
+                                                                        x-show="option.selected">
+
+                                                                        <svg class="h-5 w-5"
+                                                                             xmlns="http://www.w3.org/2000/svg"
+                                                                             viewBox="0 0 20 20"
+                                                                             fill="currentColor"
+                                                                             aria-hidden="true">
+                                                                            <path fill-rule="evenodd"
+                                                                                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                                                                  clip-rule="evenodd"/>
+                                                                        </svg>
+                                                                    </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </template>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a id="upcer"  class="btn btn-info form-control">消耗${sum_money}余额 添加${udid.length}本证书</a>
+            `,
+            success: function (layero, index) {
+                $('#upcer').click(function () {
+                    // 获取选中的udid
+                    let selectedValues = document.querySelector('input[name="teams[]"]').value;
+                    let xed = selectedValues.split(',');
+                    if (xed.length != 0) {
+                        layer.msg(`正在处理中..`, {icon: 16, shade: 0.3, time: false});
+                        $.ajax({
+                            type: 'POST',
+                            url: "/index/index/upcer",
+                            data: {
+                                serialNumber: serialNumber,
+                                dqtime: dateTrans(dqtime),
+                                base64mp: base64mp,
+                                base64p12: base64p12,
+                                udid: xed,
+                                pname: pname,
+                            },
+                            dataType: "json",
+                            success: function (result, textStatus, jqXHR) {
+                                if (result['code'] != 1) {
+                                    layer.msg(result['msg'])
+                                } else {
+                                    layer.closeAll();
+                                    layer.msg(result['msg'], {time: 2000}, function () {
+                                        location.reload()
+                                    })
+                                }
+                            },
+                            error: function (response) {
+                                layer.msg('请求失败！');
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
+
+    function dateTrans(date) {
+        //let _date = new Date(parseInt(date));//13位
+        let _date = new Date(parseInt(date) * 1000); //10位
+        let y = _date.getFullYear();
+        let m = _date.getMonth() + 1;
+        m = m < 10 ? ('0' + m) : m;
+        let d = _date.getDate();
+        d = d < 10 ? ('0' + d) : d;
+        let h = _date.getHours();
+        h = h < 10 ? ('0' + h) : h;
+        let minute = _date.getMinutes();
+        let second = _date.getSeconds();
+        minute = minute < 10 ? ('0' + minute) : minute;
+        second = second < 10 ? ('0' + second) : second;
+        // let dates = y + '-' + m + '-' + d;//年月日
+        let dates = y + '-' + m + '-' + d + ' ' + h + ':' + minute + ':' + second;//年月日时分秒
+        return dates;
+    };
+
+    function checkmodel(date) {
+        return false;
+        $('#model')[0].style = "display:none";
+        if (date.length == 40 || date.length == 25) {
+            $.ajax({
+                type: 'POST',
+                url: "/api/index/getmodel",
+                data: {
+                    udid: date,
+                },
+                dataType: "json",
+                success: function (result, textStatus, jqXHR) {
+                    $.unblockUI();
+                    if (result['code'] == 1) {
+
+                        if (result['data']['model'] == '') {
+                            if (result['data']['deviceClass'] == '') var b = '未知';
+                            if (result['data']['deviceClass'] == 'iphone') var b = 'iPhone';
+                            if (result['data']['deviceClass'] == 'ipad') var b = 'iPad';
+                        } else {
+                            var b = result['data']['model'];
+                        }
+                        $('#model')[0].style = "display:block";
+                        $('#model').html('设备型号:' + b)
+
+                    }
+                },
+                error: function (response) {
+                }
+            });
+        }
+
+    }
+
+
+    function addudid() {
+        layer.closeAll();
+        layer.open({
+            type: 1,
+            title: '添加设备',
+            content: `
+             <div style="padding-top:5px;padding-right: 20px;padding-left: 20px;">
+             <br><font color="red">摆烂版:无售后, 稳定性很差, 介意请勿购买</font>
+             <br>躺平版:无售后, 标准版:售后40天（按首次添加计算时间, 加强版:售后180天（按首次添加计算时间, 稳定版:售后330天（按首次添加计算时间）
+             {php}
+                $qtjg_array = explode(',', $site['qtjg']);
+                $ipad_array = explode(',', $site['ipad_price']);
+                $yypz_array = explode(',', $site['yypz']);
+
+                $price_array = explode(',', $user['price']);
+                if ($price_array[0] != 0) {
+                    $qtjg_array[0] = $price_array[0];
+                }
+                if ($price_array[1] != 0) {
+                    $qtjg_array[1] = $price_array[1];
+                }
+                if ($price_array[2] != 0) {
+                    $qtjg_array[2] = $price_array[2];
+                }
+             {/php}
+             <br>秒出：摆烂版:{$qtjg_array.3}元/&nbsp;躺平版:{$qtjg_array.0}元/&nbsp;标准版:1设备(设备不足余额抵扣)/&nbsp;加强版:{$qtjg_array.1}元/&nbsp;稳定版:{$qtjg_array.2}元
+             <br>秒出IPAD：躺平版:{$ipad_array.0}元/&nbsp;标准版:{$ipad_array.4}元/&nbsp;加强版:{$ipad_array.1}元/&nbsp;稳定版:{$ipad_array.2}元
+             <br>预约：躺平版:{$yypz_array.0}元/&nbsp;标准版:{$yypz_array.1}元/&nbsp;加强版:{$yypz_array.2}元/&nbsp;稳定版:{$yypz_array.3}元
+             <div class="flex flex-col">
+                <div class="flex flex-col">
+                    <label for="zstype">选择池</label>
+                    <select id='zstype' class="mt-2 py-1 border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300">
+                        <option value="0" >公共池</option>
+                        <option value="1" >独立池</option>
+                    </select>
+                </div>
+                <div class="flex flex-col">
+                    <label for="deviceType">设备类型</label>
+                    <select id='deviceType' class="mt-2 py-1 border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300">
+                        <option value="iphone" >iPhone(手机专用)</option>
+                        <option value="ipad" >iPad(平板专用)</option>
+                    </select>
+                </div>
+                <div class="flex flex-col">
+                    <label for="udid">设备UDID</label>
+                    <input class="form-input mt-2 py-1 border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300" type="text"  id='udid' name="udid"  oninput="checkmodel(this.value)" placeholder="请输入UDID" value="" class="form-control"/>
+                </div>
+                <span dtyle="display:none" id='model'> </span>
+                <div class="flex flex-col">
+                    <label for="shtype">证书类型</label>
+                    <select id='shtype' class="mt-2 py-1 border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300">
+                        <option value="1" >标准版</option>
+                        <option value="0" >躺平版</option>
+                        <option value="2" >加强版</option>
+                        <option value="3" >稳定版</option>
+                        <option value="4" >摆烂版</option>
+                    </select>
+                </div>
+                <div class="flex flex-col">
+                    <label for="beizhu">备注</label>
+                    <input class="form-input mt-2 py-1 border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300" type="text"  id="beizhu" name="beizhu" placeholder="备注" value="" class="form-control" />
+                </div>
+             </div>
+
+             <div class="pt-2">
+                 <center>
+                    <input type="button" onclick="add('添加此UDID')" value="添加此UDID" class="btn btn-success form-control"/>
+                    <input type="button" onclick="add('预约此UDID')" value="预约此UDID" class="btn btn-info form-control"/>
+                 </center>
+             </div>
+             <br><br>
+              `
+        });
+    }
+</script>
+{/block}

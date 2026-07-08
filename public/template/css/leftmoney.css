@@ -1,0 +1,90 @@
+.leftmoneyWrapper {
+  height: 100%;
+  width: 100%;
+  font-size: 0.16rem;
+  display: flex;
+  flex-direction: column;
+  background: #edeff5;
+}
+.leftmoneyWrapper .main {
+  flex: 1;
+  overflow: auto;
+}
+.leftmoneyWrapper .main .arrowleft {
+  height: 0.45rem;
+  background-color: #3d7dd0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 0.2rem;
+}
+.leftmoneyWrapper .main .arrowleft img {
+  width: 0.1rem;
+  height: 0.2rem;
+}
+
+.leftmoneyWrapper .chargeLeftPopContent {
+  padding-left: 0.3rem;
+}
+.leftmoneyWrapper .chargeLeftPopContent .chargeLeft {
+  margin-top: 0.1rem;
+  font-size: 0.12rem;
+}
+.leftmoneyWrapper .chargeLeftPopContent .chargeLeftPopContentBtns {
+  margin-top: 0.05rem;
+}
+.leftmoneyWrapper .chargeLeftPopContent .chargeLeftPopContentBtns .num {
+  width: 0.6rem;
+  height: 0.3rem;
+  line-height: 0.3rem;
+  display: inline-block;
+  text-align: center;
+  border: 1px solid #999;
+  border-radius: 0.05rem;
+  color: #606266;
+  margin-right: 0.05rem;
+  box-sizing: border-box;
+  font-size: 0.12rem;
+}
+.leftmoneyWrapper .chargeLeftPopContent .chargeLeftPopContentBtns .num.active {
+  border: 0;
+  background-color: #6db970;
+  color: #fff;
+}
+.leftmoneyWrapper .chargeLeftPopContent .custom {
+  margin-top: 0.2rem;
+  font-size: 0.12rem;
+  display: flex;
+  flex-direction: column;
+}
+.leftmoneyWrapper .chargeLeftPopContent .custom input {
+  width: 2.69rem;
+  box-sizing: border-box;
+  border: 1px solid #999;
+  height: 0.3rem;
+  line-height: 0.3rem;
+  font-size: 0.12rem;
+  padding-left: 0.1rem;
+  border-radius: 0.05rem;
+  margin-top: 0.1rem;
+}
+.leftmoneyWrapper .chargeLeftPopContent .chargeBtn {
+  margin-top: 0.4rem;
+  font-size: 0.12rem;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  margin-right: 0.3rem;
+}
+.leftmoneyWrapper .chargeLeftPopContent .chargeBtn span {
+  background: #3d7ccf;
+  color: #fff;
+  display: inline-block;
+  width: 0.9rem;
+  height: 0.35rem;
+  line-height: 0.35rem;
+  text-align: center;
+  border-radius: 0.2rem;
+  cursor: pointer;
+  font-size: 0.12rem;
+}

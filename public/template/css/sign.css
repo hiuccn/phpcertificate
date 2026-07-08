@@ -1,0 +1,1497 @@
+/*pc端*/
+@media only screen and (min-device-width: 768px) {
+  .homeWrapper {
+    width: 100%;
+    height: 100%;
+  }
+  .homeWrapper .homeNavBar {
+    height: 75px;
+    background-color: #fff;
+    padding: 0 360px;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  .homeWrapper .homeNavBar .name {
+    font-size: 24px;
+  }
+  .homeWrapper .homeNavBar .user {
+    font-size: 16px;
+    margin-left: auto;
+  }
+  .homeWrapper .homeNavBar .userDropDown {
+    width: 120px;
+    height: 130px;
+    border-radius: 5px;
+    position: absolute;
+    right: 416px;
+    z-index: 1;
+    font-size: 16px;
+    top: 67px;
+    box-sizing: border-box;
+    background: #fff;
+    box-shadow: rgb(60 64 67 / 30%) 0px 1px 2px 0px, rgb(60 64 67 / 15%) 0px 2px 6px 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    display: none;
+  }
+  .homeWrapper .homeNavBar .userDropDown .vip {
+    height: 30px;
+    line-height: 30px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+  }
+  .homeWrapper .homeNavBar .userDropDown .logout {
+    height: 30px;
+    line-height: 30px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+  }
+  .homeWrapper .tabs {
+    display: flex;
+    padding: 0;
+    position: relative;
+    height: 75px;
+    margin: 0;
+    align-items: center;
+    font-size: 16px;
+    margin-left: 100px;
+  }
+  .homeWrapper .tabs .tab2 {
+    margin-left: 30px;
+  }
+  .homeWrapper .tabs .tab3 {
+    margin-left: 30px;
+  }
+  .homeWrapper .tabs li {
+    height: 75px;
+    line-height: 75px;
+    width: 65px;
+    color: #606266;
+    position: relative;
+    cursor: pointer;
+  }
+  .homeWrapper .tabs .active {
+    color: #3d7dd0;
+  }
+  .homeWrapper .tabs .active .line {
+    height: 2px;
+    width: 25px;
+    position: absolute;
+    background: #3d7dd0;
+    top: 50px;
+    left: 20px;
+  }
+  
+  .homeWrapper .boxs {
+    position: relative;
+  }
+  .homeWrapper .boxs .tabs-box {
+    display: none;
+    position: relative;
+  }
+  .homeWrapper .boxs .active {
+    background-color: steelblue;
+    color: #fff;
+  }
+  .homeWrapper .boxs .boxOne {
+    display: block;
+  }
+  .homeWrapper .user {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 140px;
+  }
+  .homeWrapper .user img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .homeWrapper .homeFooter {
+    height: 200px;
+    width: 100%;
+    background-color: #454645;
+    padding: 0 360px;
+    box-sizing: border-box;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    color: #fff;
+  }
+  .homeFooter .companyInfo .address {
+    height: 35px;
+    line-height: 35px;
+  }
+  .homeFooter .companyInfo .mail {
+    height: 35px;
+    line-height: 35px;
+  }
+  .homeFooter .companyInfo .tell {
+    height: 35px;
+    line-height: 35px;
+  }
+  .homeFooter .qrcode {
+    text-align: center;
+    margin-left: auto;
+  }
+  .qrcode .qrcodeBox {
+    width: 100px;
+    height: 100px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .qrcode .qrcodeBox img {
+    width: 90px;
+    height: 90px;
+  }
+  .footer {
+    display: none;
+  }
+  .homeWrapper .signApp {
+    font-size: 16px;
+    background-color: #eef0f4;
+    padding-bottom: 128px;
+  }
+  .homeWrapper .signApp .signAppHeader {
+    width: 100%;
+    background: #3d7ccf;
+    height: 50px;
+    display: flex;
+    color: #fff;
+    padding: 0 377px;
+    box-sizing: border-box;
+    align-items: center;
+  }
+  .signAppHeader .signAppHeader-l {
+    display: none;
+  }
+  .signAppHeader .signAppHeader-r {
+    font-size: 14px;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+  }
+  .signAppHeader .signAppHeader-r span {
+    margin-left: 10px;
+  }
+  .homeWrapper .signApp .signAppMid {
+    padding-top: 20px;
+    background-color: #fff;
+    height: 120px;
+    box-sizing: border-box;
+  }
+  .homeWrapper .signApp .signAppMid .signAppMidTop {
+    display: flex;
+    padding: 0 360px;
+
+  }
+  .homeWrapper .signApp .signAppMid .signAppMidTop .addBtn {
+    width: 160px;
+    height: 35px;
+    background: #3d7ccf;
+    color: #fff;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  .homeWrapper .signApp .signAppMid .signAppMidTop .udidIpt {
+    width: 990px;
+    height: 35px;
+    box-sizing: border-box;
+    border: 1px solid #999;
+    border-radius: 10px;
+    margin-left: 10px;
+  }
+  .homeWrapper .signApp .signAppMid .signAppMidTop .udidIpt input {
+    border: 0;
+    outline: 0;
+    padding-left: 10px;
+    height: 33px;
+    line-height: 33px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    width: 100%;
+  }
+  .homeWrapper .signApp .signAppMid .signAppMidTips {
+    color: #606266;
+    font-size: 12px;
+    margin-top: 27px;
+    padding: 0 360px;
+  }
+  .homeWrapper .signApp .signAppBottom {
+    margin-top: 35px;
+  }
+  .homeWrapper .signApp .apps {
+    padding: 0 360px;
+    box-sizing: border-box;
+  }
+  .homeWrapper .signApp .apps .appItem {
+    padding: 26px;
+    box-sizing: border-box;
+    height: 125px;
+    display: flex;
+    background: #fff;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+  .homeWrapper .signApp .apps .appItem .appItemLeft {
+    cursor: pointer;
+  }
+  .homeWrapper .signApp .apps .appItem .appItemRight {
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+  }
+  .homeWrapper .signApp .apps .appItem .edititem {
+    display: none;
+  }
+  .homeWrapper .signApp .apps .appItem .deleteitem {
+    display: none;
+  }
+  .homeWrapper .signApp .apps .appItem .appItemRight .appTntro .appTntroName {
+    cursor: pointer;
+  }
+  .homeWrapper .signApp .apps .appItem .appItemRight .appTntro .appTntroName span:nth-child(1) {
+    font-weight: bold;
+  }
+  .homeWrapper .signApp .apps .appItem .appItemRight .appTntro .appTntroName span:nth-child(2) {
+    width: 40px;
+    height: 20px;
+    display: inline-block;
+    line-height: 20px;
+    text-align: center;
+    background: #afcbe8;
+    border: 1px solid #3c7dcf;
+    border-radius: 5px;
+    color: #4886d3;
+    cursor: pointer;
+  }
+  .homeWrapper .signApp .apps .appItem .appItemRight .appTntro .appTntroName span:nth-child(3) {
+    width: 40px;
+    height: 20px;
+    display: inline-block;
+    line-height: 20px;
+    text-align: center;
+    background: #f1d3d1;
+    border: 1px solid #eb4f48;
+    border-radius: 5px;
+    color: #eb5047;
+    cursor: pointer;
+  }
+  .homeWrapper .signApp .apps .appItem .appItemRight .appTntro .version {
+    color: #606266;
+    margin-top: 7px;
+  }
+  .homeWrapper .signApp .apps .appItem .appItemRight .appTntro .code {
+    color: #606266;
+  }
+  .homeWrapper .signApp .apps .appItem .appItemRight .appInstall {
+    background-color: #6db86f;
+    width: 100px;
+    height: 45px;
+    font-size: 16px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  .homeWrapper .signApp .signAppFooter {
+    font-size: 14px;
+    margin-top: 50px;
+    color: #3c7dcf;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .homeWrapper .signApp .signAppFooter span {
+    cursor: pointer;
+  }
+  .homeWrapper .signApp .signAppFooter.Mobile {
+    display: none;
+  }
+
+
+  #addAppPop {
+    display: none;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    font-size: 16px;
+  }
+  #addAppPop .addAppPopWrapper {
+    width: 500px;
+    height: 160px;
+    position: absolute;
+    background: #fff;
+    border-radius: 10px;
+    top: 50%;
+    left: 50%;
+    margin-left: -250px;
+    margin-top: -80px;
+  }
+  #addAppPop .addAppPopWrapper .addAppPopTitle {
+    height: 50px;
+    font-size: 18px;
+    line-height: 50px;
+    color: #fff;
+    background: #3d7ccf;
+    padding-left: 20px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    display: flex;
+    padding-right: 20px;
+  }
+  #addAppPop .addAppPopWrapper .addAppPopTitle .iconfont {
+    font-size: 18px;
+    margin-left: auto;
+    cursor: pointer;
+  }
+  #addAppPop .addAppPopWrapper .addAppPopProgress {
+    padding: 35px 40px;
+  }
+  #addAppPop .addAppPopWrapper .addAppPopProgress .progress {
+    font-size: 14px;
+    height: 14px;
+    border-radius: 10px;
+  }
+
+  #addAppPopSuccess {
+    display: none;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    font-size: 16px;
+  }
+  #addAppPopSuccess .addAppPopSuccessWrapper {
+    width: 330px;
+    height: 360px;
+    position: absolute;
+    background: #fff;
+    border-radius: 5px;
+    top: 50%;
+    left: 50%;
+    margin-left: -165px;
+    margin-top: -180px;
+  }
+  #addAppPopSuccess .addAppPopSuccessWrapper .addAppPopSuccessTitle {
+    line-height: 50px;
+    display: flex;
+    padding-right: 20px;
+  }
+  #addAppPopSuccess .addAppPopSuccessWrapper .addAppPopSuccessTitle .iconfont {
+    color: #606266;
+    font-size: 18px;
+    margin-left: auto;
+    cursor: pointer;
+  }
+  #addAppPopSuccess .addAppPopSuccessWrapper .addAppPopSuccessBtn .successImg {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  #addAppPopSuccess .addAppPopSuccessWrapper .addAppPopSuccessBtn .successImg span {
+    margin-top: 10px;
+  }
+  #addAppPopSuccess .addAppPopSuccessWrapper .addAppPopSuccessBtn .btnConfirm {
+    width: 130px;
+    height: 35px;
+    background: #3d7ccf;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    margin: 0 auto;
+    margin-top: 70px;
+    cursor: pointer;
+  }
+  #addAppPopSuccess .addAppPopSuccessWrapper .addAppPopSuccessBtn .btnConfirm {
+    font-size: 16px;
+  }
+
+  #deleteAppPop {
+    display: none;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    font-size: 16px;
+  }
+  #deleteAppPop .deleteAppPopWrapper {
+    width: 500px;
+    height: 200px;
+    position: absolute;
+    background: #fff;
+    border-radius: 10px;
+    top: 50%;
+    left: 50%;
+    margin-left: -100px;
+    margin-top: -250px;
+  }
+  #deleteAppPop .deleteAppPopWrapper .deleteAppPopTitle {
+    height: 50px;
+    font-size: 18px;
+    line-height: 50px;
+    color: #fff;
+    background: #3d7ccf;
+    padding-left: 20px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    display: flex;
+    padding-right: 20px;
+  }
+  #deleteAppPop .deleteAppPopWrapper .deleteAppPopTitle  .delteApp {
+    margin-left: calc(50% - 20px);
+  }
+  #deleteAppPop .deleteAppPopWrapper .deleteAppPopTitle .iconfont {
+    font-size: 18px;
+    margin-left: auto;
+    cursor: pointer;
+  }
+  #deleteAppPop .deleteAppPopWrapper .deleteAppPopContent .deleteConfirm {
+    font-size: 16px;
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #deleteAppPop .deleteAppPopWrapper .deleteAppPopContent .deleteConfirmBtns {
+    margin-top: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #deleteAppPop .deleteAppPopWrapper .deleteAppPopContent .deleteConfirmBtns .confirm {
+    display: inline-block;
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #fff;
+    background: #3d7ccf;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  #deleteAppPop .deleteAppPopWrapper .deleteAppPopContent .deleteConfirmBtns .cancel {
+    display: inline-block;
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #606266;
+    background: #fff;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    margin-left: 50px;
+    cursor: pointer;
+  }
+
+  
+  #editAppPop {
+    display: none;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    font-size: 16px;
+  }
+  #editAppPop .editAppPopWrapper {
+    width: 500px;
+    height: 330px;
+    position: absolute;
+    background: #fff;
+    border-radius: 10px;
+    top: 50%;
+    left: 50%;
+    margin-left: -165px;
+    margin-top: -250px;
+  }
+  #editAppPop .editAppPopWrapper .editAppPopTitle {
+    height: 50px;
+    font-size: 18px;
+    line-height: 50px;
+    color: #fff;
+    background: #3d7ccf;
+    padding-left: 20px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    display: flex;
+    padding-right: 20px;
+  }
+  #editAppPop .editAppPopWrapper .editAppPopTitle .editApp {
+    margin-left: calc(50% - 20px);
+  }
+  #editAppPop .editAppPopWrapper .editAppPopTitle .iconfont {
+    font-size: 18px;
+    margin-left: auto;
+    cursor: pointer;
+  }
+  #editAppPop .editAppPopWrapper .editAppPopContent {
+    margin-top: 15px;
+    padding: 0 50px;
+  }
+  #editAppPop .editAppPopWrapper .editAppPopContent .editName {
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+  }
+  #editAppPop .editAppPopWrapper .editAppPopContent .editName span:nth-child(1) {
+    color: #606266;
+  }
+  #editAppPop .editAppPopWrapper .editAppPopContent .editName input {
+    color: #000;
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid #ddd;
+    outline: 0;
+    padding-left: 5px;
+    margin-top: 5px;
+  }
+  #editAppPop .editAppPopWrapper .editAppPopContent .editName span:nth-child(3) {
+    font-size: 12px;
+    color: #606266;
+    margin-top: 5px;
+    display: inline-block;
+  }
+  #editAppPop .editAppPopWrapper .editAppPopContent .editPri {
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+  }
+  #editAppPop .editAppPopWrapper .editAppPopContent .editPri span:nth-child(1) {
+    color: #606266;
+  }
+  #editAppPop .editAppPopWrapper .editAppPopContent .editPri input {
+    color: #000;
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid #ddd;
+    outline: 0;
+    padding-left: 5px;
+    margin-top: 5px;
+  }
+  #editAppPop .editAppPopWrapper .editAppPopContent .editPri span:nth-child(3) {
+    font-size: 12px;
+    color: #606266;
+    margin-top: 5px;
+    display: inline-block;
+  }
+  #editAppPop .editAppPopWrapper .editAppPopBtns {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+  }
+  #editAppPop .editAppPopWrapper .editAppPopBtns .confirm {
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+    color: #fff;
+    background: #3d7ccf;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+  }
+  #editAppPop .editAppPopWrapper .editAppPopBtns .cancel {
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+    color: #606266;
+    background: #fff;
+    border-radius: 5px;
+    text-align: center;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    margin-left: 50px;
+  }
+
+  
+  #installAppWithUdidPop {
+    display: none;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    font-size: 16px;
+  }
+  #installAppWithUdidPop .installAppWithUdidPopWrapper {
+    width: 500px;
+    height: 200px;
+    position: absolute;
+    background: #fff;
+    border-radius: 10px;
+    top: 50%;
+    left: 50%;
+    margin-left: -250px;
+    margin-top: -100px;
+  }
+  #installAppWithUdidPop .installAppWithUdidPopWrapper .installAppWithUdidPopTitle {
+    height: 50px;
+    font-size: 18px;
+    line-height: 50px;
+    color: #fff;
+    background: #3d7ccf;
+    padding-left: 20px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    display: flex;
+    padding-right: 20px;
+  }
+  #installAppWithUdidPop .installAppWithUdidPopWrapper .installAppWithUdidPopTitle .installApp {
+    margin-left: calc(50% - 20px);
+  }
+  #installAppWithUdidPop .installAppWithUdidPopWrapper .installAppWithUdidPopTitle .iconfont {
+    font-size: 18px;
+    margin-left: auto;
+    cursor: pointer;
+  }
+  #installAppWithUdidPop .installAppWithUdidPopWrapper .installAppWithUdidPopContent .installTips {
+    margin-top: 30px;
+    font-size: 16px;
+    color: #606266;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+  }
+  #installAppWithUdidPop .installAppWithUdidPopWrapper .installAppWithUdidPopContent .installConfirm {
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+    background: #3d7ccf;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    margin-top: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #editAppNamePop {
+    display: none;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    font-size: 16px;
+  }
+  #editAppNamePop .editAppNamePopWrapper {
+    width: 500px;
+    height: 200px;
+    position: absolute;
+    background: #fff;
+    border-radius: 10px;
+    top: 50%;
+    left: 50%;
+    margin-left: -250px;
+    margin-top: -100px;
+  }
+  #editAppNamePop .editAppNamePopWrapper .editAppNamePopTitle {
+    height: 50px;
+    font-size: 18px;
+    line-height: 50px;
+    color: #fff;
+    background: #3d7ccf;
+    padding-left: 20px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    display: flex;
+    padding-right: 20px;
+  }
+  #editAppNamePop .editAppNamePopWrapper .editAppNamePopTitle .editAppName {
+    margin-left: calc(50% - 20px);
+  }
+  #editAppNamePop .editAppNamePopWrapper .editAppNamePopTitle .iconfont {
+    font-size: 18px;
+    margin-left: auto;
+    cursor: pointer;
+  }
+  #editAppNamePop .editAppNamePopWrapper .editAppNamePopContent .oldname {
+    margin-top: 27px;
+    padding: 0 52px;
+  }
+  #editAppNamePop .editAppNamePopWrapper .editAppNamePopContent .oldname input {
+    width: 400px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding-left: 10px;
+    outline: 0;
+    font-size: 14px;
+  }
+  #editAppNamePop .editAppNamePopWrapper .editAppNamePopContent .currname {
+    margin-top: 10px;
+    padding: 0 52px;
+  }
+  #editAppNamePop .editAppNamePopWrapper .editAppNamePopContent .currname input {
+    width: 400px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding-left: 10px;
+    outline: 0;
+    font-size: 14px;
+  }
+  #editAppNamePop .editAppNamePopWrapper .editAppNamePopContent .installTips {
+    margin-top: 30px;
+    font-size: 16px;
+    color: #606266;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+  }
+  #editAppNamePop .editAppNamePopWrapper .editAppNamePopContent .installConfirm {
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+    background: #3d7ccf;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    margin-top: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}
+/* ------------------------------------------------------ */
+/*移动端*/
+@media only screen and (max-device-width: 768px) {
+  .homeWrapper {
+    width: 100%;
+    height: 100%;
+    height: inherit;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background: #edf0f4;
+  }
+  .homeWrapper .homeNavBar {
+    display: none;
+  }
+  .homeWrapper .homeNavBar .tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    background: #fff;
+    height: 0.54rem;
+    border-top: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 0.12rem;
+    color: #606266;
+    position: fixed;
+    bottom: 0;
+    z-index: 10;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+  .homeWrapper .homeNavBar .tabs li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .homeWrapper .homeNavBar .tabs li.active {
+    font-size: 0.12rem;
+    color: #3d7dd0;
+  }
+  .homeWrapper .homeNavBar .tabs li.active .iconfont{
+    color: #3d7dd0;
+  }
+  .homeWrapper .user {
+    display: none;
+  }
+  .homeWrapper .homeNavBar .userDropDown {
+    display: none;
+  }
+  .homeWrapper .boxs {
+    position: relative;
+    padding: 0 0.2rem;
+  }
+  .homeWrapper .boxs .tabs-box {
+    display: none;
+    position: relative;
+  }
+  .homeWrapper .boxs .active {
+    background-color: steelblue;
+    color: #fff;
+  }
+  .homeWrapper .boxs .boxOne {
+    display: block;
+  }
+  .homeWrapper .homeFooter {
+    display: none;
+  }
+  .main {
+    flex: 1;
+    overflow: auto;
+    padding-bottom: 0.2rem;
+  }
+  .footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    background: #fff;
+    height: 0.54rem;
+    border-top: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 0.16rem;
+  }
+  .footer a:visited {
+    color: #606266;
+  }
+  .footer .navtxt {
+    font-size: 0.12rem;
+    color: #606266;
+  }
+  .footer .footer-items.active .navtxt{
+    font-size: 0.12rem;
+    color: #3d7dd0;
+  }
+  .footer .footer-items.active .iconfont{
+    color: #3d7dd0;
+  }
+  .footer .footer-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+  }
+  
+  .footer .footer-items i {
+    width: 0.21rem;
+    height: 0.21rem;
+  }
+  
+  .footer .footer-items:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .homeWrapper .signApp .signAppFooter.Pc {
+    display: none;
+  }
+  .signApp {
+    width: 100%;
+    font-size: 0.16rem;
+    /* padding-bottom: 0.2rem; */
+    display: flex;
+    flex-direction: column;
+  }
+  .signApp .signAppHeader {
+    position: fixed;
+    width: 100%;
+    z-index: 5;
+    height: 0.45rem;
+    background: #3d7dd0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    font-size: 0.14rem;
+    margin-left: -0.2rem;
+    margin-right: -0.2rem;
+  }
+  .signAppHeader .signAppHeader-l {
+    font-size: 0.14rem;
+    padding-left: 0.2rem;
+  }
+  .signAppHeader .signAppHeader-r {
+    padding-right: 0.2rem;
+    font-size: 0.14rem;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+  }
+  .signAppHeader .signAppHeader-r span {
+    margin-left: 0.1rem;
+  }
+  .signApp .signAppMid {
+    position: fixed;
+    top: 0.45rem;
+    z-index: 6;
+    padding-right: 0.2rem;
+    height: 1.55rem;
+    padding-top: 0.15rem;
+    background: #fff;
+    margin-left: -0.2rem;
+    margin-right: -0.2rem;
+  }
+  .signApp .signAppMid .signAppMidTop {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .signApp .signAppMid .signAppMidTop .addBtn {
+    width: 1rem;
+    height: 0.35rem;
+    line-height: 0.3rem;
+    background: #3d7ccf;
+    color: #fff;
+    font-size: 0.13rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.2rem;
+  }
+  .signApp .signAppMid .signAppMidTop .udidIpt {
+    width: 2.3rem;
+    height: 0.35rem;
+    box-sizing: border-box;
+    border: 1px solid #999;
+    border-radius: 0.2rem;
+    margin-left: 0.1rem;
+  }
+  .signApp .signAppMid .signAppMidTop .udidIpt input {
+    border: 0;
+    outline: 0;
+    padding-left: 0.1rem;
+    height: 0.33rem;
+    line-height: 0.33rem;
+    box-sizing: border-box;
+    border-radius: 0.2rem;
+    width: 100%;
+    font-size: 0.12rem;
+  }
+  .signApp .signAppMid .signAppMidTips {
+    color: #606266;
+    font-size: 0.12rem;
+    margin-top: 0.15rem;
+    padding: 0 0.2rem;
+    line-height: 0.2rem;
+  }
+  .signApp .signAppBottom {
+    margin-top: 2.2rem;
+    flex: 1;
+    overflow: scroll;
+    /* margin-top: 0.2rem; */
+    background: #fff;
+    margin-left: -0.2rem;
+    margin-right: -0.2rem;
+  }
+  .signApp .apps {
+    box-sizing: border-box;
+  }
+  .signApp .apps .appItem {
+    padding: 0 0.15rem;
+    box-sizing: border-box;
+    height: 0.8rem;
+    display: flex;
+    background: #fff;
+    /* border-radius: 0.2rem; */
+    border-bottom: 1px solid #eee;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .signApp .apps .appItem .appItemLeft {
+    cursor: pointer;
+  }
+  .signApp .apps .appItem .appItemLeft .appLogo img {
+    width: 0.6rem;
+  }
+  .signApp .apps .appItem .appItemRight {
+    margin-left: 0.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+    margin-top: -0.06rem;
+  }
+  .signApp .apps .appItem .edititem {
+    position: absolute;
+    width: 0.8rem;
+    height: 0.8rem;
+    right: -0.8rem;
+    background: #3d7dcf;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fefdfd;
+    font-size: 0.12rem;
+  }
+  .signApp .apps .appItem .deleteitem {
+    position: absolute;
+    width: 0.8rem;
+    height: 0.8rem;
+    right: -1.6rem;
+    background: #eb4f47;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fefdfd;
+    font-size: 0.12rem;
+  }
+  .signApp .apps .appItem .appItemRight .appTntro .appTntroName {
+    cursor: pointer;
+  }
+  .signApp .apps .appItem .appItemRight .appTntro .appTntroName span:nth-child(1) {
+    font-weight: bold;
+    font-size: 0.14rem;
+  }
+  .signApp .apps .appItem .appItemRight .appTntro .appTntroName span:nth-child(2) {
+    display: none;
+  }
+  .signApp .apps .appItem .appItemRight .appTntro .appTntroName span:nth-child(3) {
+    display: none;
+  }
+  .signApp .apps .appItem .appItemRight .appTntro .version {
+    color: #606266;
+    font-size: 0.12rem;
+  }
+  .signApp .apps .appItem .appItemRight .appTntro .code {
+    color: #606266;
+    font-size: 0.12rem;
+  }
+  .signApp .apps .appItem .appItemRight .appInstall {
+    background-color: #6db86f;
+    width: 0.6rem;
+    height: 0.3rem;
+    font-size: 0.12rem;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.2rem;
+    cursor: pointer;
+  }
+  .signApp .signAppFooter {
+    font-size: 0.12rem;
+    margin-top: 0.2rem;
+    color: #999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .signApp .signAppFooter.Pc {
+    display: none;
+  }
+  
+  #addAppPop {
+    display: none;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    font-size: 0.16rem;
+  }
+  #addAppPop .addAppPopWrapper {
+    width: 89%;
+    position: absolute;
+    background: #fff;
+    border-radius: 0.05rem;
+    top: 35%;
+    left: 6%;
+  }
+  #addAppPop .addAppPopWrapper .addAppPopTitle {
+    height: 0.3rem;
+    font-size: 0.12rem;
+    line-height: 30px;
+    color: #fff;
+    background: #3d7ccf;
+    padding-left: 0.2rem;
+    border-top-right-radius: 0.05rem;
+    border-top-left-radius: 0.05rem;
+    display: flex;
+    padding-right: 0.2rem;
+  }
+  #addAppPop .addAppPopWrapper .addAppPopTitle .iconfont {
+    font-size: 0.12rem;
+    margin-left: auto;
+    cursor: pointer;
+  }
+  #addAppPop .addAppPopWrapper .addAppPopProgress {
+    padding: 0.35rem 0.4rem;
+  }
+  #addAppPop .addAppPopWrapper .addAppPopProgress .progress {
+    font-size: 0.12rem;
+    height: 0.1rem;
+    border-radius: 0.1rem;
+  }
+  
+  #addAppPopSuccess {
+    display: none;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    font-size: 0.12rem;
+  }
+  #addAppPopSuccess .addAppPopSuccessWrapper {
+    width: 2.5rem;
+    height: 2.2rem;
+    position: absolute;
+    background: #fff;
+    border-radius: 0.05rem;
+    top: 50%;
+    left: 50%;
+    margin-left: -1.25rem;
+    margin-top: -1.25rem;
+  }
+  #addAppPopSuccess .addAppPopSuccessWrapper .addAppPopSuccessTitle {
+    line-height: 0.3rem;
+    display: flex;
+    padding-right: 0.2rem;
+  }
+  #addAppPopSuccess .addAppPopSuccessWrapper .addAppPopSuccessTitle .iconfont {
+    color: #606266;
+    font-size: 0.12rem;
+    margin-left: auto;
+    cursor: pointer;
+  }
+  #addAppPopSuccess .addAppPopSuccessWrapper .addAppPopSuccessBtn .successImg {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.2rem;
+    font-size: 0.12rem;
+  }
+  #addAppPopSuccess .addAppPopSuccessWrapper .addAppPopSuccessBtn .successImg img {
+    width: 0.6rem;
+    height: 0.6rem;
+  }
+  #addAppPopSuccess .addAppPopSuccessWrapper .addAppPopSuccessBtn .successImg span {
+    margin-top: 0.1rem;
+  }
+  #addAppPopSuccess .addAppPopSuccessWrapper .addAppPopSuccessBtn .btnConfirm {
+    font-size: 0.12rem;
+    width: 0.6rem;
+    height: 0.24rem;
+    background: #3d7ccf;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.05rem;
+    margin: 0 auto;
+    margin-top: 0.3rem;
+    cursor: pointer;
+  }
+  
+  #installAppWithUdidPop {
+    display: none;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    font-size: 0.12rem;
+  }
+  #installAppWithUdidPop .installAppWithUdidPopWrapper {
+    width: 3rem;
+    height: 1.6rem;
+    position: absolute;
+    background: #fff;
+    border-radius: 0.05rem;
+    top: 50%;
+    left: 50%;
+    margin-left: -1.5rem;
+    margin-top: -1rem;
+  }
+  #installAppWithUdidPop .installAppWithUdidPopWrapper .installAppWithUdidPopTitle {
+    height: 0.3rem;
+    font-size: 0.12rem;
+    line-height: 0.3rem;
+    color: #fff;
+    background: #3d7ccf;
+    padding-left: 0.2rem;
+    border-top-right-radius: 0.05rem;
+    border-top-left-radius: 0.05rem;
+    display: flex;
+    padding-right: 0.2rem;
+  }
+  #installAppWithUdidPop .installAppWithUdidPopWrapper .installAppWithUdidPopTitle .installApp {
+    margin-left: calc(50% - 00.2rem);
+  }
+  #installAppWithUdidPop .installAppWithUdidPopWrapper .installAppWithUdidPopTitle .iconfont {
+    font-size: 0.12rem;
+    margin-left: auto;
+    cursor: pointer;
+  }
+  #installAppWithUdidPop .installAppWithUdidPopWrapper .installAppWithUdidPopContent .installTips {
+    margin-top: 0.2rem;
+    font-size: 0.12rem;
+    color: #606266;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 0.3rem;
+  }
+  #installAppWithUdidPop .installAppWithUdidPopWrapper .installAppWithUdidPopContent .installConfirm {
+    font-size: 0.12rem;
+    width: 0.8rem;
+    height: 0.3rem;
+    line-height: 0.3rem;
+    background: #3d7ccf;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    margin-top: 0.2rem;
+    border-radius: 0.05rem;
+    cursor: pointer;
+  }
+  
+  #editAppNamePop {
+    display: none;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    font-size: 0.16rem;
+  }
+  #editAppNamePop .editAppNamePopWrapper {
+    position: absolute;
+    background: #fff;
+    border-radius: 0.05rem;
+    top: 35%;
+    left: 10%;
+  }
+  #editAppNamePop .editAppNamePopWrapper .editAppNamePopTitle {
+    height: 0.3rem;
+    font-size: 0.12rem;
+    line-height: 0.3rem;
+    color: #fff;
+    background: #3d7ccf;
+    padding-left: 0.2rem;
+    border-top-right-radius: 0.05rem;
+    border-top-left-radius: 0.05rem;
+    display: flex;
+    padding-right: 0.2rem;
+  }
+  #editAppNamePop .editAppNamePopWrapper .editAppNamePopTitle .editAppName {
+    margin-left: calc(50% - 0.5rem);
+  }
+  #editAppNamePop .editAppNamePopWrapper .editAppNamePopTitle .iconfont {
+    font-size: 0.12rem;
+    margin-left: auto;
+    cursor: pointer;
+  }
+  #editAppNamePop .editAppNamePopWrapper .editAppNamePopContent {
+    padding-bottom: 0.1rem;
+  }
+  #editAppNamePop .editAppNamePopWrapper .editAppNamePopContent .oldname {
+    margin-top: 0.15rem;
+    padding: 0 0.52rem;
+  }
+  #editAppNamePop .editAppNamePopWrapper .editAppNamePopContent .oldname input {
+    width: 2rem;
+    border: 1px solid #ddd;
+    border-radius: 0.05rem;
+    padding-left: 0.1rem;
+    outline: 0;
+    font-size: 0.12rem;
+  }
+  #editAppNamePop .editAppNamePopWrapper .editAppNamePopContent .currname {
+    margin-top: 0.1rem;
+    padding: 0 0.52rem;
+  }
+  #editAppNamePop .editAppNamePopWrapper .editAppNamePopContent .currname input {
+    width: 2rem;
+    border: 1px solid #ddd;
+    border-radius: 0.05rem;
+    padding-left: 0.1rem;
+    outline: 0;
+    font-size: 0.12rem;
+  }
+  #editAppNamePop .editAppNamePopWrapper .editAppNamePopContent .installTips {
+    display: none;
+  }
+  #editAppNamePop .editAppNamePopWrapper .editAppNamePopContent .installConfirm {
+    width: 0.8rem;
+    height: 0.2rem;
+    line-height: 0.2rem;
+    background: #3d7ccf;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    margin-top: 0.2rem;
+    border-radius: 0.05rem;
+    cursor: pointer;
+    font-size: 0.12rem;
+  }
+  
+  #editAppPop {
+      display: none;
+      position: absolute;
+      top: 0%;
+      left: 0%;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1001;
+      font-size: 0.16rem;
+    }
+    #editAppPop .editAppPopWrapper {
+      position: absolute;
+      background: #fff;
+      border-radius: 0.05rem;
+      top: 35%;
+      left: 4%;
+      width: 92%;
+      font-size: 0.12rem;
+      padding-bottom: 0.2rem
+    }
+    #editAppPop .editAppPopWrapper .editAppPopTitle {
+      height: 0.3rem;
+      font-size: 0.12rem;
+      line-height: 0.3rem;
+      color: #fff;
+      background: #3d7ccf;
+      padding-left: 0.2rem;
+      border-top-right-radius: 0.05rem;
+      border-top-left-radius: 0.05rem;
+      display: flex;
+      padding-right: 0.15rem;
+    }
+    #editAppPop .editAppPopWrapper .editAppPopTitle .editApp {
+      margin-left: calc(50%);
+    }
+    #editAppPop .editAppPopWrapper .editAppPopTitle .iconfont {
+      font-size: 0.12rem;
+      margin-left: auto;
+      cursor: pointer;
+    }
+    #editAppPop .editAppPopWrapper .editAppPopContent {
+      padding-bottom: 0.1rem;
+      display: flex;
+      flex-direction: column;
+    }
+    #editAppPop .editAppPopWrapper .editAppPopContent .editName {
+      display: flex;
+      flex-direction: column;
+      padding: 0.05rem 0.2rem;
+    }
+    #editAppPop .editAppPopWrapper .editAppPopContent .editName span:nth-child(1) {
+      color: #606266;
+    }
+    #editAppPop .editAppPopWrapper .editAppPopContent .editName input {
+      color: #000;
+      height: 0.24rem;
+      line-height: 0.24rem;
+      border: 1px solid #ddd;
+      outline: 0;
+      padding-left: 0.05rem;
+      margin-top: 0.05rem;
+    }
+    #editAppPop .editAppPopWrapper .editAppPopContent .editName span:nth-child(3) {
+      font-size: 0.12rem;
+      color: #606266;
+      margin-top: 0.05rem;
+      display: inline-block;
+    }
+    #editAppPop .editAppPopWrapper .editAppPopContent .editPri {
+      font-size: 0.12rem;
+      display: flex;
+      flex-direction: column;
+      margin-top: 0.1rem;
+      padding: 0 0.2rem;
+    }
+    #editAppPop .editAppPopWrapper .editAppPopContent .editPri span:nth-child(1) {
+      color: #606266;
+    }
+    #editAppPop .editAppPopWrapper .editAppPopContent .editPri input {
+      color: #000;
+      height: 0.24rem;
+      line-height: 0.24rem;
+      border: 1px solid #ddd;
+      outline: 0;
+      padding-left: 0.05rem;
+      margin-top: 0.05rem;
+    }
+    #editAppPop .editAppPopWrapper .editAppPopContent .editPri span:nth-child(3) {
+      font-size: 0.12rem;
+      color: #606266;
+      margin-top: 0.05rem;
+      display: inline-block;
+    }
+    #editAppPop .editAppPopWrapper .editAppPopBtns {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 0.3rem;
+    }
+    #editAppPop .editAppPopWrapper .editAppPopBtns .confirm {
+      width: 0.8rem;
+      height: 0.3rem;
+      line-height: 0.3rem;
+      color: #fff;
+      background: #3d7ccf;
+      border-radius: 0.05rem;
+      text-align: center;
+      cursor: pointer;
+    }
+    #editAppPop .editAppPopWrapper .editAppPopBtns .cancel {
+      width: 0.8rem;
+      height: 0.3rem;
+      line-height: 0.3rem;
+      color: #606266;
+      background: #fff;
+      border-radius: 0.05rem;
+      text-align: center;
+      border: 1px solid #ddd;
+      cursor: pointer;
+      margin-left: 0.35rem;
+    }
+    #deleteAppPop {
+      display: none;
+    }
+}

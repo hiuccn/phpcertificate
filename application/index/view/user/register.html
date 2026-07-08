@@ -1,0 +1,60 @@
+<section class="w-full bg-gradient-to-r from-indigo-300 via-sky-350 to-emerald-400">
+    <div class="px-4 mx-auto max-w-7xl">
+        <div
+                class="w-full px-0 pt-5 pb-6 mx-auto mt-4 mb-0 space-y-4 bg-transparent border-0 border-gray-200 rounded-lg md:bg-white md:border sm:w-10/12 md:w-8/12 lg:w-6/12 xl:w-4/12 md:px-6 sm:mt-8 sm:mb-5"
+        >
+            <h1 class="mb-5 text-xl font-light text-center text-gray-800 sm:text-center">
+                欢迎来到{$site.name|htmlentities}</h1>
+            <form class="pb-1 space-y-4" id="register-form" name="form1" method="POST" action="">
+                <input type="hidden" name="invite_user_id" value="0"/>
+                <input type="hidden" name="url" value="{$url|htmlentities}"/>
+                {:token()}
+                <label class="block">
+                    <span class="block mb-1 text-xs font-medium text-gray-700">{:__('Email')}<span
+                            class="text-success"></span></span>
+                    <input class="form-input bg-[#E9F0FD]" type="text" name="email" id="email"
+                           data-rule="required;email" placeholder="{:__('Email')}" required/>
+                </label>
+                <label class="block">
+                    <span class="block mb-1 text-xs font-medium text-gray-700">{:__('Username')}</span>
+                    <input class="form-input bg-[#E9F0FD]" type="text" id="username"
+                           name="username"
+                           data-rule="required;username"
+                           placeholder="{:__('Username must be 3 to 30 characters')}"
+                           required/>
+                </label>
+                <label class="block">
+                    <span class="block mb-1 text-xs font-medium text-gray-700">{:__('Password')}</span>
+                    <input class="form-input bg-[#E9F0FD]" type="password" id="password"
+                           name="password"
+                           data-rule="required;password"
+                           placeholder="{:__('Password must be 6 to 30 characters')}"
+                           required/>
+                </label>
+                <label class="block">
+                    <span class="block mb-1 text-xs font-medium text-gray-700">{:__('Mobile')}</span>
+                    <input class="form-input bg-[#E9F0FD]" type="text" id="mobile"
+                           name="mobile"
+                           data-rule="required;password"
+                           placeholder="{:__('Mobile')}"
+                           required/>
+                </label>
+                {if $captchaType}
+                <label class="block">
+                    <span class="block mb-1 text-xs font-medium text-gray-700">{:__('Captcha')}</span>
+                    <div class="flex items-center justify-between">
+                        {include file="common/captcha" event="register" type="$captchaType" /}
+                    </div>
+                </label>
+                {/if}
+                <div class="flex items-center justify-around">
+                    <input type="submit" class="btn btn-primary" value="{:__('Sign up')}"/>
+                    <div class="flex items-center justify-center p-2">
+                        <a href="{:url('user/login')}?url={$url|urlencode|htmlentities}"
+                           class="btn btn-default btn-block no-border">{:__('Already have an account? Sign in')}</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

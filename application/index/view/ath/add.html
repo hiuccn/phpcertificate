@@ -1,0 +1,133 @@
+<style>
+    .panel-recharge h3 {
+        margin-bottom: 15px;
+        margin-top: 10px;
+        color: #444;
+        font-size: 16px;
+    }
+
+    .row-recharge > div {
+        margin-bottom: 10px;
+    }
+
+    .row-recharge > div > label {
+        width: 100%;
+        height: 40px;
+        display: block;
+        font-size: 14px;
+        line-height: 40px;
+        color: #999;
+        background: #fff;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        cursor: pointer;
+        text-align: center;
+        border: 1px solid #ddd;
+        margin-bottom: 20px;
+        font-weight: 400;
+    }
+
+    .row-recharge > div > label.active {
+        border-color: #0d95e8;
+        color: #0d95e8;
+    }
+
+    .row-recharge > div > label:hover {
+        z-index: 4;
+        border-color: #27b0d6;
+        color: #27b0d6;
+    }
+
+    .panel-recharge .custommoney {
+        border: none;
+        height: 100%;
+        width: 100%;
+        display: inherit;
+        line-height: 100%;
+    }
+
+    .row-recharge > div {
+        height: 40px;
+        line-height: 40px;
+    }
+
+    .row-recharge > div input.form-control {
+        border: none;
+    }
+
+    .row-paytype div input {
+        display: none;
+    }
+
+    .row-paytype img {
+        height: 22px;
+        margin: 8px;
+        vertical-align: inherit;
+    }
+
+    .btn-recharge {
+        height: 40px;
+        line-height: 40px;
+        font-size: 14px;
+        padding: 0;
+    }
+
+</style>
+<div id="content-container" class="container">
+    <div class="row">
+        <div class="col-md-3">
+            {include file="common/sidenav" /}
+            <div class="sidebar-toggle"><i class="fa fa-bars"></i></div>
+<div class="sidenav" id="sidebar-nav">
+    {:hook('user_sidenav_before')}
+    <ul class="list-group">
+      
+        <li class="list-group-item {:check_nav_active('user/index')}"> <a href="{:url('user/index')}"><i class="fa fa-user-circle fa-fw"></i> {:__('User center')}</a> </li>
+        <li class="list-group-item {:check_nav_active('user/profile')}"> <a href="{:url('user/profile')}"><i class="fa fa-user-o fa-fw"></i> {:__('Profile')}</a> </li>
+        <li class="list-group-item {:check_nav_active('user/changepwd')}"> <a href="{:url('user/changepwd')}"><i class="fa fa-key fa-fw"></i> {:__('Change password')}</a> </li>
+        <li class="list-group-item {:check_nav_active('user/logout')}"> <a href="{:url('user/logout')}"><i class="fa fa-sign-out fa-fw"></i> {:__('Sign out')}</a> </li>
+    </ul>
+    {:hook('user_sidenav_after')}
+    <ul class="list-group">
+        <li class="list-group-heading">贴牌相关</li>
+        <li class="list-group-item {:check_nav_active('index/user/website')}"> <a href="{:url('index/user/website')}"><i class="fa fa-user-circle fa-fw"></i> 授权贴牌</a> </li>
+     </ul>
+</div>
+        </div>
+        <div class="col-md-9">
+            <div class="panel panel-default panel-recharge">
+                <div class="panel-body">
+                    <h2 class="page-header">{:__('Ath')} <span><small class="text-danger"></small></span></h2>
+                    <div class="alert alert-info-light">
+                    1、贴牌工具需要授权，仅供个人真机调试测试为目的！<br>
+                    2、请勿使用违反中华人民共和国相关法律法规的内置软件源内容，否则责任自负！<br>
+                    3、本站唯一客服QQ：2336810962<br>
+                    4、域名填写v2或V3签名站或者专属贴牌地址！<br>
+                    6、无任何充值任务即可免费授权~<br>
+                    7、贴牌工具需搭配v2v3或贴牌签名站使用。已搭建的请放入全自动获取证书最新版代码<br>
+                    </div>
+                        <br>
+                    </div>
+                    <div class="clearfix"></div>
+                    <form id="profile-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="{:url('ath/addset')}">
+                        
+                        <div class="form-group">
+                            <label class="control-label col-xs-12 col-sm-2">域名:</label>
+                            <div class="col-xs-12 col-sm-4">
+                                <input type="text" class="form-control" id="siteurl" name="siteurl" value="" data-rule="" placeholder="输入授权域名">
+                            </div>
+                        </div>
+                        <div class="form-group normal-footer">
+                            <label class="control-label col-xs-12 col-sm-2"></label>
+                            <div class="col-xs-12 col-sm-8">
+                                <button type="submit" class="btn btn-primary btn-embossed disabled">{:__('Ok')}</button>
+                                <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

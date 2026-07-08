@@ -1,0 +1,32 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+  
+  
+  <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('第三方ID')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-deviceid" data-rule="required" class="form-control" name="row[deviceid]" type="text" value="{$row.deviceid|htmlentities}">
+        </div>
+    </div>
+	<div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('证书平台')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            {:build_radios('row[zspt]', ['1'=>'本站', '2'=>'优速测'], $row['zspt'])}
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Status')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            {:build_radios('row[zt]', ['normal'=>__('Normal'), 'hidden'=>__('掉签')], $row['zt'])}
+        </div>
+    </div>
+    
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

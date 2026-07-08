@@ -1,0 +1,100 @@
+{include file="common/sidenav" /}
+
+<div class="container" style="padding-top:70px; padding-right: 0px;padding-left: 0px; ">
+    <form target="hideIframe1" style="margin-left: 15px;margin-right: 15px;">
+        <div class="panel panel-default" style=" border-radius: 10px;">
+            <div class="panel-heading" style="border-radius: 10px;">
+                <input name="chkAll1" type="checkbox" id="chkAll1" onClick="this.value=check1(this.form.list1)"
+                       value="checkbox">&nbsp;全选&nbsp;
+                <a onclick="kall('del')" class="btn btn-xs btn-danger">删除选中</a>
+                <a onclick="kall('copy')" class="btn btn-xs btn-danger">复制选中</a>
+            </div>
+
+        </div>
+        <table class="table" style="	color: ##9a4a1; border-radius: 10px;">
+            <thead>
+            <tr>
+                <th>APP</th>
+                <th>UDID后几位</th>
+                <th>签名时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="applist" id="vo"}
+            <tr>
+                <td><input type="checkbox" name="checkbox" id="list1" value="{$vo.id}">{$vo.appname}</td>
+                <td><b>{$vo.udid}</b></td>
+
+                <td>{:date('m-d H:i',$vo.tjtime)}</td>
+                <td><a onclick="copy('{$vo.url}')" class="btn btn-xs btn-danger">复制链接</a>&nbsp;&nbsp;
+
+            </tr>
+            {/volist}
+
+            </tbody>
+
+
+        </table>
+
+    </form>
+</div>
+
+<iframe id="myIframe1" name="hideIframe1" style="display:none;"></iframe>
+<script>
+    var checkflag1 = "false";
+    chkAll1.checked = false;
+
+
+    function check1(field) {
+        if (checkflag1 == "false") {
+            for (i = 0; i < field.length; i++) {
+                field[i].checked = true;
+            }
+            checkflag1 = "true";
+            return "false";
+        } else {
+            for (i = 0; i < field.length; i++) {
+                field[i].checked = false;
+            }
+            checkflag1 = "false";
+            return "true";
+        }
+    }
+    function kall(type) {
+
+        var chk_value = [];
+        $('input[name="checkbox"]:checked').each(function () {
+            chk_value.push($(this).val());
+        });
+        console.log(chk_value)
+        if (chk_value.length == 0) {
+            msg('请先选择！')
+            return;
+        }
+        $.ajax({
+            type: 'POST',
+            url: "/index/index/signlist",
+            data: {
+                id: chk_value,
+                type: type
+            },
+            dataType: "json",
+            success: function (result, textStatus, jqXHR) {
+                if (type == 'del') {
+                    location.reload();
+                } else {
+                    copy(result)
+                }
+
+            },
+            error: function (response) {
+                msg('操作失败');
+
+            }
+        });
+
+
+    }
+
+</script>

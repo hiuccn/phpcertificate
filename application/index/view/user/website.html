@@ -1,0 +1,78 @@
+<div id="content-container" class="container">
+    <div class="row">
+        <div class="col-md-3">
+            {include file="common/sidenav" /}
+            <div class="sidebar-toggle"><i class="fa fa-bars"></i></div>
+<div class="sidenav" id="sidebar-nav">
+    {:hook('user_sidenav_before')}
+    <ul class="list-group">
+      
+        <li class="list-group-item {:check_nav_active('user/index')}"> <a href="{:url('user/index')}"><i class="fa fa-user-circle fa-fw"></i> {:__('User center')}</a> </li>
+        <li class="list-group-item {:check_nav_active('user/profile')}"> <a href="{:url('user/profile')}"><i class="fa fa-user-o fa-fw"></i> {:__('Profile')}</a> </li>
+        <li class="list-group-item {:check_nav_active('user/changepwd')}"> <a href="{:url('user/changepwd')}"><i class="fa fa-key fa-fw"></i> {:__('Change password')}</a> </li>
+        <li class="list-group-item {:check_nav_active('user/logout')}"> <a href="{:url('user/logout')}"><i class="fa fa-sign-out fa-fw"></i> {:__('Sign out')}</a> </li>
+    </ul>
+    {:hook('user_sidenav_after')}
+    <ul class="list-group">
+        <li class="list-group-heading">贴牌相关</li>
+        <li class="list-group-item {:check_nav_active('index/user/website')}"> <a href="{:url('index/user/website')}"><i class="fa fa-user-circle fa-fw"></i> 授权贴牌</a> </li>
+     </ul>
+</div>
+        </div>
+        <div class="col-md-9">
+            <div class="panel panel-default panel-recharge">
+                <div class="panel-body">
+                    
+                    <h2 class="page-header">授权贴牌
+                     </h2>
+                     <div class="alert alert-info-light">
+                    1、贴牌工具需要授权，仅供个人真机调试测试为目的！<br>
+                    2、请勿使用违反中华人民共和国相关法律法规的内置软件源内容，否则责任自负！<br>
+                    3、本站唯一客服QQ：2336810962<br>
+                    4、域名填写v2或V3签名站或者专属贴牌地址！<br>
+                    5、目前贴牌工具不支持全能签加密源，不支持加密源<br>
+                    6、无任何充值任务即可免费授权~<br>
+                    7、贴牌工具需搭配v2v3或贴牌签名站使用。已搭建的请放入全自动获取证书最新版代码<br>
+                    </div>
+                    <div class="clearfix"></div>
+                      <div class="row">
+                          <div class="col-md-12">
+                     <form id="profile-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="{:url('ath/addset')}">
+                        
+                        <div class="form-group">
+                            <label class="control-label col-xs-12 col-sm-2">域名:</label>
+                            <div class="col-xs-12 col-sm-4">
+                                <input type="text" class="form-control" id="siteurl" name="siteurl" value="" data-rule="" placeholder="输入授权域名">
+                            </div>
+                        </div>
+                        <div class="form-group normal-footer">
+                            <label class="control-label col-xs-12 col-sm-2"></label>
+                            <div class="col-xs-12 col-sm-8">
+                                <button type="submit" class="btn btn-primary btn-embossed disabled">{:__('Ok')}</button>
+                                <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+                            </div>
+                        </div>
+                    </form>
+                    </div></div>
+                    <hr>
+                    {volist name='sitelist' id='log'}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>
+                                {$log.siteurl}
+                                <a href="/index/ath/ath?id={$log.id}"class="btn btn-ms btn-success pull-right">管理</a>
+                                <a class="btn  pull-right"></a>
+                                
+                            </h4>
+                            <p class="text-success">贴牌ID：{$log.bidname}</p>
+                            <p class="text-muted">到期时间：{$log.endtime|datetime} </p>
+                        </div>
+                    </div>
+                    <hr>
+                    {/volist}
+                    <div class="pager">{$sitelist->render()}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

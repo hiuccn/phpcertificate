@@ -1,0 +1,287 @@
+{extend name="layout/user" /}
+{block name="header"}{include file="common/header" activeTab="sign"/}{/block}
+{block name="content"}
+<div class="container" style="padding-top:70px;padding-right: 0px;padding-left: 0px; ">
+    <div class="col-xs-12 col-sm-10 col-lg-8 center-block" style="float: none; ">
+        <div class="panel panel-info" style="background-color: #d9edf799; 	border-radius: 10px;">
+            <a href="{:url('index/index/signlist')}" class="btn btn-xs btn-info" style="float:right;">签名记录</a>
+            <br>
+            <ul class="list-group">
+                <div class="panel-body">
+                    <div class="form-group" style="width: 100%;">
+                        <input type="text" id='udid' name="udid" placeholder="如果需要签名，请在这里输入UDID" value=""
+                               class="form-control" style="width: 99%;" required/>
+                    </div>
+                    <div style="padding-top:5px;">
+                    </div>
+                </div>
+            </ul>
+        </div>
+        <div>
+            {volist name="applist" id="vo"}
+            <div class="JabiSysBg" id="JabiSysBg" style="border-radius: 10px;height: 80px;position:relative;">
+                <div class="JabiSysLeft">
+                    <img class="JabiSysIcon" src="{$vo.image}">
+                    <div class="JabiSysTxt1">
+                        <a class="JabiSysTitle">{if condition='$vo.type eq "geren"'} <font
+                                onclick="xg('{$vo.id}','{$vo.name}')">{$vo.name} </font>{else /}{$vo.name} {/if}</a>
+                        <a class="JabiSysDes">{$vo.filesize}&nbsp;版本:{$vo.banben} <br><font
+                                onclick="gopx({$vo.id},{$vo.weigh})">权重:{$vo.weigh}</font>&nbsp;应用编号:{$vo.id} </a>
+                    </div>
+                </div>
+                {if condition='$vo.type eq "geren"'}
+                <div style="position: absolute; top: 1px; right: 1px;">
+                    <img onclick="del('{$vo.id}','{$vo.upipa}')"
+                         width='18px' height='18px'
+                         src="/assets/img/del.png">
+                </div>
+                {/if}
+                <div class="JabiSysRight" onclick="zb({$vo.id},'{$vo.name}','{$vo.baoming}')" style="margin-top: 30px;">
+                    签名安装
+                </div>
+            </div>
+            {/volist}
+            <br>
+            <li class="list-group-item" style="	border-radius: 10px;">
+                <center><a style="font-size: 12px;	color: ##9a4a1;"
+                           href="/index/index/sign ">没有更多数据了，点我返回!</a></center>
+                <input type="file" name="file" required placeholder="文件流" style="display:none" id="uploadipa">
+                <input type="file" name="file" required placeholder="文件流" style="display:none" id="upimg">
+            </li>
+        </div>
+    </div>
+</div>
+
+<div id='loading'></div>
+
+<script>
+    window.onload = function () {
+        apppath = '';
+        appicon = '';
+        var sclogo = document.getElementById("upimg");
+        sclogo.addEventListener('change', uploadlogo, false);
+
+        var ipapath = document.getElementById("uploadipa");
+        ipapath.addEventListener('change', uploadapp, false);
+    }
+
+    function uploadlogo() {
+        var file = this.files[0];
+        //这里我们判断下类型如果不是图片就返回 去掉就可以上传任意文件
+        if (!/image\/\w+/.test(file.type)) {
+            layer.msg("请确保上传的是图片");
+            return false;
+        }
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function (e) {
+            $('#tubiao8888').html('<img width= 60px height=60px  src="' + this.result + '" />');
+            appicon = this.result;
+            $('#uploadfile').val('');
+
+        }
+
+    }
+
+    function xg(id, name) {
+        layer.open({
+            title: '修改前端名称【待废除】',
+            btnAlign: 'c',
+            closeBtn: '1',//右上角的关闭
+            content: `<div><p>提示:此处修改APP名称仅作用于我们提供的旧版DEMO前端显示用，请输入要修改的APP名称</p><input name="txt_remark" id="remark"  value="${name}" class="form-control"></div>`,
+            btn: ['确认', '取消'],
+            yes: function (index, layero) {
+                var name = $('#remark').val();//获取多行文本框的值
+                if (name != null && name != "") {
+                    $.ajax({
+                        type: 'POST',
+                        url: "/index/index/sign",
+                        data: {
+                            id: id,
+                            name: name
+                        },
+                        dataType: "json",
+                        success: function (result, textStatus, jqXHR) {
+                            location.reload();
+
+                        },
+                        error: function (response) {
+                            layer.close(index);
+                            layer.msg('修改失败');
+
+                        }
+                    });
+                }
+            },
+            no: function (index) {
+                layer.close(index);
+                return false;//点击按钮按钮不想让弹层关闭就返回false
+            }
+        });
+    }
+
+    function gopx(id, px) {
+        var px = prompt("请输入要修改的权重，权重越大，前端排名越靠前", px);
+        if (px != null && px != "") {
+            $.ajax({
+                type: 'POST',
+                url: "/index/index/sign",
+                data: {
+                    id: id,
+                    px: px
+                },
+                dataType: "json",
+                success: function (result, textStatus, jqXHR) {
+                    location.reload();
+                },
+                error: function (response) {
+                    msg('修改失败');
+                }
+            });
+        }
+    }
+
+    function del(id, ipa) {
+        if (!confirm("您确定删除此APP吗？")) {
+            return false;
+        }
+        $.ajax({
+            type: 'POST',
+            url: "/index/index/sign",
+            data: {
+                id: id,
+                ipa: ipa
+            },
+            dataType: "json",
+            success: function (result, textStatus, jqXHR) {
+                location.reload();
+            },
+            error: function (response) {
+                msg('删除失败');
+            }
+        });
+    }
+
+    function zb(id, name, bid) {
+        var udid = $('#udid').val();
+        if (udid == '') {
+            layer.msg('请先输入UDID,再点击签名安装')
+            return;
+        }
+        layer.open({
+            type: 1,
+            title: '修改APP',
+            content: `	<center><div onclick="upimg.click()" class="platform-icon" id='tubiao8888'> <img width= 60px height=60px  src="https://sign.52tzs.com/uploads/20220911/cfd5c9c91c022ea9821f006462d39a6f.png" /> </div></center><div style="padding-top:8px;padding-right: 20px;padding-left: 20px;">  原名称：<font onclick="copy('${name}')" >${name}</font><input class="form-control" id="` + id + `appname" value=""  placeholder="修改名称，为空即不修改"  /> <br>
+           原标识：<font onclick="copy('${bid}')" >${bid}</font><input class="form-control" id="` + id + `appbid" value="" placeholder="修改标识，为空即不修改"  /><br>
+      <a  onclick="sign(` + id + `)" class="btn btn-info form-control">立即签名</a><br><br></div>`
+        });
+    }
+
+
+    function sign(ipaid) {
+        var udid = $('#udid').val();
+        var appname = $('#' + ipaid + 'appname').val();
+        var appbid = $('#' + ipaid + 'appbid').val();
+        console.log(appbid, appname);
+        $.blockUI({
+            message: '<img src="https://sign.52tzs.com/assets/libs/fastadmin-layer/dist/theme/default/loading.gif" /> <br>正在签名..<br>请不要退出本页',
+            css: {
+                left: '50%',
+                'border-radius': '15px',
+                padding: '10px',
+                width: '150px',
+                height: '80px',
+                'margin-left': '-75px',
+                display: "flex",
+                "flex-direction": "column",
+                "justify-content": "center",
+                "align-items": "center",
+            }
+        });
+        layer.closeAll();
+        $.ajax({
+            type: 'POST',
+            url: "/index/index/ipasign",
+            data: {
+                ipaid: ipaid,
+                udid: udid,
+                appicon: appicon,
+                appbid: appbid,
+                appname: appname
+            },
+            dataType: "json",
+            success: function (result, textStatus, jqXHR) {
+                $.unblockUI();
+                if (result.code == 1) {
+
+                    okmsg('签名成功！<br>您可以选择复制链接或直接安装<br>' + result.data.url + '<br>注：本站不保存签名记录<br>签名后的链接有效期仅1小时', result.data.url);
+                } else {
+                    msg(result.msg);
+                }
+            },
+            error: function (response) {
+                $.unblockUI();
+                msg('请求超时');
+            }
+        });
+    }
+
+    function uploadapp() {
+        var p = document.getElementById("uploadipa").value;
+        if (p.indexOf("ipa") == -1) {
+            $('#miaoshu8888').html('<font color=red>文件错误,请选择IPA格式文件</font>');
+        } else {
+            var file = document.getElementById("uploadipa").files[0];
+            var fd = new FormData();//利用FormData传参
+            var xhr = new XMLHttpRequest();
+            //xhr.setRequestHeader('token',sessionStorage.getItem('token'))加token
+            xhr.open('post', '/index/index/uploadipa', true);
+            xhr.upload.onprogress = function (ev) {
+                //如果ev.lengthComputable为true就可以开始计算上传进度
+                //上传进度 = 100* ev.loaded/ev.total
+                if (ev.lengthComputable) {
+                    var precent = 100 * ev.loaded / ev.total;
+                    //document.getElementById('bar').style.width = precent + '%';
+                    var r = Math.floor(Math.random() * 256); //随机生成256以内r值
+                    var g = Math.floor(Math.random() * 256); //随机生成256以内g值
+                    var b = Math.floor(Math.random() * 256); //随机生成256以内b值
+                    var ys = `rgb(${r},${g},${b})`; //返回rgb(r,g,b)格式颜色
+                    $('#miaoshu8888').html('<font color=' + ys + '>正在上传文件，进度:' + Math.floor(precent) + '%</font>');
+                }
+            }
+
+            xhr.onreadystatechange = function () {
+                //readystate为4表示请求已完成并就绪
+                if (this.readyState == 4) {
+                    var info = xhr.responseText;
+                    var info = eval("(" + info + ")");
+                    $('#uploadipa').val('');
+                    if (info.code == 1) {
+                        $('#miaoshu8888').html('<font color=red>上传成功，正在解析APP</font>');
+                        $.ajax({
+                            type: 'POST',
+                            url: "/index/index/checkapp",
+                            data: {
+                                ipaPath: info.data.apppath
+                            },
+                            dataType: "json",
+                            success: function (result, textStatus, jqXHR) {
+                                location.reload();
+                            },
+                            error: function (response) {
+                                msg('请求超时');
+                            }
+                        });
+                    } else {
+                        $('#miaoshu8888').html('<font color=red>上传失败，请重试</font>');
+                    }
+                    //在进度条下方插入百分比
+                }
+            }
+            fd.append('file', file);//FormData传参
+            xhr.send(fd);
+        }
+    }
+</script>
+
+{/block}

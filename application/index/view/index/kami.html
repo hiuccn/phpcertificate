@@ -1,0 +1,576 @@
+{include file="common/sidenav" /}
+
+<link rel="stylesheet" href="/assets/libs/bootstrap-table/dist/bootstrap-table.css">
+<script src="/assets/libs/bootstrap-table/dist/bootstrap.min.js"></script>
+<script src="/assets/libs/bootstrap-table/dist/bootstrap-table.js"></script>
+<script src="/assets/libs/bootstrap-table/src/locale/bootstrap-table-zh-CN.js"></script>
+
+<br>
+<div id="kami-container" style="display:none"></div>
+<div class="container" style="background-color: #fff;opacity: 0.9;">
+
+    <div id="item_info_toolbar">
+
+        <a onclick="add()" class="btn btn-info" id="btnAddDept" style="text-decoration: none;" data-toggle="modal" data-target="#deptModal">添加代销卡密</a>
+
+        <!--<a href="javascript:void(0)" class="btn btn-danger" id="btnAddDept" style="text-decoration: none;">删除已选</a>-->
+
+        <a href="javascript:void(0)" class="btn btn-success" id="btnEditDept" style="text-decoration: none;" onclick="getSelectValue()">复制已选</a>
+        <a href="javascript:void(0)" class="btn btn-success" style="text-decoration: none;" onclick="copyKami()">复制最新生成卡密</a>
+        <a href="javascript:void(0)" class="btn btn-danger" id="btnDeleteSelected" style="text-decoration: none;" onclick="deleteSelected()">删除</a>
+        
+    </div>
+
+    <table id="table" data-toggle="table"  class="table table-striped">
+        <thead>
+        <tr >
+
+        </tr>
+        </thead>
+    </table>
+    <br><br><br>
+</div>
+
+<script>
+
+    var isCardView = false
+    if (/Android|iPhone|iPad|iPod|BlackBerry|webOS|Windows Phone|SymbianOS|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        isCardView = true;
+    }
+    var Table =$('#table');
+
+    Table.bootstrapTable('destroy').bootstrapTable({
+
+        url: 'kami?act=list',
+        cardView:isCardView,
+        method: 'POST',
+        uniqueId: 'id',                        // 绑定ID，不显示
+        striped: true,                         //是否显示行间隔色
+        cache: false,                          //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+        sortable: true,                        //是否启用排序
+        sortOrder: "asc",                      //排序方式
+        sidePagination: "client",              //分页方式：client客户端分页，server服务端分页（*）
+        undefinedText: '--',
+        //singleSelect: true,                  // 单选checkbox，默认为复选
+        showRefresh   : true,                  // 显示刷新按钮
+        showColumns   : true,                  // 选择显示的列
+        toolbar: '#item_info_toolbar',         // 搜索框位置
+        search: true,                          // 搜索开启,
+        strictSearch: false,
+        clickToSelect: false,                   // 点击选中行
+        pagination: true,                      //是否显示分页
+        pageNumber:1,                          //初始化加载第一页，默认第一页,并记录
+        pageSize: 20,//每页显示的数量
+        pageList: [30, 50, 100],//设置每页显示的数量
+        paginationPreText:"上一页",
+        paginationNextText:"下一页",
+        paginationLoop:false,
+        showToggle: true,                   //是否显示详细视图和列表视图的切换按钮
+        //cardView: false,                    //是否显示详细视图
+        //detailView: false,                  //是否显示父子表
+        //showPaginationSwitch: true,
+        //得到查询的参数
+        queryParams : function (params) {
+            //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+            var temp = {
+                rows: params.limit,                         //页面大小
+                page: (params.offset / params.limit) + 1,   //页码
+                sort: params.sort,      //排序列名
+                sortOrder: params.order, //排位命令（desc，asc）
+
+            };
+            return temp;
+        },
+        columns: [
+            {
+                checkbox: true
+            },{
+                field: 'kami',
+                title:'卡密',
+                align: 'center',
+                formatter: kamiflag
+            },{
+                field: 'udid',
+                title:'UDID',
+                align: 'center',
+                formatter: paramsMatter
+            },{
+                field: 'zsid',
+                title:'证书编号',
+                align: 'center',
+                formatter: paramsMatter
+            },{
+                field: 'type',
+                title:'类型',
+                align: 'center',
+                formatter: typeflag
+
+            },{
+                field: 'pool',
+                title:'证书池',
+                align: 'center',
+                formatter: chiflag
+
+            },{
+                field: 'deviceType',
+                title:'设备类型',
+                align: 'center',
+                formatter: deviceflag
+
+            },{
+                field: 'shtype',
+                title:'售后',
+                align: 'center',
+                formatter: flag
+
+            },{
+                field: 'beizhu',
+                title:'备注',
+                align: 'center',
+                formatter: beizhuflag
+            },{
+                field: 'jhtime',
+                title:'激活时间',
+                align: 'center',
+                formatter: paramsMatter
+                // formatter: function (value, row, index) {
+                //         return changeDateFormat(value)
+                //     }
+            },{
+                field: 'open',
+                title:'启用',
+                formatter: bjflag,
+                align: 'center',
+            },
+            {
+                field: 'operate',
+                title: '操作',
+                formatter: operateFlag,
+                align: 'center',
+            }
+        ],
+        onLoadSuccess: function () {
+            // alert('表格加载成功！');
+        },
+        onLoadError: function () {
+            // showTips("数据加载失败！");
+        },
+        onDblClickRow: function (row, $element) {
+            var id = row.ID;
+            //EditViewById(id, 'view');
+        },
+        rowStyle: function (row, index) { //设置行的特殊样式
+            //这里有5个取值颜色['active', 'success', 'info', 'warning', 'danger'];
+            var strclass = "";
+            if (row.udid == '') {
+                strclass = "info";
+            }
+            return { classes: strclass }
+        },
+
+    });
+
+
+
+    $(".search input").attr('placeholder','搜索：激活');
+
+    function getSelectValue(){
+        var a = $('#table').bootstrapTable('getSelections');//获取选中行的数据
+        var t = '';
+        if(a.length > 0){
+            $.each(a, function (index, row) {
+                // 输出选中行的每一列数据
+                t+=row.kami+"\r\n";
+            });
+            copy(t);
+        }
+    }
+    
+function deleteSelected() {
+        var selectedRows = $('#table').bootstrapTable('getSelections');
+        if (selectedRows.length > 0) {
+            layer.confirm('确定删除选中的卡密吗？', {
+                btn: ['确定', '取消'] //按钮
+            }, function(){
+                var ids = selectedRows.map(function(row) {
+                    return row.id;
+                });
+
+                $.ajax({
+                    type: 'POST',
+                    url: "deleteRow",  // 需要替换为实际的后台处理地址
+                    data: {
+                        ids: ids.join(',')
+                    },
+                    dataType: "json",
+                    success: function(result) {
+                        if (result['code'] !== 1) {
+                            layer.msg(result['msg']);
+                        } else {
+                            layer.msg('删除成功！', {time: 2000}, function() {
+                                Table.bootstrapTable('refresh', {silent: true});
+                            });
+                        }
+                    },
+                    error: function() {
+                        layer.msg('请求失败！');
+                    }
+                });
+            });
+        } else {
+            layer.msg('请选择要删除的卡密');
+        }
+    }
+
+
+    
+
+    function changeDateFormat(cellval) {
+        if (cellval != null) {
+            var d = new Date(cellval);
+            var times=d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+            return times;
+        } else {
+            return cellval;
+        }
+    }
+
+    function paramsMatter(value, row, index) {
+        //获取备注内容
+        var values = value;
+        //判断备注内容是否为空，为空则设置为空字符
+        if (value == '' || value == null) {
+            values = '<span style="background-color: #2196F3;" class="label label-default">未使用</span>';
+        }else{
+            if (value.length > 25) {
+                values = values.substring(0, 25) + '...';
+            }
+            values = '<span  onclick="copy(`'+value+'`)" tip="激活" class="label label-default">'+ values +'</span>';
+        }
+        return values;
+    }
+
+    function beizhuflag(value, row, index) {
+        //获取备注内容
+
+        values = '<span onclick="xgbeizhu(`'+row.id+'`,`'+value+'`)" style="background-color: #ff9800;"  class="label label-default">'+ value +'</span>';
+        if(row.udid != ''){
+            values = '<span onclick="xgbeizhu(`'+row.id+'`,`'+value+'`)" class="label label-default">'+ value +'</span>';
+        }
+        return values;
+    }
+
+    function operateFlag (value, row, index) {
+        //获取备注内容
+        values = '<a onclick="deleteRow(`' + row.id + '`)" class="btn btn-xs btn-danger btn-delone" data-toggle="tooltip" title="" data-table-id="table" data-row-index="' + row.id + '" data-original-title="删除"><i class="fa fa-trash"></i></a>'
+        return values;
+    }
+
+    function bjflag(value, row, index) {
+
+        if(row.udid != ''){
+
+            if(value==1){
+
+                return '<a onclick="set(`set`,`'+row.id+'`,0,``)" data-toggle="tooltip" title="" class="btn-default " data-index="0" data-id="1" data-params="ismenu=0" data-original-title="启用"><i class="fa fa-toggle-on text-default text-default  fa-2x"></i></a>';
+            }else{
+
+                return '<a onclick="set(`set`,`'+row.id+'`,1,``)" data-toggle="tooltip" title="" class="btn-default " data-index="0" data-id="1" data-params="ismenu=1" data-original-title="禁用"><i class="fa fa-toggle-on text-info text-default fa-flip-horizontal text-gray fa-2x"></i></a>'
+            }
+        }else{
+            if(value==1){
+                return '<a onclick="set(`set`,`'+row.id+'`,0,``)" data-toggle="tooltip" title="" class="btn-change " data-index="0" data-id="1" data-params="ismenu=0" data-original-title="启用"><i class="fa fa-toggle-on text-success text-success  fa-2x"></i></a>';
+            }else{
+                return '<a onclick="set(`set`,`'+row.id+'`,1,``)" data-toggle="tooltip" title="" class="btn-change " data-index="0" data-id="1" data-params="ismenu=1" data-original-title="禁用"><i class="fa fa-toggle-on text-info text-success fa-flip-horizontal text-gray fa-2x"></i></a>'
+            }
+        }
+    }
+    
+    function copyKami() {
+        const kamiContainer = document.getElementById('kami-container');
+        const textToCopy = kamiContainer.innerText;
+        
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            alert('卡密已复制');
+        }).catch(err => {
+            console.error('复制失败', err);
+        });
+    }
+
+    function kamiflag(value, row, index) {
+        //获取备注内容
+        var values = value;
+        //判断备注内容是否为空，为空则设置为空字符
+        if (row.udid == '') {
+            values = '<span style="background-color: #2196F3;" onclick="copy(`'+value+'`)" class="label label-default">'+ values +'</span>';
+        }else{
+
+            values = '<span  onclick="copy(`'+value+'`)" class="label label-default">'+ values +'</span>';
+        }
+
+
+        return values;
+
+    }
+
+    function flag(value, row, index) {
+
+        if (value == 0) {
+            values = '<span class="label label-success">躺平版</span>';
+            if(row.udid != ''){
+                values = '<span  class="label label-default">躺平版</span>';
+            }
+        }
+        if (value == 1) {
+            values = '<span class="label label-info">标准版</span>';
+            if(row.udid != ''){
+                values = '<span  class="label label-default">标准版</span>';
+            }
+        }
+
+        if (value == 2) {
+            values = '<span class="label label-primary">加强版</span>';
+            if(row.udid != ''){
+                values = '<span  class="label label-default">加强版</span>';
+            }
+        }
+
+        if (value == 3) {
+            values = '<span class="label label-danger">稳定版</span>';
+            if(row.udid != ''){
+                values = '<span  class="label label-default">稳定版</span>';
+            }
+        }
+
+        if (value == 4) {
+            values = '<span class="label label-danger">摆烂版</span>';
+            if(row.udid != ''){
+                values = '<span  class="label label-default">摆烂版</span>';
+            }
+        }
+
+
+        return values;
+
+    }
+
+    function typeflag(value, row, index) {
+
+        if (value == 0) {
+            values = '<span class="label label-success">秒出</span>';
+            if(row.udid != ''){
+                values = '<span  class="label label-default">秒出</span>';
+            }
+        }
+        if (value == 1) {
+            values = '<span class="label label-info">预约</span>';
+            if(row.udid != ''){
+                values = '<span  class="label label-default">预约</span>';
+            }
+        }
+
+
+        return values;
+
+    }
+    function chiflag(value, row, index) {
+        if (value == 0) {
+            values = '<span class="label label-success">公共</span>';
+            if(row.udid != ''){
+                values = '<span  class="label label-default">公共</span>';
+            }
+        }
+        if (value == 1) {
+            values = '<span class="label label-info">独立</span>';
+            if(row.udid != ''){
+                values = '<span  class="label label-default">独立</span>';
+            }
+        }
+        if (value == 2) {
+            values = '<span class="label label-info">自动</span>';
+            if(row.udid != ''){
+                values = '<span  class="label label-default">自动</span>';
+            }
+        }
+
+        return values;
+
+    }
+    
+    function deviceflag(value, row, index) {
+        if (value == 0) {
+            values = '<span class="label label-success">IPHONE</span>';
+            if(row.udid != ''){
+                values = '<span  class="label label-default">IPHONE</span>';
+            }
+        }
+        if (value == 1) {
+            values = '<span class="label label-info">IPAD</span>';
+            if(row.udid != ''){
+                values = '<span  class="label label-default">IPAD</span>';
+            }
+        }
+        return values;
+    }
+
+    function add() {
+        layer.closeAll();
+        var dom = document.querySelector('.table');
+        layer.open({
+            type:1,
+            title: '添加卡密',
+            area: [	getComputedStyle(dom).width , 'auto'],
+            content: `
+             <div style="padding-top:5px;padding-right: 20px;padding-left: 20px;">
+            <br>
+
+                <p> 单人最多可存在<font color="red">2000 </font>个未使用卡密，否则无法继续生成，你当前还可以生成 <font color="red">{$count} </font> 个</p>
+               生成数量:<input type="Number"  id='kami' name="kami"  placeholder="请输入数量" value="" class="form-control"  />
+              证书类型：<select  id='type' class="form-control"> <option value="0" >秒出</option> <option value="1" >预约</option> </select>
+              设备类型：<select  id='deviceType' class="form-control"> <option value="0" >IPHONE</option> <option value="1" >IPAD</option> </select>
+              证书池：<select  id='chi' class="form-control"> <option value="0" >公共</option> <option value="1" >独立</option> <option value="2" >自动</option></select>
+              售后类型：<select id='shtype' class="form-control"><option value="1" >标准版</option> <option value="0" >躺平版</option><option value="2" >加强版</option> <option value="3" >稳定版</option><option value="4" >摆烂版</option> </select>
+               备注：<input type="text"  id="beizhu" name="beizhu" placeholder="备注" value="" class="form-control" /><br>
+               </div>
+             <div style="padding-top:2px;"><center>
+            <input type="button" onclick="addkami()" value="确定生成" class="btn btn-success form-control" style="width: 94%;"/>
+              </center>
+             </div>
+             <br><br>
+              `,
+            success: function (layero, index) {
+            },
+        });
+    }
+    function xgbeizhu(id,str){
+
+        layer.prompt({
+                title: '请填写备注：',
+                value:str,
+                offset: {top: '50px',}},
+            function(beizhu, index, elem){
+                set('set',id,'', beizhu);
+            });
+
+
+    }
+    
+    // 将卡密存储到Cookie中
+        function storeKamiInCookie(kamiList) {
+            const kamiString = kamiList.join('\n');
+            document.cookie = "kami=" + encodeURIComponent(kamiString) + "; path=/";
+        }
+
+        // 从Cookie中获取卡密
+        function getKamiFromCookie() {
+            const name = "kami=";
+            const decodedCookie = decodeURIComponent(document.cookie);
+            const ca = decodedCookie.split(';');
+            for(let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+        
+    // 复制卡密到剪贴板
+        function copyKami() {
+            const kami = getKamiFromCookie();
+            navigator.clipboard.writeText(kami).then(() => {
+                alert('卡密已复制');
+            }).catch(err => {
+                console.error('复制失败', err);
+            });
+        }
+
+    function addkami(){
+
+        var kami=document.getElementById("kami").value;
+        var type=document.getElementById("type").value;
+        var shtype=document.getElementById("shtype").value;
+        var beizhu=document.getElementById("beizhu").value;
+        var chi=document.getElementById("chi").value;
+        var deviceType=document.getElementById("deviceType").value;
+
+        if(kami>{$count}){
+            layer.msg(`你此次最多可生成{$count}个卡密`);
+            return false;
+        }
+
+        layer.msg(`正在处理中..`, {
+            icon: 16
+            ,shade: 0.3
+            ,time: false
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: "addkami",
+            data: {
+                kami:kami,
+                type:type,
+                beizhu:beizhu,
+                shtype:shtype,
+                pool:chi,
+                deviceType: deviceType,
+            },
+            dataType: "json",
+            success: function(result, textStatus, jqXHR) {
+                if(result['code']!=1){
+                    layer.msg(result['msg'])
+                }else{
+                    storeKamiInCookie(result["data"].kami);
+                    layer.msg('添加成功！',{time: 2000}, function(){
+                        location.reload()
+                    })
+                }
+            },
+            error: function(response) {
+                layer.msg('请求失败！');
+            }});
+    }
+
+    function deleteRow(id) {
+        layer.confirm('确定删除吗？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            set('del',id);
+        });
+    }
+
+    function set(act,id,zt,beizhu){
+
+        layer.msg(`正在处理中..`, {
+            icon: 16
+            ,shade: 0.3
+            ,time: false
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: "kami",
+            data: {
+                act:act,
+                id:id,
+                beizhu:beizhu,
+                zt:zt
+            },
+            dataType: "json",
+            success: function(result, textStatus, jqXHR) {
+                layer.closeAll();
+                if(result['code']!=1){
+                    layer.msg(result['msg'])
+                }else{
+                    Table.bootstrapTable('refresh', {silent: true});
+                }
+            },
+            error: function(response) {
+                layer.msg('请求失败！');
+            }});
+    }
+</script>

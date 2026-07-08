@@ -1,0 +1,83 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('权重')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-id" data-rule="required" class="form-control" name="row[weigh]" type="number" value="{$row.weigh}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('证书名称')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-devname" data-rule="required" class="form-control" name="row[devname]" type="text" value="{$row.devname|htmlentities}">
+        </div>
+    </div>
+
+  <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('ISS')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-iss" data-rule="required" class="form-control" name="row[iss]" type="text" value="{$row.iss|htmlentities}">
+        </div>
+    </div>
+
+  <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('KID')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-kid" data-rule="required" class="form-control" name="row[kid]" type="text" value="{$row.kid|htmlentities}">
+        </div>
+    </div>
+    
+  <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('BID')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-bid" data-rule="required" class="form-control" name="row[bid]" type="text" value="{$row.bid|htmlentities}">
+        </div>
+    </div>
+    
+  <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('CID')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-cid" data-rule="required" class="form-control" name="row[cid]" type="text" value="{$row.cid|htmlentities}">
+        </div>
+    </div>
+
+  <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('P8路径')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-p8" data-rule="required" class="form-control" name="row[p8]" type="text" value="{$row.p8|htmlentities}">
+        </div>
+    </div>
+        <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('P12')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <textarea id="c-p12" data-rule="required" class="form-control" name="row[p12]" >{$row.p12|htmlentities}</textarea>
+        </div>
+    </div>
+    
+        <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('MAC余量')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-deviceid" data-rule="required" class="form-control" name="row[mac]" type="text" value="{$row.mac|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('iPhone余量')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-deviceid" data-rule="required" class="form-control" name="row[iphone]" type="text" value="{$row.iphone|htmlentities}">
+        </div>
+    </div>
+<div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('备注')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-beizhu" data-rule="required" class="form-control" name="row[beizhu]" type="text" value="{$row.beizhu|htmlentities}">
+        </div>
+    </div>
+    
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

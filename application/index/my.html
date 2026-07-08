@@ -1,0 +1,757 @@
+  {include file="common/sidenav" /}
+   <script src="/assets/js/jquery-ui.min.js"></script>
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+
+.list {
+    list-style: none;
+    margin-bottom: 40px;
+}
+
+.list li {
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    color: #333;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.btn655 {
+  
+    background-color: #9c88ff;
+    border: 0;
+    padding: 5px;
+    color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+
+
+
+    </style>
+  <!--<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.10.4/font/bootstrap-icons.css">-->
+    <link rel="stylesheet" href="/assets/css/jtoggler.styles.css">
+    <script src="/assets/js/jtoggler.js"></script> 
+  <div class="container" style="padding-top:30px;padding-right: 0px;padding-left: 0px;">
+    <div class="col-xs-12 col-sm-10 col-lg-8 center-block" style="float: none;">
+
+<div class="panel panel-info" style="background-color: #d9edf799; 	border-radius: 10px;">
+	<div class="panel-heading" style="border-radius: 10px;" >
+	    <input  type="submit" name="type" onclick="tj()" value="添加账号" class="btn btn-success form-control" style="width: 25%;display:inline; "/>
+			&nbsp; &nbsp; <div id='miaoshu8888' style="width: 25%;display:inline; ">
+			    <a href="https://giybkn8ic87.feishu.cn/docx/CqMKdwH0HoLqQbxRwH4cQFb9n0g?from=from_copylink">不会获取P8文件点这里</a></div> 
+	 
+	</div>
+
+	
+
+</div>
+
+<div id="divBody" style="opacity: 0.9;">
+	     {volist name="row" id="vo"}
+                           <div draggable="true" data-id="{$vo.id}" class="JabiSysBg"  style="border-radius: 10px;position:relative;">
+                    		<div class="JabiSysLeft"  style="height: 140px;">
+                    			
+                    			<div class="JabiSysTxt">
+                    				<a class="JabiSysTitle">证书名称：{$vo.devname}</a>
+                    				<span  class="JabiSysDes1">
+                    			         
+                    				   苹果ID : 	{if condition='$vo.email eq null'}请点击刷新余量获取AppleID{else /}{$vo.email}{/if}<br>
+                    				   <font color="red">剩余 iPhone:{$vo.iphone}  |&nbsp;iPad:{$vo.ipad} {if condition='$user.mac eq 1'}
+                    					| Mac:{$vo.mac} &nbsp;{/if}</font><br>到期时间:{$vo.dqtime}<br>
+                    				
+                    				<div style="display: flex;">
+                    				{if condition='$vo.zt eq 1'}
+                    				<span style="margin-top: -1px">开启：</span><input type="checkbox" value="zt" checked id="{$vo.id}" class="jtoggler">&nbsp; &nbsp;
+                    				{else /}
+                                    <span style="margin-top: -1px">开启：</span><input type="checkbox" value="zt" id="{$vo.id}" class="jtoggler"> &nbsp;&nbsp;
+                    				{/if}
+                    			    {if condition='$vo.yy eq 1'}
+                    				<span style="margin-top: -1px">预约：</span><input type="checkbox" value="yy" checked id="{$vo.id}" class="jtoggler"> 
+                    				{else /}
+                    				<span style="margin-top: -1px">预约：</span><input type="checkbox" value="yy" id="{$vo.id}" class="jtoggler"> 
+                    				{/if}
+                    				</div>
+                    				
+                    				<button class="btn btn-success form-control" style="width: 70px;height: 22px;padding: 2px 12px;text-align: center;font-size: 10px;" onclick="yl({$vo.id})" >刷新余量</button>&nbsp;
+                    				<button style="width: 70px;height: 22px;padding: 2px 12px;text-align: center;font-size: 10px;" onclick="tongbu('{$vo.id}')"  class="btn btn-info form-control" >同步UDID</button>	&nbsp;
+                    				{if condition='$user.mac eq 1'}
+                    				
+                    				<button style="width: 70px;height: 22px;padding: 2px 12px;text-align: center;font-size: 10px;" onclick="tongbu_mac('{$vo.id}')" class="btn btn-danger form-control" >同步MAC</button>	&nbsp;
+          
+                    				{/if}
+                    			
+                    				</span>
+                    				
+                    			</div>
+                    		</div>
+                    		<div style="position: absolute;right: 1px;" >
+                    		<div style="position: absolute; top: 1px; right: 1px;"><img onclick="del('{$vo.id}')" width='18px' height= '18px' src="/assets/img/del.png"></div>
+                    		<div class="JabiSysRight" onclick="location.href='/api/getdown?p12=my{$vo.id}'">下载P12</div>
+                    		<div class="JabiSysRight2" onclick="downmp('{$vo.id}')">下载描述文件</div>
+                        	<div  onclick="xg('{$vo.id}','{$vo.beizhu}')" style="position: absolute; top: 18px; right: 15px;font-size: 12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width: 100px;color: #9a4a1;background-color: #f1d4d4ad;border-radius: 30px;	text-align: center;">{$vo.beizhu}</div>
+                        	</div>
+                    	</div>   
+		{/volist}
+		<br><br>
+		<li class="list-group-item" style="border-radius: 10px;">
+			<center>---  暂无更多数据  ---</center>
+				<input type="file" name="file" required placeholder="文件流" style="display:none" id="uploadp8">
+		</li>
+		</div>
+		
+    </div>
+  </div>
+  <br><br><br><br>
+  <script src="https://cdn.bootcdn.net/ajax/libs/layer/3.5.1/layer.js"></script>
+  <script type="text/javascript">
+            $(function(){
+                //拖动排序
+                     $("#divBody").sortable({
+                        update: function (event, ui) {
+                            var idList = $(this).sortable("toArray", { attribute: "data-id" });
+                            console.log(idList);
+                        }
+                    });
+                    $("#divBody").disableSelection();
+
+            });
+
+  </script>
+  <script>
+
+window.onload = function(){ 
+// layer.alert('本站高价收各种号，卖的联系QQ2336810962', {icon: 6}); 
+p8path='';
+var path = document.getElementById("uploadp8"); 
+path.addEventListener( 'change',getp8,false );
+
+$(function(){
+ 
+  $('.jtoggler').jtoggler();
+ 
+});  
+
+$(document).on('jt:toggled', function(event, target) {
+ 
+    var zt;var yy;
+    if($(target).prop('checked')==true&&target.value=='yy'){yy=1;}
+    if($(target).prop('checked')==false&&target.value=='yy'){yy=0;}
+    if($(target).prop('checked')==true&&target.value=='zt'){zt=1;}
+    if($(target).prop('checked')==false&&target.value=='zt'){zt=0;}
+    layer.closeAll();
+    $.blockUI({ message:'<img src="https://sign.52tzs.com/assets/libs/fastadmin-layer/dist/theme/default/loading.gif" /> <br>请求中.',css:{ left: '50%','border-radius': '15px',padding: '10px',width: '150px',height: '70px' ,'margin-left':'-75px' }});
+      $.ajax({
+            type: 'POST',
+            url: "/index/index/editcer",
+            data: {
+                id:target.id,
+                yy:yy,
+                zt:zt
+             
+                },
+            dataType: "json",
+            success: function(result, textStatus, jqXHR) {
+                  $.unblockUI();      
+               if(result['code']==1){
+                   layer.msg('修改成功')
+                  
+                    
+                }else{
+                    layer.msg(result['msg'])
+                }
+              
+            },
+            error: function(response) {
+              $.unblockUI();      
+            layer.msg('请求失败！');
+                  
+            }});
+          
+      
+      
+
+  
+});
+ 
+      
+} 
+ 
+function tongbu(id){  
+
+ layer.open({
+          type:1,
+          title: '同步UDID',
+          content: ` <div style="padding-top:8px;padding-right: 20px;padding-left: 20px;">  
+           <p>同步UDID是将账号内已添加的所有UDID同步到独立池</p>
+           <a  onclick="settongbu(${id})" class="btn btn-info form-control">确定同步</a><br><br></div>`
+        });
+         
+ }
+ 
+ function settongbu(id){  
+
+    layer.closeAll();
+    $.blockUI({ message:'<img src="https://sign.52tzs.com/assets/libs/fastadmin-layer/dist/theme/default/loading.gif" /> <br>请求中.',css:{ left: '50%','border-radius': '15px',padding: '10px',width: '150px',height: '70px' ,'margin-left':'-75px' }});
+      $.ajax({
+            type: 'POST',
+            url: "/api/addcer/getudid",
+            data: {
+                id:id,
+                token:'{$user.ktoken}'
+                },
+            dataType: "json",
+            success: function(result, textStatus, jqXHR) {
+                $.unblockUI();      
+               if(result['code']==1){
+                   layer.msg(result['msg'],{time: 4000}, function(){
+                   
+                    })
+                  
+                    
+                }else{
+                    layer.msg(result['msg'])
+                }
+              
+            },
+            error: function(response) {
+              $.unblockUI();      
+            layer.msg('请求失败！');
+                  
+            }});
+          
+      
+      
+  }
+ 
+ 
+  function downmp(id){  
+
+    layer.closeAll();
+    $.blockUI({ message:'<img src="https://sign.52tzs.com/assets/libs/fastadmin-layer/dist/theme/default/loading.gif" /> <br>请求中.',css:{ left: '50%','border-radius': '15px',padding: '10px',width: '150px',height: '70px' ,'margin-left':'-75px' }});
+      $.ajax({
+            type: 'POST',
+            url: "/api/addcer/downmp",
+            data: {
+                id:id,
+                token:'{$user.ktoken}'
+                },
+            dataType: "json",
+            success: function(result, textStatus, jqXHR) {
+                $.unblockUI();      
+               if(result['code']==1){
+                   layer.msg('正在为您下载描述文件..',{time: 2000}, function(){
+                      location.href=result['url']
+                    })
+                  
+                    
+                }else{
+                    layer.msg(result['msg'])
+                }
+              
+            },
+            error: function(response) {
+              $.unblockUI();      
+            layer.msg('请求失败！');
+                  
+            }});
+          
+      
+      
+  }
+  
+  
+ function tongbu_mac(id){  
+
+ layer.open({
+          type:1,
+          title: '同步UDID',
+          content: ` <div style="padding-top:8px;padding-right: 20px;padding-left: 20px;">  
+           <p>同步MAC_UDID是将账号内已添加的所有MAC_UDID同步到独立池</p>
+           <a  onclick="settongbu_mac(${id})" class="btn btn-info form-control">确定同步</a><br><br></div>`
+        });
+         
+ }
+ 
+ function settongbu_mac(id){  
+
+    layer.closeAll();
+    $.blockUI({ message:'<img src="https://sign.52tzs.com/assets/libs/fastadmin-layer/dist/theme/default/loading.gif" /> <br>请求中.',css:{ left: '50%','border-radius': '15px',padding: '10px',width: '150px',height: '70px' ,'margin-left':'-75px' }});
+      $.ajax({
+            type: 'POST',
+            url: "/api/addcer/getmacudid",
+            data: {
+                id:id,
+                token:'{$user.ktoken}'
+                },
+            dataType: "json",
+            success: function(result, textStatus, jqXHR) {
+                $.unblockUI();      
+               if(result['code']==1){
+                   layer.msg(result['msg'],{time: 4000}, function(){
+                   
+                    })
+                  
+                    
+                }else{
+                    layer.msg(result['msg'])
+                }
+              
+            },
+            error: function(response) {
+              $.unblockUI();      
+            layer.msg('请求失败！');
+                  
+            }});
+          
+      
+      
+  }
+ 
+ function tj(){  
+  var dom = document.querySelector('.panel');
+  if({$site.dlcfy}==0){m='免费'}else{m='扣{$site.dlcfy}余额'}
+ layer.open({
+          type:1,
+          area: [	getComputedStyle(dom).width , 'auto'],
+          title: '添加账号（'+m+'）',
+          content: ` <div style="padding-top:8px;padding-right: 20px;padding-left: 20px;"> <input class="form-control" id="iss" value=""  placeholder="Issuer ID"  /> <br>
+           <input class="form-control" id="kid" value="" placeholder="密钥 ID"  /><br>
+            <div class="input-group form-group">
+           <input class="form-control" id="p8" value="" placeholder="P8文件地址"  />
+                 <span class="input-group-btn">
+                     <button onclick="uploadp8.click()" class="btn btn-primary">上传P8</button>
+           </span>
+             </div>
+           <input class="form-control" id="beizhu" value="" placeholder="备注"  /><br>
+      <a  onclick="checkcer()" class="btn btn-info form-control">立即添加</a><br><br></div>`
+        });
+         
+ }  
+ 
+
+
+
+ 
+      
+ function getp8(){ 
+
+ var p=document.getElementById("uploadp8").value;
+ if(p.indexOf("p8") == -1){
+    layer.msg('文件错误,请选择P8格式文件');
+    }else{
+      
+           var file=document.getElementById("uploadp8").files[0];
+            var fd = new FormData();//利用FormData传参
+			var xhr = new XMLHttpRequest();
+            //xhr.setRequestHeader('token',sessionStorage.getItem('token'))加token
+			xhr.open('post', '/index/index/uploadp8', true);
+			xhr.onreadystatechange = function () {
+				//readystate为4表示请求已完成并就绪
+				if (this.readyState == 4) {
+					 
+                        var info = xhr.responseText;
+                        var info = eval("(" + info + ")"); 
+                       
+                        if(info.code==1){
+                         
+                        p8path=info.data.apppath;
+                        $('#p8').val(p8path);  
+                                
+                        }else{
+                            layer.msg('上传失败，请重试');
+                        }
+                        
+                                  
+                    
+
+					//在进度条下方插入百分比
+				}
+			}
+ 
+	
+			fd.append('file', file);//FormData传参
+ 
+			xhr.send(fd);
+ 
+   
+   }
+   
+}  
+
+ function checkcer(){ 
+    if(p8path==''){
+        layer.msg('请上传P8文件！');
+        return;
+    }
+     
+    var kid=document.getElementById("kid").value;
+    if(kid==''){
+        layer.msg('密钥 ID 不能为空');
+        return;
+    }
+    var beizhu=document.getElementById("beizhu").value;
+    var iss=document.getElementById("iss").value;
+    if(iss==''){
+        layer.msg('Issuer ID 不能为空');
+        return;
+    }
+    
+    
+    layer.msg(`正在处理中..`, {
+        icon: 16
+        ,shade: 0.3
+        ,time: false
+        });
+        
+    $.ajax({
+            type: 'POST',
+            url: "/api/addcer/check",
+            data: {
+                uid:'{$user.id}',
+                iss:iss,
+                kid:kid,
+                p8:p8path,
+                beizhu:beizhu
+                },
+            dataType: "json",
+            success: function(result, textStatus, jqXHR) {
+               layer.closeAll('dialog');
+              
+               if(result['code']==0){
+               
+                   layer.msg(result['msg'])
+      
+                    
+                }else{
+                    
+                    if(result['meta']['paging']['total']==0){
+                        add();
+                    }else{
+                       	var html = ``;
+                       	 
+            			result['data'].forEach((vo) => {
+            			    html=html+` <li id='cer${vo.id}'><div>类型:${vo.attributes.certificateType}<br>到期时间:${vo.attributes.expirationDate.substring(0,10)} 
+                            <div style="position: absolute; top: 18px; right: 3px;"><img onclick="delcer('${vo.id}')" width='18px' height= '18px' src="/assets/img/del.png"></div></div></li>`
+            			})
+            			
+                       layer.open({
+                          type:1,
+                          title: result['data'][0]['attributes']['displayName']+'-已存在证书',
+                          content: `<div style="padding-top:8px;padding-right: 20px;padding-left: 20px;"><ul id="list" class="list">`+html+`</ul><a onclick="add()" class="btn btn-info form-control">继续</a><br><br></div>`
+                        });
+                     
+                   
+                }
+            }
+                
+                
+              
+            },
+            error: function(response) {
+             layer.closeAll('dialog');    
+            layer.msg('请求失败！');
+                  
+            }});
+          
+     
+     
+     
+ }
+ 
+ 
+ function add(){ 
+     
+    var kid=document.getElementById("kid").value;
+    var beizhu=document.getElementById("beizhu").value;
+    var iss=document.getElementById("iss").value;
+
+     layer.msg(`正在处理中..`, {
+        icon: 16
+        ,shade: 0.3
+        ,time: false
+        });
+    $.ajax({
+            type: 'POST',
+            url: "/api/addcer/add",
+            data: {
+                uid:'{$user.id}',
+                iss:iss,
+                kid:kid,
+                p8:p8path,
+                beizhu:beizhu
+                },
+            dataType: "json",
+            success: function(result, textStatus, jqXHR) {
+                layer.closeAll('dialog'); 
+              
+               if(result['code']==1){
+              
+                   layer.msg('添加成功',{time: 2000}, function(){
+                    location.reload()
+                    })
+
+                }else{
+                   	layer.msg(result['msg'])
+                   
+                }
+                
+                
+              
+            },
+            error: function(response) {
+            layer.closeAll('dialog');   
+            layer.msg('请求失败！');
+                  
+            }});
+          
+     
+     
+     
+ }
+ 
+ 
+  function delcer(id){ 
+     
+    var kid=document.getElementById("kid").value;
+    var beizhu=document.getElementById("beizhu").value;
+    var iss=document.getElementById("iss").value;
+    layer.confirm('您确定删除该证书吗，删除后涉及到此证书的UDID将会掉签！', {title:'提示'}, function(index){
+    
+     layer.msg(`正在处理中..`, {
+        icon: 16
+        ,shade: 0.3
+        ,time: false
+        });
+        
+    $.ajax({
+            type: 'POST',
+            url: "/api/addcer/del",
+            data: {
+                uid:'{$user.id}',
+                iss:iss,
+                kid:kid,
+                p8:p8path,
+                id:id
+                },
+            dataType: "json",
+            success: function(result, textStatus, jqXHR) {
+                layer.closeAll('dialog'); 
+              
+               if(result['code']==1){
+              
+                   document.getElementById('cer'+id).style.display="none" ;
+                   layer.msg('删除成功');
+
+                }else{
+                   	layer.msg(result['msg'])
+                   
+                }
+                
+                
+              
+            },
+            error: function(response) {
+            layer.closeAll('dialog'); 
+            layer.msg('请求失败！');
+                  
+            }});
+          
+     
+    })
+     
+ }
+ 
+ 
+ function yl(id) {
+$.blockUI({ message:'<img src="https://sign.52tzs.com/assets/libs/fastadmin-layer/dist/theme/default/loading.gif" /> <br>请求中.',css:{ left: '50%','border-radius': '15px',padding: '10px',width: '150px',height: '70px' ,'margin-left':'-75px' }});
+         $.ajax({
+            type: 'GET',
+            url: "/api/getdown",
+            data: {
+                yl:"my"+id
+                },
+            dataType: "json",
+            success: function(result, textStatus, jqXHR) {
+                 $.unblockUI();      
+               if(result['code']==1){
+                   
+                   layer.msg('处理成功',{time: 2000}, function(){
+                    location.reload()
+                    })
+                  
+                    
+                }else{
+                    layer.msg(result['msg'])
+                }
+              
+            },
+            error: function(response) {
+              $.unblockUI();      
+            layer.msg('请求失败！');
+                  
+            }});
+          
+          
+		
+}
+
+
+
+  function xgyl(id,iphone,ipad,mac,xx){
+    var dis=''  
+    if(xx){
+        dis=`Mac 预留：<br><input id="mac" type="Number" class="form-control"  placeholder="Mac 预留" value="${mac}" oninput="if(!/^[0-9]+$/.test(value)) value=value.replace(/\D/g,'');if(value>100)value=100;if(value<0)value=0" v-model='testNum'>`;
+    }
+    layer.open({
+    title: '设置预留',
+    btnAlign: 'c',
+    closeBtn:'1',//右上角的关闭
+    content: `  <div style="padding-top:2px;padding-right: 5px;padding-left:5px;">
+               iPhone 预留：<br>
+               <input id="iphone" type="Number" class="form-control"  placeholder="iPhone 预留" value="${iphone}" oninput="if(!/^[0-9]+$/.test(value)) value=value.replace(/\D/g,'');if(value>100)value=100;if(value<0)value=0" v-model='testNum'>
+                iPad 预留：<br>
+               <input id="ipad" type="Number" class="form-control"  placeholder="iPad 预留" value="${ipad}" oninput="if(!/^[0-9]+$/.test(value)) value=value.replace(/\D/g,'');if(value>100)value=100;if(value<0)value=0" v-model='testNum'>`+dis+`
+                </div>`,
+    btn:['确认','取消'],
+    yes: function (index, layero) {
+    var iphone = $('#iphone').val();
+    var ipad = $('#ipad').val();
+    var mac = $('#mac').val();
+
+             $.ajax({
+                type: 'POST',
+                url: "/index/index/my_xgyl",
+                data: {
+                  id:id,
+                  mac:mac,
+                  iphone:iphone,
+                  ipad:ipad
+                  
+                },
+                dataType: "json",
+                success: function(result, textStatus, jqXHR) {
+                    layer.close(index);
+                    if(result['code']==1){
+                        layer.msg('修改成功',{time: 2000}, function(){
+                            location.reload()
+                        })
+                    }else{
+                        layer.msg('修改失败');
+                    }
+              
+                },
+                error: function(response) {
+                layer.close(index);
+                  layer.msg('修改失败');
+                  
+                }});
+        
+    },
+    no:function(index)
+    {
+    
+    layer.close(index);
+    
+    return false;//点击按钮按钮不想让弹层关闭就返回false
+    
+    }
+   
+    
+    });
+  }   
+
+function del(id){
+    
+
+      layer.confirm('您确定删除此账号吗？<br>删除后不影响已添加设备！', {title:'提示'}, function(index){
+          
+        $.ajax({
+        type: 'POST',
+        url: "/index/index/my",
+        data: {
+          id:id,
+        },
+        dataType: "json",
+        success: function(result, textStatus, jqXHR) {
+         
+          location.reload();
+        },
+        error: function(response) {
+          msg('删除失败');
+          
+        }});
+   
+        layer.close(index);
+        
+      });
+     
+     
+      
+        
+    } 
+    
+     function xg(id,beizhu){
+
+    layer.open({
+    title: '修改备注',
+    btnAlign: 'c',
+    closeBtn:'1',//右上角的关闭
+    content: `<div><textarea id="remark" class="form-control" rows="3">${beizhu}</textarea></div>`,
+    btn:['确认','取消'],
+    yes: function (index, layero) {
+    var beizhu = $('#remark').val();//获取多行文本框的值
+      if(beizhu!=null && beizhu!="")
+        {
+           
+             $.ajax({
+                type: 'POST',
+                url: "/index/index/my_xgbeizhu",
+                data: {
+                    id:id,
+                  beizhu:beizhu
+                },
+                dataType: "json",
+                success: function(result, textStatus, jqXHR) {
+                    layer.close(index);
+                    if(result['code']==1){
+                        layer.msg('修改成功，刷新页面后可查看');
+                    }else{
+                        layer.msg('修改失败');
+                    }
+              
+                },
+                error: function(response) {
+                layer.close(index);
+                  layer.msg('修改失败');
+                  
+                }});
+          
+          
+        }
+        
+    },
+    no:function(index)
+    {
+    
+    layer.close(index);
+    
+    return false;//点击按钮按钮不想让弹层关闭就返回false
+    
+    }
+   
+    
+    });
+        
+    }
+  </script>
