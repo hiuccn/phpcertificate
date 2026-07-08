@@ -866,7 +866,7 @@ class Addyydevice extends Api
         }
 
         // Get API URL for toySC
-        $apiEndpoint = "https://cer.52tzs.com/api/addyydevice";
+        $apiEndpoint = "https://open.hiuc.cn/api/addyydevice";
         // Prepare data for toySC API request
         $requestData = [
             "udid"     => $udid,
