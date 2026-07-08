@@ -1091,7 +1091,7 @@ class Adddevice extends Api
         // 获取优速测token
         $yscToken = Db::table("fa_config")->where("name", "ysctoken")->value("value");
         // 获取API地址
-        $apiUrl = "https://cer.52tzs.com/api/addDevice";
+        $apiUrl = "https://open.hiuc.cn/api/addDevice";
 
         if ($warranty == 0) {
             $useWarranty = 0;
@@ -1099,14 +1099,14 @@ class Adddevice extends Api
             $useWarranty = 1;
         }
 
-        $platform = "优速测";
+        $platform = "云趣签";
         $platformId = 2;
 
         if ($warranty == 4) {
             $useWarranty = $warranty;
-            $apiUrl = "https://cert.vxinc.cn/api/addDevice";
-            $yscToken = "B4dXPmbjSz5hxRPD9XnKTC2AdBxQbeyp";
-            $platform = "速云签";
+            $apiUrl = "https://dev.hiuc.cn/api/addDevice";
+            $yscToken = "";
+            $platform = "佛系签";
             $platformId = 4;
         }
         
@@ -1115,16 +1115,16 @@ class Adddevice extends Api
             if ($randomFloat <= 1.0) {
                 // 30% 概率走这段逻辑
                 $useWarranty = 0;
-                $apiUrl = "https://ioskfz.com/api/addDevice";
-                $yscToken = "RklPz8FwlK5FpyLvVFNCEda70MYRW58U";
-                $platform = "云腾";
+                $apiUrl = "https://open.hiuc.cn/api/addDevice";
+                $yscToken = "";
+                $platform = "云趣签";
                 $platformId = 88;
             } else {
                 // 70% 概率走这段逻辑
                 $useWarranty = 0;
-                $apiUrl = "https://cert.vxinc.cn/api/addDevice";
-                $yscToken = "B4dXPmbjSz5hxRPD9XnKTC2AdBxQbeyp";
-                $platform = "速云签";
+                $apiUrl = "https://open.hiuc.cn/api/addDevice";
+                $yscToken = "";
+                $platform = "云趣签";
                 $platformId = 66;
             }
         }
